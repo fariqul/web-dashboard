@@ -573,7 +573,38 @@ export default function SppdMonitoring({
                                             />
                                             <YAxis tick={{ fill: '#6b7280', fontSize: 11 }} />
                                             <Tooltip 
-                                                contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                                                contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', padding: '12px' }}
+                                                content={({ active, payload, label }) => {
+                                                    if (active && payload && payload.length) {
+                                                        const data = payload[0].payload;
+                                                        return (
+                                                            <div className="bg-white rounded-lg border border-gray-200 shadow-lg p-3 min-w-[200px]">
+                                                                <p className="font-semibold text-gray-800 mb-2 border-b pb-2">{label}</p>
+                                                                <div className="space-y-2">
+                                                                    <div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <span className="w-3 h-3 rounded-full bg-blue-500"></span>
+                                                                            <span className="text-gray-700">Trip Begins: <strong>{data.begins}</strong></span>
+                                                                        </div>
+                                                                        {data.beginsDates && (
+                                                                            <p className="text-xs text-gray-500 ml-5 mt-1">Tanggal: {data.beginsDates}</p>
+                                                                        )}
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="flex items-center gap-2">
+                                                                            <span className="w-3 h-3 rounded-full bg-purple-500"></span>
+                                                                            <span className="text-gray-700">Trip Ends: <strong>{data.ends}</strong></span>
+                                                                        </div>
+                                                                        {data.endsDates && (
+                                                                            <p className="text-xs text-gray-500 ml-5 mt-1">Tanggal: {data.endsDates}</p>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                }}
                                             />
                                             <Legend />
                                             <Bar dataKey="begins" fill="#3b82f6" name="Trip Begins" radius={[4, 4, 0, 0]} />

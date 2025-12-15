@@ -187,10 +187,15 @@ class CCTransactionController extends Controller
         
         Log::info('CC Card CSV header read successfully, columns: ' . count($header));
         
+        // Detect CSV format: raw (9 cols) vs preprocessed (14 cols)
+        $isRawFormat = count($header) <= 10;
+        Log::info('CC Card CSV format detected: ' . ($isRawFormat ? 'raw' : 'preprocessed'));
+        
         Log::info('CC Card import started', [
             'has_override_sheet' => !empty($overrideSheetName),
             'override_sheet_name' => $overrideSheetName,
-            'update_existing' => $updateExisting
+            'update_existing' => $updateExisting,
+            'format' => $isRawFormat ? 'raw' : 'preprocessed'
         ]);
         
         $imported = 0;
@@ -204,15 +209,78 @@ class CCTransactionController extends Controller
             while (($row = fgetcsv($handle)) !== false) {
                 $rowNumber++;
                 
-                if (count($row) < 14) {
-                    Log::warning("CC Card row $rowNumber skipped - insufficient columns: " . count($row));
-                    $skipped++;
-                    continue;
+                // Handle both raw format (9 cols) and preprocessed format (14 cols)
+                if ($isRawFormat) {
+                    // Raw format: No.,Booking ID,Name,Personel Number,Trip Number,Trip Destination,Trip Date,Payment,Transaction Type
+                    if (count($row) < 9) {
+                        Log::warning("CC Card row $rowNumber skipped - insufficient columns: " . count($row));
+                        $skipped++;
+                        continue;
+                    }
+                    
+                    $bookingId = trim($row[1]);
+                    $employeeName = trim($row[2]);
+                    $personelNumber = trim($row[3]);
+                    $tripNumber = trim($row[4]);
+                    $tripDestination = trim($row[5]);
+                    $tripDate = trim($row[6]);
+                    $payment = (float) preg_replace('/[^\d.]/', '', trim($row[7]));
+                    $transactionType = strtolower(trim($row[8]));
+                    
+                    // Parse trip destination (origin - destination)
+                    $origin = '';
+                    $destination = '';
+                    if (strpos($tripDestination, ' - ') !== false) {
+                        $parts = explode(' - ', $tripDestination, 2);
+                        $origin = trim($parts[0]);
+                        $destination = trim($parts[1]);
+                    }
+                    
+                    // Parse trip date (departure - return)
+                    $departureDate = '';
+                    $returnDate = '';
+                    $durationDays = 0;
+                    if (strpos($tripDate, ' - ') !== false) {
+                        $parts = explode(' - ', $tripDate, 2);
+                        $departureDate = $this->parseDateCC(trim($parts[0]));
+                        $returnDate = $this->parseDateCC(trim($parts[1]));
+                        
+                        if ($departureDate && $returnDate) {
+                            $depTime = strtotime($departureDate);
+                            $retTime = strtotime($returnDate);
+                            $durationDays = max(0, round(($retTime - $depTime) / 86400));
+                        }
+                    }
+                    
+                    // Generate sheet name from override or filename
+                    $sheetName = !empty($overrideSheetName) ? $overrideSheetName : 'Import ' . date('F Y');
+                    
+                    // Get transaction number
+                    $transactionNumber = (int) trim($row[0]);
+                    
+                } else {
+                    // Preprocessed format (14 columns)
+                    if (count($row) < 14) {
+                        Log::warning("CC Card row $rowNumber skipped - insufficient columns: " . count($row));
+                        $skipped++;
+                        continue;
+                    }
+                    
+                    $transactionNumber = (int) trim($row[0]);
+                    $bookingId = trim($row[1]);
+                    $employeeName = trim($row[2]);
+                    $personelNumber = trim($row[3]);
+                    $tripNumber = trim($row[4]);
+                    $origin = trim($row[5]);
+                    $destination = trim($row[6]);
+                    $tripDestination = trim($row[7]);
+                    $departureDate = trim($row[8]);
+                    $returnDate = trim($row[9]);
+                    $durationDays = (int) trim($row[10]);
+                    $payment = (float) trim($row[11]);
+                    $transactionType = strtolower(trim($row[12]));
+                    $sheetName = !empty($overrideSheetName) ? $overrideSheetName : trim($row[13]);
                 }
-                
-                $bookingId = trim($row[1]);
-                $transactionType = strtolower(trim($row[12]));
-                $paymentAmount = (float) trim($row[11]);
                 
                 // For refunds, add suffix with payment amount to make it unique
                 if ($transactionType === 'refund' && !str_contains($bookingId, '-REFUND')) {
@@ -234,22 +302,19 @@ class CCTransactionController extends Controller
                     continue;
                 }
                 
-                // Use override sheet name if provided, otherwise use from CSV
-                $sheetName = !empty($overrideSheetName) ? $overrideSheetName : trim($row[13]);
-                
                 $data = [
-                    'transaction_number' => (int) trim($row[0]),
+                    'transaction_number' => $transactionNumber,
                     'booking_id' => $bookingId,
-                    'employee_name' => trim($row[2]),
-                    'personel_number' => trim($row[3]),
-                    'trip_number' => trim($row[4]),
-                    'origin' => trim($row[5]),
-                    'destination' => trim($row[6]),
-                    'trip_destination_full' => trim($row[7]),
-                    'departure_date' => trim($row[8]),
-                    'return_date' => trim($row[9]),
-                    'duration_days' => (int) trim($row[10]),
-                    'payment_amount' => (float) trim($row[11]),
+                    'employee_name' => $employeeName,
+                    'personel_number' => $personelNumber,
+                    'trip_number' => $tripNumber,
+                    'origin' => $origin,
+                    'destination' => $destination,
+                    'trip_destination_full' => $tripDestination,
+                    'departure_date' => $departureDate,
+                    'return_date' => $returnDate,
+                    'duration_days' => $durationDays,
+                    'payment_amount' => $payment,
                     'transaction_type' => $transactionType,
                     'sheet' => $sheetName,
                     'status' => 'active',

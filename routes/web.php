@@ -511,13 +511,27 @@ Route::get('/sppd', function () {
     $uniqueMonths = $allMonths->unique()->sort()->values();
     
     foreach ($uniqueMonths as $month) {
-        $beginsCount = $transactions->filter(function($t) use ($month) {
+        // Get begins transactions for this month
+        $beginsTransactions = $transactions->filter(function($t) use ($month) {
             return $t->trip_begins_on && date('Y-m', strtotime($t->trip_begins_on)) === $month;
-        })->count();
+        });
+        $beginsCount = $beginsTransactions->count();
         
-        $endsCount = $transactions->filter(function($t) use ($month) {
+        // Get all unique begins dates (day numbers only)
+        $beginsDates = $beginsTransactions->map(function($t) {
+            return (int) date('j', strtotime($t->trip_begins_on)); // e.g., 5
+        })->sort()->unique()->values()->implode(', ');
+        
+        // Get ends transactions for this month
+        $endsTransactions = $transactions->filter(function($t) use ($month) {
             return $t->trip_ends_on && date('Y-m', strtotime($t->trip_ends_on)) === $month;
-        })->count();
+        });
+        $endsCount = $endsTransactions->count();
+        
+        // Get all unique ends dates (day numbers only)
+        $endsDates = $endsTransactions->map(function($t) {
+            return (int) date('j', strtotime($t->trip_ends_on)); // e.g., 10
+        })->sort()->unique()->values()->implode(', ');
         
         $monthName = date('M Y', strtotime($month . '-01'));
         
@@ -526,6 +540,8 @@ Route::get('/sppd', function () {
             'rawMonth' => $month,
             'begins' => $beginsCount,
             'ends' => $endsCount,
+            'beginsDates' => $beginsDates,
+            'endsDates' => $endsDates,
         ];
     }
     
