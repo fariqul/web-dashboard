@@ -1,0 +1,5 @@
+Label,Booking ID,Name,Personel Number,Trip Number,Description,Date,Amount
+A,TOTAL PAYMENT,,,,,,358068149
+B,NOMINAL REFUND,,,,,,886788
+C,BIAYA ADM & BUNGA,,,,,,7500
+D,Total (A-B+C),,,,,,357188861

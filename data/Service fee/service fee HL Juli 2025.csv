@@ -1,0 +1,573 @@
+No.,Transaction Time,Booking ID,Transaction Settlement Method,Corporate Type,Corporate ID,Entity,Product Type,Status,Description,Currency,VAT Term,Transaction Amount,Base Amount
+1,"01 Jul 2025, 17:08:28",1265543332,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265543332 | Amaris Hotel Hertasning Makassar Smart Queen 2 ANDI FADLI,IDR,Exclusive,720000,7200
+2,"01 Jul 2025, 17:09:29",1265543632,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265543632 | Amaris Hotel Hertasning Makassar Smart Twin 2 FARHAN ALBAR MIFTAHULHUDA,IDR,Exclusive,720000,7200
+3,"02 Jul 2025, 09:16:40",1265717243,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265717243 | CLARO Kendari Superior King 1 MUHAMMAD SUSGANDINATA,IDR,Exclusive,811782,8118
+4,"02 Jul 2025, 09:17:09",1265717601,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265717601 | CLARO Kendari Superior King 1 ASDARIA ASDARIA,IDR,Exclusive,811782,8118
+5,"02 Jul 2025, 17:52:34",1265877750,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265877750 | The Naripan Hotel Deluxe King Bed 3 DHANI JULIANTO PUTRA,IDR,Exclusive,1341361,13414
+6,"02 Jul 2025, 19:26:45",1265906000,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265906000 | Sapphire Sky Hotel & Conference Family 1 ALAMSYAH ANWAR,IDR,Exclusive,1296675,12967
+7,"03 Jul 2025, 02:44:30",1265994876,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1265994876 | Horison Plaza Inn Kendari Deluxe Single 1 BAGUS ALBARANU YULIATMOKO,IDR,Exclusive,735892,7359
+8,"03 Jul 2025, 12:28:46",1266101770,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266101770 | Horison Plaza Inn Kendari Deluxe Single 1 M LUKMAN HAKIM,IDR,Exclusive,735892,7359
+9,"04 Jul 2025, 08:06:24",1266348577,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266348577 | Horison Plaza Inn Kendari Deluxe Single 3 SOBRI FADILLAH,IDR,Exclusive,2264253,22643
+10,"04 Jul 2025, 09:33:37",1266371411,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266371411 | Horison Plaza Inn Kendari Deluxe Single 3 NUR AHADIAT,IDR,Exclusive,2264253,22643
+11,"04 Jul 2025, 09:47:09",1266375648,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266375648 | Horison Plaza Inn Kendari Deluxe Single 3 SARTO SENOBUA,IDR,Exclusive,2264253,22643
+12,"04 Jul 2025, 17:08:57",1266519423,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266519423 | CLARO Kendari Superior King 4 ISKANDAR AZHAR,IDR,Exclusive,3285000,32850
+13,"04 Jul 2025, 17:14:27",1266521048,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266521048 | CLARO Kendari Deluxe 3 PRADIKTA CENDIKA,IDR,Exclusive,3799995,38000
+14,"04 Jul 2025, 17:23:06",1266523563,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266523563 | CLARO Kendari Superior King 1 SITTI FAUZIAH AHMAD,IDR,Exclusive,800000,8000
+15,"04 Jul 2025, 18:03:33",1266535670,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266535670 | CLARO Kendari Superior King 3 MUHAMMAD LUTHFIL HADI SURYADI,IDR,Exclusive,2238473,22385
+16,"04 Jul 2025, 18:20:05",1266540539,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266540539 | CLARO Kendari Superior King 3 IRHAS MUFTI FIRDAUS,IDR,Exclusive,2238473,22385
+17,"04 Jul 2025, 20:06:48",1266573915,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266573915 | CLARO Kendari Superior King 3 RHAMADANI WIBISONO,IDR,Exclusive,2238959,22390
+18,"04 Jul 2025, 20:16:21",1266577172,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266577172 | CLARO Kendari Superior King 3 MUHAMMAD PUJI PRASETYO,IDR,Exclusive,2238959,22390
+19,"05 Jul 2025, 16:45:04",1266835938,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1266835938 | Kuretakeso Kemang Hotel Deluxe Double 3 RIAN PRATAMA,IDR,Exclusive,2184840,21848
+20,"07 Jul 2025, 09:48:53",1267285531,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267285531 | Horison Plaza Inn Kendari Deluxe Single 2 ANDI ZULFAKAR,IDR,Exclusive,1509502,15095
+21,"07 Jul 2025, 19:04:19",1267459291,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267459291 | Hotel Remcy Panakukkang Deluxe Single 2 MUHAMMAD DJAJADI,IDR,Exclusive,1083000,10830
+22,"08 Jul 2025, 17:41:45",1267744772,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267744772 | Pare Beach Hotel Suite Single 2 SADLI ALI IMRAN,IDR,Exclusive,1300000,13000
+23,"08 Jul 2025, 19:30:56",1267775063,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267775063 | ibis Styles Bandung Grand Central Superior 1 Double Bed 2 AHMAD AMIRUL SYARIF,IDR,Exclusive,2699962,27000
+24,"08 Jul 2025, 19:32:44",1267775583,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267775583 | Swiss-Belinn Bogor Deluxe Queen 2 MUHAMMAD ISMAIL,IDR,Exclusive,2040000,20400
+25,"08 Jul 2025, 19:45:30",1267779070,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267779070 | ibis Styles Bandung Grand Central Superior With 1 Double Bed 2 RATHY SHINTA UTAMI,IDR,Exclusive,2499959,25000
+26,"08 Jul 2025, 20:06:50",1267785265,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267785265 | ibis Styles Bandung Grand Central Superior With 1 Double Bed 2 EKA MAYASARI RACHMAN,IDR,Exclusive,2699960,27000
+27,"08 Jul 2025, 20:12:15",1267787007,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267787007 | Amaris Hotel Pakuan Bogor Smart Hollywood 3 SEPTYANTO NUGROHO,IDR,Exclusive,2250000,22500
+28,"09 Jul 2025, 07:24:50",1267873532,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1267873532 | Amaris Hotel Pakuan Bogor Smart Hollywood 1 MUHAMMAD ISMAIL,IDR,Exclusive,750000,7500
+29,"10 Jul 2025, 08:05:13",1268179149,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1268179149 | Pare Beach Hotel Suite Twin 1 HUSLAN HUSAIN,IDR,Exclusive,650000,6500
+30,"10 Jul 2025, 10:07:16",1268208888,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1268208888 | Mercure Jakarta Simatupang Standard 1 King - Size Bed 2 A HENDRA HERIANTO R,IDR,Exclusive,1975930,19759
+31,"12 Jul 2025, 07:46:48",1268753750,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1268753750 | Hotel FortunaGrande Malioboro Yogyakarta By Fosia Hotels Deluxe 3 HARYADI KASIM,IDR,Exclusive,2598170,25982
+32,"13 Jul 2025, 04:34:19",1268986259,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1268986259 | Hotel GranDhika Iskandarsyah Deluxe Queen Bed 1 MUHAMMAD ISMAIL,IDR,Exclusive,1058000,10580
+33,"13 Jul 2025, 06:51:38",1268993843,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1268993843 | favehotel Melawai Standard 2 SEPTYANTO NUGROHO,IDR,Exclusive,1281130,12811
+34,"13 Jul 2025, 23:42:54",1269181927,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269181927 | Swiss-Belinn Panakkukang Superior Deluxe Twin 1 ERIK WICAKSONO,IDR,Exclusive,770000,7700
+35,"14 Jul 2025, 09:17:14",1269220374,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269220374 | Aryaduta Makassar Deluxe 1 Baharuddin Baharuddin,IDR,Exclusive,760000,7600
+36,"14 Jul 2025, 10:40:47",1269238690,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269238690 | CLARO Makassar Deluxe King Bed 1 FAISHAL ADLI SANTOSO,IDR,Exclusive,794216,7942
+37,"14 Jul 2025, 14:58:38",1269302431,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269302431 | NES_inn Hotel Suite 1 JONI ALEXANDER HEYT SITORUS,IDR,Exclusive,810000,8100
+38,"14 Jul 2025, 16:02:59",1269318140,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269318140 | CLARO Makassar Deluxe Twin Bed 2 BAKHARUDDIN YUSUF,IDR,Exclusive,1739686,17397
+39,"14 Jul 2025, 16:23:14",1269323164,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269323164 | Arthama Hotel Makassar Deluxe Twin 2 Tn MARJUANZA,IDR,Exclusive,1252991,12530
+40,"14 Jul 2025, 16:52:47",1269330106,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269330106 | Arthama Hotel Makassar Deluxe Twin 2 IQRAL LATIF,IDR,Exclusive,1252991,12530
+41,"14 Jul 2025, 16:54:42",1269330514,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269330514 | Rayhan Square Hotel Suite 1 ANDI MUH ASYIK,IDR,Exclusive,800000,8000
+42,"14 Jul 2025, 16:55:05",1269330594,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269330594 | Rayhan Square Hotel Suite 1 ANDI FAUZAN ALIM,IDR,Exclusive,800000,8000
+43,"14 Jul 2025, 17:03:19",1269332436,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269332436 | Rayhan Square Hotel Suite 1 RISA WAHYU GUNTORO,IDR,Exclusive,800000,8000
+44,"14 Jul 2025, 19:48:07",1269369314,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269369314 | Louis Kienne Pemuda Deluxe King 3 ANDY PRADIPTA,IDR,Exclusive,2411292,24113
+45,"14 Jul 2025, 19:50:07",1269369838,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269369838 | Helios Hotel and Convention Executive Royal Double Or Twin 3 ANDI BASO MAKKARAKA,IDR,Exclusive,2349540,23495
+46,"14 Jul 2025, 19:50:53",1269369982,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269369982 | Louis Kienne Pemuda Deluxe Double Or Twin 4 Arie Pratama,IDR,Exclusive,3612496,36125
+47,"14 Jul 2025, 19:55:39",1269370997,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269370997 | Louis Kienne Pemuda Deluxe King 2 KIKI RESKI ANDRIANI,IDR,Exclusive,1607528,16075
+48,"14 Jul 2025, 20:26:05",1269378101,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269378101 | Louis Kienne Pemuda Deluxe King 3 RAHMAT BUDIYANA,IDR,Exclusive,2411292,24113
+49,"15 Jul 2025, 07:35:08",1269441755,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269441755 | Louis Kienne Pemuda Deluxe King 2 HADHI BAGUS SETYANTO,IDR,Exclusive,1606800,16068
+50,"15 Jul 2025, 10:33:26",1269477640,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269477640 | Helios Hotel and Convention Executive Royal Double Or Twin 2 DESHINTA AMALIA SHOLIHAH,IDR,Exclusive,1566360,15664
+51,"15 Jul 2025, 10:53:56",1269482749,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269482749 | BM Residence Hotel Palopo Deluxe Bed 2 DIAN ADHIRAMA ACHDAR,IDR,Exclusive,1050000,10500
+52,"15 Jul 2025, 13:26:13",1269521711,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269521711 | Pare Beach Hotel Deluxe Twin 2 Kresky yulianto,IDR,Exclusive,1000000,10000
+53,"15 Jul 2025, 13:29:17",1269522507,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269522507 | Pare Beach Hotel Deluxe Single 2 Ibrahim IBRAHIM,IDR,Exclusive,1000000,10000
+54,"15 Jul 2025, 20:49:41",1269630057,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269630057 | Hotel FortunaGrande Seturan Yogyakarta By Fosia Hotels Superior Twin 1 ZAKI ASHARI,IDR,Exclusive,660488,6605
+55,"15 Jul 2025, 22:07:22",1269648166,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269648166 | Hotel New Saphir Yogyakarta Deluxe 1 ZAKI ASHARI,IDR,Exclusive,738075,7381
+56,"16 Jul 2025, 06:05:28",1269682015,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,"SERVICE FEE BID: 1269682015 | SOTIS Hotel Falatehan, Blok M, Jakarta Deluxe Queen 2 WAHIDAH WAHIDAH",IDR,Exclusive,1466400,14664
+57,"16 Jul 2025, 06:30:24",1269684040,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269684040 | Hotel Puri Yasmin Potowanua Lasusua Mitra RedDoorz Suite 1 ALDIS AL FADJRIN,IDR,Exclusive,395694,3957
+58,"16 Jul 2025, 07:01:20",1269686930,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269686930 | Grand Sya Hotel  Deluxe King 2 ANDI MUH ARMIN YUSFIN,IDR,Exclusive,1810000,18100
+59,"16 Jul 2025, 10:53:08",1269732711,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269732711 | Dalton Makassar Superior Twin 1 ANDI MUH ASYIK,IDR,Exclusive,625000,6250
+60,"16 Jul 2025, 12:24:53",1269756879,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269756879 | Louis Kienne Pemuda Deluxe 1 KIKI RESKI ANDRIANI,IDR,Exclusive,760808,7608
+61,"16 Jul 2025, 15:12:49",1269799566,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269799566 | Aston Makassar Hotel & Convention Center Deluxe 1 ERIK WICAKSONO,IDR,Exclusive,790602,7906
+62,"16 Jul 2025, 16:26:32",1269817401,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269817401 | Aston Gejayan Yogyakarta Hotel & Conference Center Superior 2 AFRIANTO KURNIAWAN,IDR,Exclusive,1660212,16602
+63,"16 Jul 2025, 16:42:36",1269821193,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269821193 | CLARO Makassar Deluxe King Bed 1 AKHMAD MILZAM WILLY PRATAMA,IDR,Exclusive,768802,7688
+64,"16 Jul 2025, 16:51:08",1269823201,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269823201 | Helios Hotel and Convention Executive Royal Double Or Twin 1 DESHINTA AMALIA SHOLIHAH,IDR,Exclusive,783180,7832
+65,"16 Jul 2025, 17:51:16",1269836833,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269836833 | Luta Resort Toraja Superior 2 Nasrun Nasrun,IDR,Exclusive,1615000,16150
+66,"16 Jul 2025, 21:44:55",1269893465,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269893465 | GAIA Cosmo Hotel Deluxe Twin 1 MUHAMMAD SUSGANDINATA,IDR,Exclusive,920000,9200
+67,"16 Jul 2025, 22:06:36",1269898268,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269898268 | YATS Colony Ra Twin Bed 1 ZAKI ASHARI,IDR,Exclusive,813280,8133
+68,"17 Jul 2025, 07:04:57",1269939144,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269939144 | Louis Kienne Pemuda Deluxe 1 HADHI BAGUS SETYANTO,IDR,Exclusive,760808,7608
+69,"17 Jul 2025, 07:22:33",1269941303,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269941303 | Discovery Ancol Superior Twin 1 WAHIDAH WAHIDAH,IDR,Exclusive,882961,8830
+70,"17 Jul 2025, 10:35:53",1269981141,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1269981141 | Four Points by Sheraton Makassar 1 King Bed 3 MUHAMMAD IQBAAL MS,IDR,Exclusive,2311100,23111
+71,"17 Jul 2025, 11:51:20",1270000718,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270000718 | Gammara Hotel Makassar Superior Twin 1 Faisal Kamaruddin,IDR,Exclusive,628625,6286
+72,"17 Jul 2025, 14:14:50",1270037811,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270037811 | Arthama Hotel Makassar Deluxe King 1 MUH RENALDI,IDR,Exclusive,758625,7586
+73,"17 Jul 2025, 19:39:38",1270119439,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270119439 | @HOM Premiere Timoho Deluxe 1 MUHAMMAD SUSGANDINATA,IDR,Exclusive,413690,4137
+74,"17 Jul 2025, 21:25:45",1270146017,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270146017 | REZ Hotel Deluxe 1 KIKI RESKI ANDRIANI,IDR,Exclusive,865046,8650
+75,"18 Jul 2025, 10:25:55",1270235522,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270235522 | REZ Hotel Superior 1 ANDY PRADIPTA,IDR,Exclusive,744566,7446
+76,"18 Jul 2025, 10:36:31",1270238531,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270238531 | Swiss-Belhotel Makassar Superior King 3 ISRAN SUTOYO,IDR,Exclusive,2460000,24600
+77,"18 Jul 2025, 11:53:11",1270259668,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270259668 | Horison Plaza Inn Kendari Business Twin 1 RADEN OCKY LOVYANDA SAPUTRA,IDR,Exclusive,953955,9540
+78,"18 Jul 2025, 14:04:01",1270293358,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270293358 | Swiss-Belhotel Makassar Superior King 2 FAUZAN HODEIBI HADDAD,IDR,Exclusive,1640000,16400
+79,"19 Jul 2025, 09:26:06",1270476663,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270476663 | MYKO Hotel & Convention Center Makassar Premier King 2 M FAUZAN,IDR,Exclusive,2420000,24200
+80,"21 Jul 2025, 08:29:19",1270880139,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270880139 | Swiss-Belhotel Silae Palu Deluxe Double 1 M FAUZAN,IDR,Exclusive,940000,9400
+81,"21 Jul 2025, 12:52:18",1270938871,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270938871 | Swiss-Belhotel Silae Palu Deluxe Double 1 mohamad sulthan,IDR,Exclusive,940000,9400
+82,"21 Jul 2025, 14:44:37",1270966038,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270966038 | M Hotel Jakarta Deluxe 2 APRIANTO ROMBEPAYUNG,IDR,Exclusive,1343200,13432
+83,"21 Jul 2025, 14:58:58",1270969355,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270969355 | M Hotel Jakarta Deluxe 2 FADIL MUHAMMAD ARHAM,IDR,Exclusive,1360962,13610
+84,"21 Jul 2025, 16:44:11",1270993596,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270993596 | ibis Styles Bogor Pajajaran Deluxe With 2 Single Beds 2 BAGUS ALBARANU YULIATMOKO,IDR,Exclusive,1673999,16740
+85,"21 Jul 2025, 16:57:36",1270996758,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1270996758 | Grand Savero Hotel Bogor Deluxe 1 BAGUS ALBARANU YULIATMOKO,IDR,Exclusive,763750,7638
+86,"21 Jul 2025, 18:57:25",1271023187,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271023187 | Melia Makassar Deluxe 1 ANDI FAKHRUL SAM,IDR,Exclusive,803250,8033
+87,"21 Jul 2025, 21:19:38",1271054720,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271054720 | Bigland Bogor Hotel Powered by Archipelago Deluxe King 3 ASDARIA LAGUKALA,IDR,Exclusive,2278575,22786
+88,"22 Jul 2025, 16:04:55",1271217452,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271217452 | Atanaya Kuta Bali Deluxe 1 MUHAMMAD SUSGANDINATA,IDR,Exclusive,656250,6563
+89,"22 Jul 2025, 18:05:08",1271244286,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271244286 | Rayhan Square Hotel Deluxe 1 PURNOTO PURNOTO,IDR,Exclusive,550000,5500
+90,"22 Jul 2025, 18:07:32",1271244814,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271244814 | Rayhan Square Hotel Deluxe 1 ELISA NURLAILY,IDR,Exclusive,550000,5500
+91,"22 Jul 2025, 18:09:06",1271245163,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271245163 | Rayhan Square Hotel Deluxe 1 ISMAIL USMAN,IDR,Exclusive,550000,5500
+92,"23 Jul 2025, 04:32:07",1271326820,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271326820 | Po Hotel Semarang Deluxe King 2 JOHAN PRASETYA YUDHA PRAMUKTI,IDR,Exclusive,2416610,24166
+93,"23 Jul 2025, 07:34:59",1271339650,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271339650 | Cross Vibe Paasha Atelier Bali Kuta managed by Cross Hotels & Resorts Superior 2 M LUKMAN HAKIM,IDR,Exclusive,1766632,17666
+94,"23 Jul 2025, 12:14:34",1271397873,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271397873 | Swiss-Belinn Panakkukang Superior Deluxe King 3 Abdul Rais,IDR,Exclusive,2080000,20800
+95,"23 Jul 2025, 13:32:50",1271416587,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271416587 | Kimaya Slipi Jakarta by Harris Deluxe 1 BAMA RUSMALI,IDR,Exclusive,715000,7150
+96,"23 Jul 2025, 16:33:02",1271460340,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271460340 | MARYAM PALACE HOTEL SOPPENG 205 2 RUDY PRAKASA,IDR,Exclusive,1200000,12000
+97,"23 Jul 2025, 16:39:51",1271461844,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271461844 | MARYAM PALACE HOTEL SOPPENG 205 2 MUHAMMAD ZULFIKAR,IDR,Exclusive,1200000,12000
+98,"23 Jul 2025, 16:40:08",1271461909,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271461909 | MARYAM PALACE HOTEL SOPPENG 101 2 HARYADI MULIYADI,IDR,Exclusive,1000000,10000
+99,"23 Jul 2025, 16:46:32",1271463341,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271463341 | MARYAM PALACE HOTEL SOPPENG 101 2 MUHAMMAD ZULFADLY SAPRI,IDR,Exclusive,1000000,10000
+100,"23 Jul 2025, 17:10:36",1271468711,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271468711 | MARYAM PALACE HOTEL SOPPENG 101 2 NUR RACHMAT AS,IDR,Exclusive,1000000,10000
+101,"23 Jul 2025, 21:27:31",1271527492,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271527492 | Zenith Premiere Hotel Baubau Deluxe Double 2 FRANZ TRYWANDI SARAGI NAPITU,IDR,Exclusive,1450800,14508
+102,"24 Jul 2025, 09:22:11",1271601117,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271601117 | ibis Styles Bali Denpasar Double Superior Queen Bed Non Balcony 1 MUHAMMAD SUSGANDINATA,IDR,Exclusive,617470,6175
+103,"24 Jul 2025, 12:59:15",1271652728,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271652728 | Swiss-Belinn Panakkukang Executive 2 ARIFUDDIN ARIFUDDIN,IDR,Exclusive,1740000,17400
+104,"24 Jul 2025, 15:03:07",1271683398,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271683398 | CLARO Makassar Deluxe King Bed 2 SARLINA MKILYKILY,IDR,Exclusive,1739686,17397
+105,"24 Jul 2025, 15:59:54",1271696729,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271696729 | CLARO Makassar Deluxe King Bed 1 ANDI SORAYA TENRI BAU,IDR,Exclusive,869842,8698
+106,"24 Jul 2025, 16:00:43",1271696910,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271696910 | ibis Bandung Trans Studio Superior With 2 Single Beds 2 DALMASIUS NUGROHO ADI PUTRANTO,IDR,Exclusive,1190000,11900
+107,"24 Jul 2025, 16:06:24",1271698258,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271698258 | ibis Bandung Trans Studio Superior With 2 Single Beds 2 JULYANZAH PERDANA PUTRA,IDR,Exclusive,1190000,11900
+108,"24 Jul 2025, 18:06:43",1271726292,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271726292 | Swiss-Belinn Panakkukang Superior Deluxe King 2 FAHMAN ISLAMI,IDR,Exclusive,1465000,14650
+109,"25 Jul 2025, 07:15:03",1271823688,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271823688 | Episode Kuta Bali Deluxe King Bed 1 M LUKMAN HAKIM,IDR,Exclusive,945000,9450
+110,"25 Jul 2025, 12:52:59",1271901257,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271901257 | MYKO Hotel & Convention Center Makassar Premier Hollywood 2 JONI ALEXANDER HEYT SITORUS,IDR,Exclusive,2056250,20563
+111,"25 Jul 2025, 15:45:25",1271947865,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271947865 | Zenith Premiere Hotel Baubau Deluxe Double 1 HAYAT MAKMUR,IDR,Exclusive,809200,8092
+112,"25 Jul 2025, 15:45:29",1271947881,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271947881 | Zenith Premiere Hotel Baubau Deluxe Double 1 ASRI ASRI,IDR,Exclusive,809200,8092
+113,"25 Jul 2025, 15:56:46",1271950757,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271950757 | Zenith Premiere Hotel Baubau Deluxe Twin 1 AMSAR SAPUTRA,IDR,Exclusive,809200,8092
+114,"25 Jul 2025, 15:57:56",1271951075,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271951075 | Zenith Premiere Hotel Baubau Superior Double 1 FIRMANSYAH FIRMANSYAH,IDR,Exclusive,694100,6941
+115,"25 Jul 2025, 16:45:53",1271963537,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271963537 | ARTOTEL TS Suites Surabaya Studio 40 King 2 KOMANG YEHUDA PRAWIRA,IDR,Exclusive,1980000,19800
+116,"25 Jul 2025, 17:03:28",1271967798,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271967798 | ibis Surabaya City Center Standard With 1 Double Bed 6 EDDY TANDILINO,IDR,Exclusive,2874999,28750
+117,"25 Jul 2025, 18:09:04",1271984318,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271984318 | BEST WESTERN Kuta Villa Superior Double 1 MUHAMMAD SUSGANDINATA,IDR,Exclusive,653400,6534
+118,"25 Jul 2025, 18:34:16",1271990636,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1271990636 | Swiss-Belhotel Makassar Deluxe Double 2 ZULKIFLI SETIOK,IDR,Exclusive,1780000,17800
+119,"25 Jul 2025, 19:58:02",1272011587,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272011587 | Mercure Makassar Nexa Pettarani Deluxe 1 King Bed With Sofa Bed 1 IKRAM SAPRILLAH NATSIR,IDR,Exclusive,965580,9656
+120,"25 Jul 2025, 20:57:39",1272026631,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272026631 | favehotel Premier Cihampelas Superior 6 FRANZ TRYWANDI SARAGI NAPITU,IDR,Exclusive,3824238,38242
+121,"26 Jul 2025, 09:57:02",1272118349,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272118349 | Avery De Grand City Hotel Bandung Executive Cabin 1 JULYANZAH PERDANA PUTRA,IDR,Exclusive,795000,7950
+122,"26 Jul 2025, 09:57:06",1272118370,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272118370 | Avery De Grand City Hotel Bandung Executive Cabin 1 DALMASIUS NUGROHO ADI PUTRANTO,IDR,Exclusive,795000,7950
+123,"26 Jul 2025, 09:58:39",1272118760,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272118760 | MYKO Hotel & Convention Center Makassar Premier King 2 M FAUZAN,IDR,Exclusive,2420000,24200
+124,"26 Jul 2025, 13:30:21",1272169642,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272169642 | Zenith Premiere Hotel Baubau Superior Double 1 GALIH RHENDRA PUTRA,IDR,Exclusive,694100,6941
+125,"26 Jul 2025, 22:05:10",1272279442,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272279442 | CLARO Makassar Deluxe King Bed 2 RISMAN RISMAN,IDR,Exclusive,1739686,17397
+126,"26 Jul 2025, 23:20:32",1272291716,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272291716 | Horison Ultima Makassar Horison Club Twin 1 ANGRIAWAN ANGRIAWAN,IDR,Exclusive,999999,10000
+127,"27 Jul 2025, 07:36:17",1272319246,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272319246 | CLARO Makassar Deluxe King Bed 3 INCE ZULKIFLI Z MA MUR,IDR,Exclusive,2609529,26095
+128,"27 Jul 2025, 11:08:40",1272355232,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272355232 | Kimaya Slipi Jakarta by Harris Deluxe 1 JULYANZAH PERDANA PUTRA,IDR,Exclusive,875000,8750
+129,"27 Jul 2025, 15:41:39",1272409234,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1272409234 | ibis Surabaya City Center Standard With 1 Double Bed 2 DALMASIUS NUGROHO ADI PUTRANTO,IDR,Exclusive,974999,9750
+130,"30 Jul 2025, 14:38:44",1273083788,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273083788 | Zenith Premiere Hotel Baubau Superior Double 1 GALIH RHENDRA PUTRA,IDR,Exclusive,694100,6941
+131,"30 Jul 2025, 18:43:58",1273139224,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273139224 | Zenith Premiere Hotel Baubau Deluxe Double 1 ASRI ASRI,IDR,Exclusive,809200,8092
+132,"30 Jul 2025, 19:12:01",1273145526,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273145526 | Zenith Premiere Hotel Baubau Deluxe Double 1 AMSAR SAPUTRA,IDR,Exclusive,809200,8092
+133,"30 Jul 2025, 19:15:58",1273146450,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273146450 | Zenith Premiere Hotel Baubau Deluxe Twin 2 HAYAT MAKMUR,IDR,Exclusive,1629350,16294
+134,"30 Jul 2025, 19:22:53",1273148036,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273148036 | Zenith Premiere Hotel Baubau Superior Double 1 GALIH RHENDRA PUTRA,IDR,Exclusive,693150,6932
+135,"30 Jul 2025, 20:57:47",1273170749,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273170749 | Zenith Premiere Hotel Baubau Deluxe Double 1 ASRI ASRI,IDR,Exclusive,820150,8202
+136,"30 Jul 2025, 21:02:36",1273171814,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273171814 | Zenith Premiere Hotel Baubau Deluxe Twin 2 FIRMANSYAH FIRMANSYAH,IDR,Exclusive,1629350,16294
+137,"30 Jul 2025, 21:06:58",1273172842,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273172842 | Zenith Premiere Hotel Baubau Superior Twin 1 AMSAR SAPUTRA,IDR,Exclusive,693150,6932
+138,"30 Jul 2025, 21:42:52",1273181983,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273181983 | ibis Surabaya City Center Standard With 1 Double Bed 1 DALMASIUS NUGROHO ADI PUTRANTO,IDR,Exclusive,475000,4750
+139,"31 Jul 2025, 15:58:54",1273354027,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273354027 | Swiss-Belhotel Airport Jakarta Deluxe Premiere Queen 1 AHMAD AMIRUL SYARIF,IDR,Exclusive,1291500,12915
+140,"31 Jul 2025, 20:15:45",1273416146,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273416146 | Zenith Premiere Hotel Baubau Deluxe Double 2 ASRI ASRI,IDR,Exclusive,1640300,16403
+141,"31 Jul 2025, 20:39:41",1273422442,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273422442 | Zenith Premiere Hotel Baubau Deluxe Double 2 AMSAR SAPUTRA,IDR,Exclusive,1640300,16403
+142,"31 Jul 2025, 21:06:32",1273429727,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+hotel",ID02,"Affiliate Corporate
+Hotel",ISSUED,SERVICE FEE BID: 1273429727 | Zenith Premiere Hotel Baubau Superior Double 2 FIRMANSYAH FIRMANSYAH,IDR,Exclusive,1386300,13863
+,,,,,,,,,,,,193795120,1937961
+SUBTOTAL SERVICE FEE,,,,,,,,,,,,,1937961
+VAT,,,,,,,,,,,,,213176
+TOTAL TAGIHAN ,,,,,,,,,,,,,2151137

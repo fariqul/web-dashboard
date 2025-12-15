@@ -1,0 +1,1022 @@
+Transaction Time,Booking ID,Transaction Settlement Method,Corporate Type,Corporate ID,Entity,Product Type,Status,Description,Currency,VAT Term,Transaction Amount,Base Amount
+"01 Jul 2025, 06:14:16",1265363385,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: syahlan036@pln.co.id
+Passengers: SYAHLAN SYAHLAN",IDR,Exclusive,1717300,17173
+"01 Jul 2025, 18:47:14",1265571485,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : JT
+Booker: nisa.muhammadia@pln.co.id
+Passengers: KHAYRUNNISA B MUHAMMADIA",IDR,Exclusive,1277800,12778
+"01 Jul 2025, 19:34:43",1265586015,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: julianto.putra@pln.co.id
+Passengers: DHANI JULIANTO PUTRA",IDR,Exclusive,2224400,22244
+"01 Jul 2025, 21:03:05",1265614780,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : GA
+Booker: haryadi.muliyadi@pln.co.id
+Passengers: HARYADI MULIYADI",IDR,Exclusive,2833700,28337
+"02 Jul 2025, 07:12:28",1265690449,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : GA
+Booker: mlukman.hakim@pln.co.id
+Passengers: M LUKMAN HAKIM",IDR,Exclusive,972300,9723
+"02 Jul 2025, 07:17:06",1265691323,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : IP
+Booker: alamsyah.anwar@pln.co.id
+Passengers: ALAMSYAH ANWAR",IDR,Exclusive,2016453,20165
+"02 Jul 2025, 08:24:24",1265703951,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: ahmad.amirul@pln.co.id
+Passengers: AHMAD AMIRUL SYARIF",IDR,Exclusive,1664100,16641
+"02 Jul 2025, 08:37:08",1265706865,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: rathy.s.utami@pln.co.id
+Passengers: RATHY SHINTA UTAMI",IDR,Exclusive,1664100,16641
+"02 Jul 2025, 09:07:51",1265714867,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : GA
+Booker: muhammad.susgandinat@pln.co.id
+Passengers: MUHAMMAD SUSGANDINATA",IDR,Exclusive,972300,9723
+"02 Jul 2025, 09:08:10",1265714937,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : GA
+Booker: asdaria@pln.co.id
+Passengers: Asdaria Asdaria",IDR,Exclusive,972300,9723
+"02 Jul 2025, 11:34:15",1265760721,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: eka.mayasari@pln.co.id
+Passengers: EKA MAYASARI RACHMAN",IDR,Exclusive,2042100,20421
+"02 Jul 2025, 14:01:23",1265807661,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: davidmb@pln.co.id
+Passengers: DAVID MASALLE BUA",IDR,Exclusive,1431700,14317
+"02 Jul 2025, 14:10:45",1265810913,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SUB | Pax : 1 | Airline ID : QG
+Booker: farouq@pln.co.id
+Passengers: FAROUQ MUHAMMAD NOOR",IDR,Exclusive,1333500,13335
+"02 Jul 2025, 14:15:53",1265812261,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: manuhuwa.alexander@pln.co.id
+Passengers: ALEXANDER J MANUHUWA",IDR,Exclusive,1431700,14317
+"02 Jul 2025, 19:49:41",1265913120,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : JT
+Booker: riyan.mifta@pln.co.id
+Passengers: Muh Riyan Mifta",IDR,Exclusive,1438500,14385
+"02 Jul 2025, 21:12:18",1265939844,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: syamsurya@pln.co.id
+Passengers: SYAMSURYA CATUR APRIAN",IDR,Exclusive,2231100,22311
+"03 Jul 2025, 05:33:07",1266001934,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: ahmad.amirul@pln.co.id
+Passengers: AHMAD AMIRUL SYARIF",IDR,Exclusive,1713000,17130
+"03 Jul 2025, 05:33:27",1266001969,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: eka.mayasari@pln.co.id
+Passengers: EKA MAYASARI RACHMAN",IDR,Exclusive,1797000,17970
+"03 Jul 2025, 05:36:26",1266002199,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: rathy.s.utami@pln.co.id
+Passengers: RATHY SHINTA UTAMI",IDR,Exclusive,1797000,17970
+"03 Jul 2025, 06:19:20",1266006608,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SUB | Pax : 1 | Airline ID : QG
+Booker: hasbi.nur@pln.co.id
+Passengers: HASBI NUR ASHSHIDDIQ",IDR,Exclusive,1096200,10962
+"03 Jul 2025, 12:25:57",1266100466,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: bagus.albaranu@pln.co.id
+Passengers: BAGUS ALBARANU YULIATMOKO",IDR,Exclusive,812000,8120
+"03 Jul 2025, 12:26:05",1266100525,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: asdaria@pln.co.id
+Passengers: ASDARIA ASDARIA",IDR,Exclusive,812000,8120
+"03 Jul 2025, 12:30:04",1266101834,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: muhammad.susgandinat@pln.co.id
+Passengers: MUHAMMAD SUSGANDINATA",IDR,Exclusive,812000,8120
+"03 Jul 2025, 12:31:35",1266102319,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: mlukman.hakim@pln.co.id
+Passengers: M LUKMAN HAKIM",IDR,Exclusive,812000,8120
+"03 Jul 2025, 16:31:48",1266178972,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: sobri.fadillah@pln.co.id
+Passengers: SOBRI FADILLAH | TWO_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: sobri.fadillah@pln.co.id
+Passengers: SOBRI FADILLAH",IDR,Exclusive,1693600,16936
+"03 Jul 2025, 16:40:13",1266181411,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: alamsyah.anwar@pln.co.id
+Passengers: ALAMSYAH ANWAR",IDR,Exclusive,1797000,17970
+"03 Jul 2025, 16:54:48",1266185962,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: davidmb@pln.co.id
+Passengers: DAVID MASALLE BUA",IDR,Exclusive,1797000,17970
+"03 Jul 2025, 16:57:06",1266186648,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: manuhuwa.alexander@pln.co.id
+Passengers: ALEXANDER J. MANUHUWA",IDR,Exclusive,1797000,17970
+"04 Jul 2025, 09:04:16",1266362558,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: nur.ahadiat@pln.co.id
+Passengers: NUR AHADIAT",IDR,Exclusive,851400,8514
+"04 Jul 2025, 09:09:24",1266364117,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: nur.ahadiat@pln.co.id
+Passengers: NUR AHADIAT",IDR,Exclusive,852700,8527
+"04 Jul 2025, 09:43:11",1266374112,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: sarto.senobua@pln.co.id
+Passengers: Sarto Senobua",IDR,Exclusive,851400,8514
+"04 Jul 2025, 09:44:34",1266374657,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: sarto.senobua@pln.co.id
+Passengers: SARTO SENOBUA'",IDR,Exclusive,852700,8527
+"04 Jul 2025, 10:01:14",1266379723,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_YIA | Pax : 1 | Airline ID : JT
+Booker: ambo.tuwo002@pln.co.id
+Passengers: AMBO TUWO",IDR,Exclusive,1327800,13278
+"04 Jul 2025, 15:34:50",1266489692,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: muhammad.luthfil@pln.co.id
+Passengers: MUHAMMAD LUTHFIL HADI SURYADI",IDR,Exclusive,851400,8514
+"04 Jul 2025, 16:03:29",1266499037,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: pradikta.cendika@pln.co.id
+Passengers: PRADIKTA CENDIKA",IDR,Exclusive,940800,9408
+"04 Jul 2025, 16:03:41",1266499100,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: iskandar.azhar@pln.co.id
+Passengers: ISKANDAR AZHAR",IDR,Exclusive,940800,9408
+"04 Jul 2025, 16:17:09",1266503476,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : JT
+Booker: julianto.putra@pln.co.id
+Passengers: DHANI JULIANTO PUTRA",IDR,Exclusive,1950900,19509
+"04 Jul 2025, 16:59:19",1266516124,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: irhas.firdaus@pln.co.id
+Passengers: IRHAS MUFTI FIRDAUS",IDR,Exclusive,851400,8514
+"04 Jul 2025, 19:25:04",1266560391,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: ami.prawoto@pln.co.id
+Passengers: AMI PRAWOTO RANDALAYUK | TWO_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: ami.prawoto@pln.co.id
+Passengers: AMI PRAWOTO RANDALAYUK",IDR,Exclusive,1714600,17146
+"05 Jul 2025, 02:31:20",1266649634,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: syamsurya@pln.co.id
+Passengers: Syamsurya Catur Aprian",IDR,Exclusive,2287500,22875
+"05 Jul 2025, 08:03:43",1266679166,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: rian.pratama15@pln.co.id
+Passengers: RIAN PRATAMA",IDR,Exclusive,2228600,22286
+"05 Jul 2025, 08:40:16",1266687442,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: puji.prasetyo@pln.co.id
+Passengers: MUHAMMAD PUJI PRASETYO",IDR,Exclusive,851400,8514
+"05 Jul 2025, 10:41:08",1266724518,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : IP
+Booker: andi.muh90@pln.co.id
+Passengers: ANDI MUH ADE ISMAIL BAHAR",IDR,Exclusive,1395444,13954
+"07 Jul 2025, 09:05:25",1267272407,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: puji.prasetyo@pln.co.id
+Passengers: MUHAMMAD PUJI PRASETYO",IDR,Exclusive,886600,8866
+"07 Jul 2025, 09:39:33",1267282355,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: andi.zulfakar@pln.co.id
+Passengers: ANDI ZULFAKAR | TWO_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: andi.zulfakar@pln.co.id
+Passengers: ANDI ZULFAKAR",IDR,Exclusive,1866200,18662
+"07 Jul 2025, 10:20:06",1267295104,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_SUB | Pax : 1 | Airline ID : JT
+Booker: muh.irfan@pln.co.id
+Passengers: MUHAMMAD IRFAN | TWO_WAY | SUB_UPG | Pax : 1 | Airline ID : QG
+Booker: muh.irfan@pln.co.id
+Passengers: MUHAMMAD IRFAN",IDR,Exclusive,2447200,24472
+"07 Jul 2025, 14:14:34",1267374820,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: sitti.fauziah@pln.co.id
+Passengers: SITTI FAUZIAH AHMAD",IDR,Exclusive,812000,8120
+"07 Jul 2025, 20:48:22",1267491682,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SUB_UPG | Pax : 1 | Airline ID : JT
+Booker: farouq@pln.co.id
+Passengers: FAROUQ NOOR",IDR,Exclusive,1290400,12904
+"07 Jul 2025, 20:58:57",1267495113,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: irhas.firdaus@pln.co.id
+Passengers: IRHAS MUFTI FIRDAUS",IDR,Exclusive,886600,8866
+"07 Jul 2025, 21:02:25",1267496147,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: muhammad.luthfil@pln.co.id
+Passengers: MUHAMMAD LUTHFIL HADI SURYADI",IDR,Exclusive,886600,8866
+"08 Jul 2025, 02:13:21",1267550615,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | YIA_UPG | Pax : 1 | Airline ID : JT
+Booker: ambo.tuwo002@pln.co.id
+Passengers: AMBO TUWO",IDR,Exclusive,1332900,13329
+"08 Jul 2025, 12:11:38",1267648509,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: ahmad.amirul@pln.co.id
+Passengers: AHMAD AMIRUL SYARIF",IDR,Exclusive,2238600,22386
+"08 Jul 2025, 12:29:25",1267653894,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: rathy.s.utami@pln.co.id
+Passengers: RATHY SHINTA UTAMI",IDR,Exclusive,2225100,22251
+"08 Jul 2025, 13:20:43",1267669741,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: eka.mayasari@pln.co.id
+Passengers: EKA MAYASARI RACHMAN",IDR,Exclusive,2225100,22251
+"08 Jul 2025, 17:09:15",1267735848,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: septyanto65@pln.co.id
+Passengers: SEPTYANTO NUGROHO",IDR,Exclusive,1105100,11051
+"08 Jul 2025, 17:27:32",1267740783,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: muhammad.ismail@pln.co.id
+Passengers: MUHAMMAD ISMAIL",IDR,Exclusive,1105100,11051
+"08 Jul 2025, 17:54:31",1267748020,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : JT
+Booker: irsa.mirsan@pln.co.id
+Passengers: MIRSAN MIRSAN",IDR,Exclusive,1566600,15666
+"09 Jul 2025, 09:21:12",1267898403,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: rian.pratama15@pln.co.id
+Passengers: RIAN PRATAMA",IDR,Exclusive,2272500,22725
+"09 Jul 2025, 11:06:17",1267930607,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: iskandar.azhar@pln.co.id
+Passengers: ISKANDAR AZHAR",IDR,Exclusive,865700,8657
+"09 Jul 2025, 14:29:15",1267989607,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: pradikta.cendika@pln.co.id
+Passengers: PRADIKTA CENDIKA",IDR,Exclusive,695400,6954
+"09 Jul 2025, 15:52:56",1268014748,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_CGK | Pax : 1 | Airline ID : QG
+Booker: hendra.herianto@pln.co.id
+Passengers: A. HENDRA HERIANTO R. | TWO_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: hendra.herianto@pln.co.id
+Passengers: A. HENDRA HERIANTO R.",IDR,Exclusive,3360800,33608
+"09 Jul 2025, 16:44:23",1268029901,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : QG
+Booker: haryadi.kasim@pln.co.id
+Passengers: HARYADI KASIM",IDR,Exclusive,1655300,16553
+"09 Jul 2025, 18:06:12",1268052539,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : IP
+Booker: ahmad.amirul@pln.co.id
+Passengers: AHMAD AMIRUL SYARIF",IDR,Exclusive,1523377,15234
+"09 Jul 2025, 18:09:47",1268053519,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : IP
+Booker: rathy.s.utami@pln.co.id
+Passengers: RATHY SHINTA UTAMI",IDR,Exclusive,1523377,15234
+"09 Jul 2025, 18:12:31",1268054266,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : IP
+Booker: eka.mayasari@pln.co.id
+Passengers: EKA MAYASARI RACHMAN",IDR,Exclusive,1655809,16558
+"11 Jul 2025, 09:22:32",1268489089,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: septyanto65@pln.co.id
+Passengers: SEPTYANTO NUGROHO",IDR,Exclusive,1515100,15151
+"12 Jul 2025, 07:51:49",1268754574,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_YIA | Pax : 1 | Airline ID : GA
+Booker: haryadi.kasim@pln.co.id
+Passengers: HARYADI KASIM",IDR,Exclusive,1149800,11498
+"12 Jul 2025, 21:17:25",1268945881,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SUB_UPG | Pax : 1 | Airline ID : QG
+Booker: rolandi@pln.co.id
+Passengers: ROLANDI TUMPAL FERNANDES MARTUA SIREGAR",IDR,Exclusive,1393300,13933
+"13 Jul 2025, 13:55:33",1269073179,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : GA
+Booker: erik.wicaksono@pln.co.id
+Passengers: ERIK WICAKSONO",IDR,Exclusive,855200,8552
+"14 Jul 2025, 08:13:46",1269209110,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: bakharuddin.yusuf@pln.co.id
+Passengers: BAKHARUDDIN YUSUF",IDR,Exclusive,705300,7053
+"14 Jul 2025, 10:41:35",1269238746,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: zul.afdy@pln.co.id
+Passengers: ZUL AFDY",IDR,Exclusive,729000,7290
+"14 Jul 2025, 10:43:51",1269239263,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: chandra.halim@pln.co.id
+Passengers: CHANDRA HALIM AMIR",IDR,Exclusive,729000,7290
+"14 Jul 2025, 17:05:47",1269332809,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SRG | Pax : 1 | Airline ID : JT
+Booker: andy.pradipta@pln.co.id
+Passengers: ANDY PRADIPTA",IDR,Exclusive,1324300,13243
+"14 Jul 2025, 18:24:12",1269350198,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SRG | Pax : 1 | Airline ID : JT
+Booker: rahmat.budiyana@pln.co.id
+Passengers: RAHMAT BUDIYANA",IDR,Exclusive,1324300,13243
+"14 Jul 2025, 19:22:50",1269363510,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SRG | Pax : 1 | Airline ID : JT
+Booker: kiki.reskiandriani@pln.co.id
+Passengers: KIKI RESKI ANDRIANI",IDR,Exclusive,1384100,13841
+"14 Jul 2025, 20:43:25",1269382195,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : JT
+Booker: ibrahim46@pln.co.id
+Passengers: IBRAHIM IBRAHIM",IDR,Exclusive,1387300,13873
+"14 Jul 2025, 21:37:11",1269394599,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SRG | Pax : 1 | Airline ID : JT
+Booker: arie.pratama@pln.co.id
+Passengers: ARIE PRATAMA",IDR,Exclusive,1444000,14440
+"15 Jul 2025, 07:25:55",1269440449,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: bakharuddin.yusuf@pln.co.id
+Passengers: BAKHARUDDIN YUSUF",IDR,Exclusive,805200,8052
+"15 Jul 2025, 07:28:25",1269440874,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SRG | Pax : 1 | Airline ID : QG
+Booker: hadhi@pln.co.id
+Passengers: HADHI BAGUS SETYANTO",IDR,Exclusive,1819700,18197
+"15 Jul 2025, 11:22:01",1269490036,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: vinky@pln.co.id
+Passengers: VINKY SRIWAHYUNI MARITO MARPAUNG",IDR,Exclusive,705300,7053
+"15 Jul 2025, 11:53:31",1269498248,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: sekarwati.ciptoroso@pln.co.id
+Passengers: SEKARWATI CIPTOROSO | TWO_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: sekarwati.ciptoroso@pln.co.id
+Passengers: SEKARWATI CIPTOROSO",IDR,Exclusive,1510500,15105
+"15 Jul 2025, 14:25:40",1269536996,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_YIA | Pax : 1 | Airline ID : JT
+Booker: muhammad.susgandinat@pln.co.id
+Passengers: MUHAMMAD SUSGANDINATA",IDR,Exclusive,1264800,12648
+"15 Jul 2025, 16:24:17",1269566806,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_YIA | Pax : 1 | Airline ID : JT
+Booker: zaki.ashari@pln.co.id
+Passengers: ZAKI ASHARI | TWO_WAY | YIA_UPG | Pax : 1 | Airline ID : SJ
+Booker: zaki.ashari@pln.co.id
+Passengers: ZAKI ASHARI",IDR,Exclusive,2622100,26221
+"15 Jul 2025, 18:38:49",1269597956,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: sintia.dewi@pln.co.id
+Passengers: SINTIA DEWI",IDR,Exclusive,695400,6954
+"15 Jul 2025, 20:01:37",1269617739,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: wahidah@pln.co.id
+Passengers: WAHIDAH WAHIDAH",IDR,Exclusive,1465100,14651
+"15 Jul 2025, 20:04:08",1269618427,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: saripa.alwia@pln.co.id
+Passengers: SARIPA ALWIA",IDR,Exclusive,773200,7732
+"16 Jul 2025, 10:14:53",1269722286,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_YIA | Pax : 1 | Airline ID : JT
+Booker: afrianto.kurniawan@pln.co.id
+Passengers: AFRIANTO KURNIAWAN",IDR,Exclusive,1264800,12648
+"17 Jul 2025, 10:40:19",1269982233,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: muhammad.iqbaal@pln.co.id
+Passengers: MUHAMMAD IQBAAL MS",IDR,Exclusive,1630700,16307
+"17 Jul 2025, 14:14:57",1270037737,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: muhammad.luthfil@pln.co.id
+Passengers: MUHAMMAD LUTHFIL HADI SURYADI",IDR,Exclusive,2276500,22765
+"17 Jul 2025, 16:23:07",1270070733,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | YIA_UPG | Pax : 1 | Airline ID : JT
+Booker: afrianto.kurniawan@pln.co.id
+Passengers: AFRIANTO KURNIAWAN",IDR,Exclusive,1206900,12069
+"17 Jul 2025, 19:27:08",1270116243,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : GA
+Booker: erik.wicaksono@pln.co.id
+Passengers: ERIK WICAKSONO",IDR,Exclusive,925400,9254
+"17 Jul 2025, 21:05:38",1270141035,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : JT
+Booker: kiki.reskiandriani@pln.co.id
+Passengers: KIKI RESKI ANDRIANI",IDR,Exclusive,1258900,12589
+"17 Jul 2025, 22:53:47",1270164844,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | YIA_UPG | Pax : 1 | Airline ID : JT
+Booker: haryadi.kasim@pln.co.id
+Passengers: HARYADI KASIM",IDR,Exclusive,1460000,14600
+"18 Jul 2025, 09:09:12",1270216808,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : GA
+Booker: agus.salim22@pln.co.id
+Passengers: AGUS SALIM",IDR,Exclusive,853600,8536
+"18 Jul 2025, 10:20:11",1270233958,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: isran.sutoyo@pln.co.id
+Passengers: ISRAN SUTOYO | TWO_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: isran.sutoyo@pln.co.id
+Passengers: ISRAN SUTOYO",IDR,Exclusive,1510500,15105
+"18 Jul 2025, 10:47:33",1270241413,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : GA
+Booker: arie.pratama@pln.co.id
+Passengers: ARIE PRATAMA",IDR,Exclusive,2916000,29160
+"18 Jul 2025, 13:48:38",1270289210,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: sintia.dewi@pln.co.id
+Passengers: SINTIA DEWI",IDR,Exclusive,824200,8242
+"18 Jul 2025, 13:51:34",1270289913,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: fauzan.hodeibe@pln.co.id
+Passengers: FAUZAN HODEIBI HADDAD",IDR,Exclusive,1630700,16307
+"18 Jul 2025, 13:57:09",1270290579,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: agus.salim22@pln.co.id
+Passengers: AGUS SALIM",IDR,Exclusive,729000,7290
+"18 Jul 2025, 13:58:19",1270291759,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : JT
+Booker: andy.pradipta@pln.co.id
+Passengers: ANDY PRADIPTA",IDR,Exclusive,1880200,18802
+"18 Jul 2025, 14:32:09",1270300636,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: ivan.saputra@pln.co.id
+Passengers: IVAN SAPUTRA",IDR,Exclusive,2225600,22256
+"18 Jul 2025, 14:48:10",1270304855,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: saripa.alwia@pln.co.id
+Passengers: SARIPA ALWIA",IDR,Exclusive,752700,7527
+"18 Jul 2025, 15:58:55",1270323189,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: asrul2@pln.co.id
+Passengers: ASRUL ASRUL | TWO_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: asrul2@pln.co.id
+Passengers: ASRUL ASRUL",IDR,Exclusive,3746600,37466
+"18 Jul 2025, 16:20:13",1270328645,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_CGK | Pax : 1 | Airline ID : JT
+Booker: ocky.saputra@pln.co.id
+Passengers: RADEN OCKY LOVYANDA SAPUTRA",IDR,Exclusive,1829000,18290
+"18 Jul 2025, 17:02:24",1270339349,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : JT
+Booker: hadhi@pln.co.id
+Passengers: HADHI BAGUS SETYANTO",IDR,Exclusive,1318800,13188
+"18 Jul 2025, 18:02:25",1270353813,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SUB_UPG | Pax : 1 | Airline ID : QG
+Booker: muhammad.susgandinat@pln.co.id
+Passengers: MUHAMMAD SUSGANDINATA",IDR,Exclusive,835800,8358
+"19 Jul 2025, 18:58:14",1270603317,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: fauzan.hodeibe@pln.co.id
+Passengers: FAUZAN HODEIBI HADDAD",IDR,Exclusive,805200,8052
+"19 Jul 2025, 20:01:02",1270616683,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : JT
+Booker: wahidah@pln.co.id
+Passengers: WAHIDAH WAHIDAH",IDR,Exclusive,1085200,10852
+"20 Jul 2025, 06:43:37",1270675124,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: aprianto.rombepayung@pln.co.id
+Passengers: APRIANTO ROMBEPAYUNG",IDR,Exclusive,2034800,20348
+"20 Jul 2025, 07:00:42",1270676429,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: fadil.arham@pln.co.id
+Passengers: FADIL MUHAMMAD ARHAM",IDR,Exclusive,2037700,20377
+"21 Jul 2025, 11:12:00",1270914627,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: fakhrul.sam@pln.co.id
+Passengers: ANDI FAKHRUL SAM",IDR,Exclusive,805200,8052
+"21 Jul 2025, 12:31:58",1270933899,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: andi.arlangga@pln.co.id
+Passengers: ANDI ARLANGGA BUSPADI",IDR,Exclusive,1457100,14571
+"21 Jul 2025, 12:35:45",1270934806,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_DPS | Pax : 1 | Airline ID : JT
+Booker: mlukman.hakim@pln.co.id
+Passengers: M LUKMAN HAKIM",IDR,Exclusive,1224000,12240
+"21 Jul 2025, 16:42:28",1270993058,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: bagus.albaranu@pln.co.id
+Passengers: BAGUS ALBARANU YULIATMOKO",IDR,Exclusive,2032900,20329
+"21 Jul 2025, 17:01:14",1270997492,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: asdaria@pln.co.id
+Passengers: ASDARIA ASDARIA",IDR,Exclusive,2221900,22219
+"22 Jul 2025, 08:17:12",1271109892,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: zulkarnain94@pln.co.id
+Passengers: ZULKARNAIN ZULKARNAIN",IDR,Exclusive,1465000,14650
+"22 Jul 2025, 08:21:29",1271110545,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: zulkarnain94@pln.co.id
+Passengers: ZULKARNAIN ZULKARNAIN",IDR,Exclusive,2274600,22746
+"22 Jul 2025, 08:46:07",1271114941,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: ivan.saputra@pln.co.id
+Passengers: IVAN SAPUTRA",IDR,Exclusive,1328600,13286
+"22 Jul 2025, 15:15:39",1271205731,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: irwan.fy@pln.co.id
+Passengers: IRWAN IRWAN",IDR,Exclusive,1720500,17205
+"22 Jul 2025, 15:21:10",1271207087,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: haris.fy@pln.co.id
+Passengers: HARIS HARIS",IDR,Exclusive,1720500,17205
+"22 Jul 2025, 15:48:32",1271213571,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_DPS | Pax : 1 | Airline ID : JT
+Booker: muhammad.susgandinat@pln.co.id
+Passengers: MUHAMMAD SUSGANDINATA",IDR,Exclusive,1276500,12765
+"22 Jul 2025, 16:15:20",1271219526,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SRG | Pax : 1 | Airline ID : JT
+Booker: johan.prasetya@pln.co.id
+Passengers: JOHAN PRASETYA YUDHA PRAMUKTI",IDR,Exclusive,1444000,14440
+"22 Jul 2025, 17:51:58",1271241113,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_KDI | Pax : 1 | Airline ID : JT
+Booker: ocky.saputra@pln.co.id
+Passengers: RADEN OCKY LOVYANDA SAPUTRA",IDR,Exclusive,1648900,16489
+"23 Jul 2025, 07:40:20",1271340290,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : QG
+Booker: fadil.arham@pln.co.id
+Passengers: FADIL MUHAMMAD ARHAM",IDR,Exclusive,1467400,14674
+"23 Jul 2025, 07:45:29",1271340944,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : QG
+Booker: aprianto.rombepayung@pln.co.id
+Passengers: APRIANTO ROMBEPAYUNG",IDR,Exclusive,1467400,14674
+"23 Jul 2025, 09:23:56",1271357888,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: bama.rusmali65@pln.co.id
+Passengers: BAMA RUSMALI",IDR,Exclusive,1467000,14670
+"23 Jul 2025, 14:30:07",1271430585,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: hadi.yusran@pln.co.id
+Passengers: HADI YUSRAN",IDR,Exclusive,761500,7615
+"23 Jul 2025, 16:50:19",1271464026,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: sarlina.m.kilykily@pln.co.id
+Passengers: SARLINA M KILYKILY | TWO_WAY | UPG_KDI | Pax : 1 | Airline ID : JT
+Booker: sarlina.m.kilykily@pln.co.id
+Passengers: SARLINA M KILYKILY",IDR,Exclusive,1546800,15468
+"23 Jul 2025, 16:50:40",1271464108,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | SRG_UPG | Pax : 1 | Airline ID : JT
+Booker: johan.prasetya@pln.co.id
+Passengers: JOHAN PRASETYA YUDHA PRAMUKTI",IDR,Exclusive,1258900,12589
+"23 Jul 2025, 23:58:16",1271554064,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: rais.abdul@pln.co.id
+Passengers: Abdul Rais",IDR,Exclusive,805200,8052
+"24 Jul 2025, 05:22:24",1271570546,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: arifuddin021@pln.co.id
+Passengers: ARIFUDDIN ARIFUDDIN | TWO_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: arifuddin021@pln.co.id
+Passengers: ARIFUDDIN ARIFUDDIN",IDR,Exclusive,2435900,24359
+"24 Jul 2025, 11:23:43",1271630049,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: dalmasius.nugroho@pln.co.id
+Passengers: DALMASIUS NUGROHO ADI PUTRANTO",IDR,Exclusive,1470000,14700
+"24 Jul 2025, 11:25:28",1271630525,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: julyanzah.putra@pln.co.id
+Passengers: JULYANZAH PERDANA PUTRA",IDR,Exclusive,1470000,14700
+"24 Jul 2025, 15:30:15",1271689610,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_BDJ | Pax : 1 | Airline ID : JT
+Booker: bayu.baskoro@pln.co.id
+Passengers: BAYU BASKORO | TWO_WAY | BDJ_UPG | Pax : 1 | Airline ID : GA
+Booker: bayu.baskoro@pln.co.id
+Passengers: BAYU BASKORO",IDR,Exclusive,4723900,47239
+"25 Jul 2025, 11:42:19",1271883017,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: asdaria@pln.co.id
+Passengers: ASDARIA ASDARIA",IDR,Exclusive,2194600,21946
+"25 Jul 2025, 12:43:38",1271898547,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | KDI_UPG | Pax : 1 | Airline ID : JT
+Booker: joni.sitourus@pln.co.id
+Passengers: JONI ALEXANDER HEYT SITORUS",IDR,Exclusive,695400,6954
+"25 Jul 2025, 13:16:52",1271907178,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: bagus.albaranu@pln.co.id
+Passengers: BAGUS ALBARANU YULIATMOKO",IDR,Exclusive,2194600,21946
+"25 Jul 2025, 15:41:20",1271946573,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: asri4@pln.co.id
+Passengers: ASRI ASRI",IDR,Exclusive,805200,8052
+"25 Jul 2025, 15:41:23",1271946688,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: hayat.makmur@pln.co.id
+Passengers: HAYAT MAKMUR",IDR,Exclusive,805200,8052
+"25 Jul 2025, 15:46:27",1271947855,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: amsar.saputra@pln.co.id
+Passengers: AMSAR SAPUTRA",IDR,Exclusive,805200,8052
+"25 Jul 2025, 15:55:28",1271950196,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: firmansyah051@pln.co.id
+Passengers: FIRMANSYAH FIRMANSYAH",IDR,Exclusive,805200,8052
+"25 Jul 2025, 15:55:29",1271950256,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"TWO_WAY | UPG_SUB | Pax : 1 | Airline ID : JT
+Booker: eddy.t@pln.co.id
+Passengers: EDDY TANDILINO | TWO_WAY | SUB_UPG | Pax : 1 | Airline ID : JT
+Booker: eddy.t@pln.co.id
+Passengers: EDDY TANDILINO",IDR,Exclusive,2382400,23824
+"25 Jul 2025, 15:56:29",1271950417,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | DPS_UPG | Pax : 1 | Airline ID : JT
+Booker: mlukman.hakim@pln.co.id
+Passengers: M LUKMAN HAKIM",IDR,Exclusive,910100,9101
+"25 Jul 2025, 16:34:32",1271960455,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_SUB | Pax : 1 | Airline ID : JT
+Booker: komang.yehuda@pln.co.id
+Passengers: KOMANG YEHUDA PRAWIRA",IDR,Exclusive,1057300,10573
+"25 Jul 2025, 18:20:34",1271986781,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: zulkifli.setiok@pln.co.id
+Passengers: ZULKIFLI SETIOK",IDR,Exclusive,1630700,16307
+"25 Jul 2025, 18:22:54",1271987354,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: zulkifli.setiok@pln.co.id
+Passengers: ZULKIFLI SETIOK",IDR,Exclusive,805200,8052
+"25 Jul 2025, 19:45:38",1272008209,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | DPS_UPG | Pax : 1 | Airline ID : JT
+Booker: muhammad.susgandinat@pln.co.id
+Passengers: MUHAMMAD SUSGANDINATA",IDR,Exclusive,910100,9101
+"26 Jul 2025, 01:03:40",1272069264,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: ryan.haryanto@pln.co.id
+Passengers: Ryan Haryanto",IDR,Exclusive,705300,7053
+"26 Jul 2025, 07:41:52",1272092036,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: ryan.haryanto@pln.co.id
+Passengers: Ryan Haryanto",IDR,Exclusive,805200,8052
+"26 Jul 2025, 13:46:33",1272173360,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_BUW | Pax : 1 | Airline ID : JT
+Booker: galih.rhendra@pln.co.id
+Passengers: GALIH RHENDRA PUTRA",IDR,Exclusive,1479700,14797
+"26 Jul 2025, 14:25:11",1272182422,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | HLP_SUB | Pax : 1 | Airline ID : JT
+Booker: dalmasius.nugroho@pln.co.id
+Passengers: DALMASIUS NUGROHO ADI PUTRANTO",IDR,Exclusive,1123800,11238
+"27 Jul 2025, 13:34:19",1272384541,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : JT
+Booker: irsa.mirsan@pln.co.id
+Passengers: MIRSAN MIRSAN",IDR,Exclusive,1277800,12778
+"27 Jul 2025, 16:21:04",1272416013,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: ahmad.amirul@pln.co.id
+Passengers: AHMAD AMIRUL SYARIF",IDR,Exclusive,1293700,12937
+"27 Jul 2025, 16:23:14",1272416483,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: rathy.s.utami@pln.co.id
+Passengers: RATHY SHINTA UTAMI",IDR,Exclusive,1293700,12937
+"27 Jul 2025, 17:01:38",1272423392,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | UPG_CGK | Pax : 1 | Airline ID : GA
+Booker: eka.mayasari@pln.co.id
+Passengers: EKA MAYASARI RACHMAN",IDR,Exclusive,1293700,12937
+"30 Jul 2025, 13:21:53",1273064329,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BDJ_UPG | Pax : 1 | Airline ID : JT
+Booker: yudha.byatara@pln.co.id
+Passengers: YUDHA BYATARA SWANIDA",IDR,Exclusive,1269000,12690
+"30 Jul 2025, 14:16:49",1273078329,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: andi.arlangga@pln.co.id
+Passengers: ANDI ARLANGGA BUSPADI",IDR,Exclusive,2395400,23954
+"30 Jul 2025, 16:38:29",1273111494,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: ahmad.amirul@pln.co.id
+Passengers: AHMAD AMIRUL SYARIF",IDR,Exclusive,1629200,16292
+"30 Jul 2025, 16:38:33",1273111413,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: rathy.s.utami@pln.co.id
+Passengers: RATHY SHINTA UTAMI",IDR,Exclusive,1629200,16292
+"30 Jul 2025, 16:44:33",1273112842,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | CGK_UPG | Pax : 1 | Airline ID : GA
+Booker: eka.mayasari@pln.co.id
+Passengers: EKA MAYASARI RACHMAN",IDR,Exclusive,1890500,18905
+"30 Jul 2025, 18:58:57",1273142405,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: galih.rhendra@pln.co.id
+Passengers: GALIH RHENDRA PUTRA",IDR,Exclusive,744200,7442
+"30 Jul 2025, 21:07:05",1273172636,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: asri4@pln.co.id
+Passengers: ASRI ASRI",IDR,Exclusive,744200,7442
+"30 Jul 2025, 21:10:14",1273173334,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: firmansyah051@pln.co.id
+Passengers: FIRMANSYAH FIRMANSYAH",IDR,Exclusive,744200,7442
+"30 Jul 2025, 21:10:54",1273173437,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: hayat.makmur@pln.co.id
+Passengers: HAYAT MAKMUR",IDR,Exclusive,744200,7442
+"30 Jul 2025, 21:13:29",1273174059,INVOICE,"AFFILIATE
+CORPORATE","plnuiwsulsel
+flight",ID02,"Affiliate Corporate
+Flight",ISSUED,"ONE_WAY | BUW_UPG | Pax : 1 | Airline ID : JT
+Booker: amsar.saputra@pln.co.id
+Passengers: AMSAR SAPUTRA",IDR,Exclusive,744200,7442
+,,,,,,,,,,,236077260,2360773
+SUBTOTAL SERVICE FEE,,,,,,,,,,,,2360773
+VAT,,,,,,,,,,,,259685
+TOTAL TAGIHAN ,,,,,,,,,,,,2620458
+*Pembayaran dapat ditransfer ke akun PLN-TVLK No. Rek. 8098211228144534,,,,,,,,,,,,

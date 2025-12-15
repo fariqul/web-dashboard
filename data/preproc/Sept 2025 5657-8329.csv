@@ -1,0 +1,441 @@
+No,Booking ID,Name,Personnel Number,Trip Number,Origin,Destination,Trip Destination,Departure Date,Return Date,Duration (Days),Payment,Transaction Type,Sheet,Status
+656,1278275513,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177281,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,8/18/2025,8/22/2025,4,646250,payment,September 2025 - CC 5657,active
+657,1278209259,AHMAD FATHAN MAARIF,96197614,4120177235,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/19/2025,8/21/2025,2,758625,payment,September 2025 - CC 5657,active
+658,1278264521,MUHAMMAD HUSNI TAMRIN,92187600,4120177248,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/18/2025,8/20/2025,2,893000,payment,September 2025 - CC 5657,active
+659,1278216062,EDYANSYAH,70957602,4120177293,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1150000,payment,September 2025 - CC 5657,active
+660,1278216043,HUSLAN HUSAIN,71907601,4120177255,Kota Makassar,Kota Bandung,Kota Makassar - Jakarta Pusat - Kota Bandung,8/18/2025,8/23/2025,5,1500000,payment,September 2025 - CC 5657,active
+661,1278216667,EDYANSYAH,70957602,4120177293,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1989000,payment,September 2025 - CC 5657,active
+662,1278225921,MUHAMMAD ISMAIL,78027603,4120177292,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,8/20/2025,8/23/2025,3,2348900,payment,September 2025 - CC 5657,active
+663,1278236178,ANDHIKA PRANANDA,87117615,4120177310,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,8/20/2025,8/23/2025,3,2795000,payment,September 2025 - CC 5657,active
+664,1278380077,AHMAD AMIRUL SYARIF,87108002,4120177320,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,710600,payment,September 2025 - CC 5657,active
+665,1278413767,SUPRIANTO MARWING,95207607,4120177339,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah - Kota Makassar,8/21/2025,8/23/2025,2,744200,payment,September 2025 - CC 5657,active
+666,1278416312,ZULKIFLI SETIOK,89087622,4120177344,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,8/21/2025,8/23/2025,2,744200,payment,September 2025 - CC 5657,active
+667,1278448335,MUHAMMAD SUSGANDINATA,86097601,4120177295,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,8/20/2025,8/23/2025,3,778000,payment,September 2025 - CC 5657,active
+668,1278425394,AHMAD FATHAN MAARIF,96197614,4120177235,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/19/2025,8/21/2025,2,788600,payment,September 2025 - CC 5657,active
+669,1278311850,ARJINOFALTIN,89087605,4120177322,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,799500,payment,September 2025 - CC 5657,active
+670,1278430305,ZULKIFLI SETIOK,89087622,4120177344,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,8/21/2025,8/23/2025,2,844100,payment,September 2025 - CC 5657,active
+671,1278312041,EDYANSYAH,70957602,4120177293,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,865800,payment,September 2025 - CC 5657,active
+672,1278312453,EKO WAHYU PRASONGKO,72937606,4120177315,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/25/2025,8/28/2025,3,865800,payment,September 2025 - CC 5657,active
+673,1278312794,EKO WAHYU PRASONGKO,72937606,4120177315,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/25/2025,8/28/2025,3,1050000,payment,September 2025 - CC 5657,active
+674,1278328953,ANDI BASO MAKKARAKA,81067403,4120177247,Kab. Luwu Timur,Kab. Luwu Timur,Kab. Luwu Timur - Kab. Luwu Timur,8/19/2025,8/23/2025,4,1355400,payment,September 2025 - CC 5657,active
+675,1278333861,AGUS HARI WIBOWO,85097602,4120177263,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,8/19/2025,8/23/2025,4,1355400,payment,September 2025 - CC 5657,active
+676,1278443255,ARIFUDDIN,83087613,4120177326,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,8/21/2025,8/23/2025,2,1380000,payment,September 2025 - CC 5657,active
+677,1278391575,AHMAD AMIRUL SYARIF,87108002,4120177272,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/19/2025,8/21/2025,2,1545300,payment,September 2025 - CC 5657,active
+678,1278445003,M. LUKMAN HAKIM,87127603,4120177306,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,8/20/2025,8/23/2025,3,1556000,payment,September 2025 - CC 5657,active
+679,1278311337,ARJINOFALTIN,89087605,4120177322,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1557152,payment,September 2025 - CC 5657,active
+680,1278426239,RULI RIZALUDDIN,79055400,4120177348,Jakarta Pusat,Jakarta Pusat,Jakarta Pusat - Jakarta Pusat,8/21/2025,8/23/2025,2,1574100,payment,September 2025 - CC 5657,active
+681,1278373724,ARIFUDDIN,83087613,4120177326,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,8/21/2025,8/23/2025,2,1588300,payment,September 2025 - CC 5657,active
+682,1278311757,ARJINOFALTIN,89087605,4120177322,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1674000,payment,September 2025 - CC 5657,active
+683,1278410917,MIRSAN,84087802,4120177347,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/21/2025,8/22/2025,1,1938200,payment,September 2025 - CC 5657,active
+684,1278312571,EKO WAHYU PRASONGKO,72937606,4120177315,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/25/2025,8/28/2025,3,1980000,payment,September 2025 - CC 5657,active
+685,1278323162,NABILA NUR FAIRUZ,1241589,4120177304,Kota Kendari,Kota Bogor,Kota Kendari - Kota Bogor,8/26/2025,8/28/2025,2,1986900,payment,September 2025 - CC 5657,active
+686,1278411633,AHMAD AMIRUL SYARIF,87108002,4120177320,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1989000,payment,September 2025 - CC 5657,active
+687,1278387242,RACHMAT NUR,78068001,4120177283,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/19/2025,8/20/2025,1,2397800,payment,September 2025 - CC 5657,active
+688,1278465239,SUPRIANTO MARWING,95207607,4120177339,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah - Kota Makassar,8/21/2025,8/23/2025,2,680000,payment,September 2025 - CC 5657,active
+689,1278499417,FIRDA HUWAIDA ULFAH,95197618,4120177330,Kab. Bone,Kota Makassar,Kab. Bone - Kota Makassar,8/21/2025,8/22/2025,1,723580,payment,September 2025 - CC 5657,active
+690,1278489341,MYANA RINO ANDHANA,96197633,4120177334,Kab. Bone,Kota Makassar,Kab. Bone - Kota Makassar,8/21/2025,8/22/2025,1,723580,payment,September 2025 - CC 5657,active
+691,1278466858,SUPRIANTO MARWING,95207607,4120177339,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah - Kota Makassar,8/21/2025,8/23/2025,2,760000,payment,September 2025 - CC 5657,active
+692,1278461806,MASRUDI,93137623,4120177332,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/21/2025,8/23/2025,2,810600,payment,September 2025 - CC 5657,active
+693,1278471698,ARIO SUSENO,94167610,4120177333,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,8/21/2025,8/23/2025,2,844100,payment,September 2025 - CC 5657,active
+694,1278465794,JULYANZAH PERDANA PUTRA,88128002,4120177305,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,8/18/2025,8/22/2025,4,976500,payment,September 2025 - CC 5657,active
+695,1278506372,HUSLAN HUSAIN,71907601,4120177255,Kota Makassar,Kota Bandung,Kota Makassar - Jakarta Pusat - Kota Bandung,8/18/2025,8/23/2025,5,987731,payment,September 2025 - CC 5657,active
+696,1278525015,ERWIN LERI,87102007,4120177351,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/21/2025,8/22/2025,1,1285500,payment,September 2025 - CC 5657,active
+697,1278471187,ARIO SUSENO,94167610,4120177333,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,8/21/2025,8/23/2025,2,1380000,payment,September 2025 - CC 5657,active
+698,1278497839,MUHAMMAD ISMAIL,78027603,4120177292,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,8/20/2025,8/23/2025,3,1700000,payment,September 2025 - CC 5657,active
+699,1278602422,MUHAMMAD SUSGANDINATA,86097601,4120177295,Kota Makassar,Kota Semarang,Kota Makassar-Kota Semarang,8/20/2025,8/23/2025,3,778000,payment,September 2025 - CC 5657,active
+700,1278664962,ARIF INDRA WIBOWO,94167614,4120177358,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,8/22/2025,8/23/2025,1,815530,payment,September 2025 - CC 5657,active
+701,1278694488,MASRUDI,93137623,4120177332,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/21/2025,8/23/2025,2,858500,payment,September 2025 - CC 5657,active
+702,1278695371,SARLINA M.KILYKILY,73947604,4120177374,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,8/21/2025,8/23/2025,2,858500,payment,September 2025 - CC 5657,active
+703,1278694632,JEFRI ARDIANSYAH,93137624,4120177345,Kab. Kolaka Utara,Kota Makassar,Kab. Kolaka Utara - Kota Makassar,8/21/2025,8/23/2025,2,902800,payment,September 2025 - CC 5657,active
+704,1278694261,M. ISSAM CHALIBI,91167604,4120177346,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/21/2025,8/23/2025,2,902800,payment,September 2025 - CC 5657,active
+705,1278624202,ANDI SORAYA TENRI BAU,86098669,4120177327,Kota Parepare,Kota Makassar,Kota Parepare - Kota Makassar,8/22/2025,8/23/2025,1,965000,payment,September 2025 - CC 5657,active
+706,1278687971,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177281,Kota Makassar,Kota Bogor,Kota Makassar-Kota Bogor,8/18/2025,8/22/2025,4,1377500,payment,September 2025 - CC 5657,active
+707,1278652806,MIRSAN,84087802,4120177347,Kota Makassar,Jakarta Selatan,Kota Makassar-Jakarta Selatan,8/21/2025,8/22/2025,1,1423300,payment,September 2025 - CC 5657,active
+708,1278692517,RULI RIZALUDDIN,79055400,4120177348,Kota Makassar,Jakarta Pusat,Kota Makassar-Jakarta Pusat,8/21/2025,8/23/2025,2,2084245,payment,September 2025 - CC 5657,active
+709,1278716512,ERWIN LERI,87102007,4120177351,Kota Makassar,Jakarta Selatan,Kota Makassar-Jakarta Selatan,8/21/2025,8/22/2025,1,637700,payment,September 2025 - CC 5657,active
+710,1278770124,SARLINA M.KILYKILY,73947604,4120177374,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,8/21/2025,8/23/2025,2,858500,payment,September 2025 - CC 5657,active
+711,1278778000,EDYANSYAH,70957602,4120177293,Kota Makassar,Kab. Kolaka Utara,Kota Makassar-Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1315800,payment,September 2025 - CC 5657,active
+712,1278778989,ARJINOFALTIN,89087605,4120177322,Kota Makassar,Kab. Kolaka Utara,Kota Makassar-Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1315800,payment,September 2025 - CC 5657,active
+713,1278778690,EKO WAHYU PRASONGKO,72937606,4120177315,Kota Makassar,Kota Kendari,Kota Makassar-Kota Kendari,8/25/2025,8/28/2025,3,1315800,payment,September 2025 - CC 5657,active
+714,1278724291,ZULKIFLI SETIOK,89087622,4120177344,Kota Baubau,Kota Makassar,Kota Baubau-Kota Makassar,8/21/2025,8/23/2025,2,1400000,payment,September 2025 - CC 5657,active
+715,1278699647,HUSLAN HUSAIN,71907601,4120177255,Kota Makassar,Kota Bandung,Kota Makassar-Jakarta Pusat-Kota Bandung,8/18/2025,8/23/2025,5,1600000,payment,September 2025 - CC 5657,active
+716,1278757866,DAMBARUDIN,76037600,4120177246,Kota Baubau,Kota Bogor,Kota Baubau-Kota Bogor,8/18/2025,8/23/2025,5,1605700,payment,September 2025 - CC 5657,active
+717,1278986157,MUHAMMAD ISMAIL,78027603,4120177292,Kota Makassar,Kota Bandung,Kota Makassar-Kota Bandung,8/20/2025,8/23/2025,3,681450,payment,September 2025 - CC 5657,active
+718,1278991756,MUHAMMAD ISMAIL,78027603,4120177292,Kota Makassar,Kota Bandung,Kota Makassar-Kota Bandung,8/20/2025,8/23/2025,3,681450,payment,September 2025 - CC 5657,active
+719,1278882709,M. LUKMAN HAKIM,87127603,4120177306,Kota Makassar,Kota Semarang,Kota Makassar-Kota Semarang,8/20/2025,8/23/2025,3,794750,payment,September 2025 - CC 5657,active
+720,1278921331,MUHAMMAD SUSGANDINATA,86097601,4120177295,Kota Makassar,Kota Semarang,Kota Makassar-Kota Semarang,8/20/2025,8/23/2025,3,794750,payment,September 2025 - CC 5657,active
+721,1278961803,ANDI DWI MULYANA,77037604,4120177390,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,905300,payment,September 2025 - CC 5657,active
+722,1278963847,WENNY DIANA,82097400,4120177391,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,905300,payment,September 2025 - CC 5657,active
+723,1278958455,SRI RESKY MUCHTAR,87104500,4120177388,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,905300,payment,September 2025 - CC 5657,active
+724,1278874170,M. ISSAM CHALIBI,91167604,4120177346,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/21/2025,8/23/2025,2,946200,payment,September 2025 - CC 5657,active
+725,1278935888,DAMBARUDIN,76037600,4120177246,Kota Baubau,Kota Bogor,Kota Baubau-Kota Bogor,8/18/2025,8/23/2025,5,964619,payment,September 2025 - CC 5657,active
+726,1278789956,ERWIN LERI,87102007,4120177351,Kota Makassar,Jakarta Selatan,Kota Makassar-Jakarta Selatan,8/21/2025,8/22/2025,1,1039600,payment,September 2025 - CC 5657,active
+727,1278915579,HUSLAN HUSAIN,71907601,4120177255,Kota Makassar,Kota Bandung,Kota Makassar-Jakarta Pusat-Kota Bandung,8/18/2025,8/23/2025,5,1058000,payment,September 2025 - CC 5657,active
+728,1278913851,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177281,Kota Makassar,Kota Bogor,Kota Makassar-Kota Bogor,8/18/2025,8/22/2025,4,1619800,payment,September 2025 - CC 5657,active
+729,1278819384,DIAN VERONICA,94196205,4120177312,Kota Kendari,Kab. Kolaka,Kota Kendari-Kab. Kolaka,8/26/2025,8/28/2025,2,1628000,payment,September 2025 - CC 5657,active
+730,1278973187,AHMAD FATHAN MAARIF,96197614,4120177384,Kota Kendari,Kota Baubau,Kota Kendari - Kota Baubau,8/22/2025,8/25/2025,3,1683803,payment,September 2025 - CC 5657,active
+731,1278851356,HUSLAN HUSAIN,71907601,4120177255,Kota Makassar,Kota Bandung,Kota Makassar-Jakarta Pusat-Kota Bandung,8/18/2025,8/23/2025,5,1778200,payment,September 2025 - CC 5657,active
+732,1278987317,MUHAMMAD ISMAIL,78027603,4120177292,Kota Makassar,Kota Bandung,Kota Makassar-Kota Bandung,8/20/2025,8/23/2025,3,1794600,payment,September 2025 - CC 5657,active
+733,1279000799,RULI RIZALUDDIN,79055400,4120177348,Kota Makassar,Jakarta Pusat,Kota Makassar-Jakarta Pusat,8/21/2025,8/23/2025,2,1883100,payment,September 2025 - CC 5657,active
+734,1278864703,MUHAMMAD SUSGANDINATA,86097601,4120177295,Kota Makassar,Kota Semarang,Kota Makassar-Kota Semarang,8/20/2025,8/23/2025,3,1885800,payment,September 2025 - CC 5657,active
+735,1278834521,HADI YUSRAN ZAENAL ABIDIN,90087600,4120177314,Kota Kendari,Kab. Kolaka,Kota Kendari-Kab. Kolaka,8/26/2025,8/28/2025,2,1944800,payment,September 2025 - CC 5657,active
+736,1279019278,M. LUKMAN HAKIM,87127603,4120177306,Kota Makassar,Kota Semarang,Kota Makassar-Kota Semarang,8/20/2025,8/23/2025,3,2214100,payment,September 2025 - CC 5657,active
+737,1278806552,ANDHIKA PRANANDA,87117615,4120177310,Kota Makassar,Kota Semarang,Kota Makassar-Kota Semarang,8/20/2025,8/23/2025,3,3068000,payment,September 2025 - CC 5657,active
+738,1279136967,AHMAD AMIRUL SYARIF,87108002,4120177320,Kota Makassar,Kab. Kolaka Utara,Kota Makassar-Kab. Kolaka Utara,8/25/2025,8/28/2025,3,810600,payment,September 2025 - CC 5657,active
+739,1279084822,RESJAN MANAYA SAMBARA,91107603,4120177362,Jakarta Selatan,Jakarta Selatan,Jakarta Selatan - Jakarta Selatan,8/24/2025,8/27/2025,3,1553800,payment,September 2025 - CC 5657,active
+740,1279212382,JULYANZAH PERDANA PUTRA,88128002,4120177386,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/24/2025,8/27/2025,3,1900000,payment,September 2025 - CC 5657,active
+741,1279114802,HUSLAN HUSAIN,71907601,4120177383,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,1947900,payment,September 2025 - CC 5657,active
+742,1279186139,RESJAN MANAYA SAMBARA,91107603,4120177362,Jakarta Selatan,Jakarta Selatan,Jakarta Selatan - Jakarta Selatan,8/24/2025,8/27/2025,3,2340000,payment,September 2025 - CC 5657,active
+743,1279301053,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177401,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/25/2025,8/27/2025,2,1848800,payment,September 2025 - CC 5657,active
+744,1279563210,SRI RESKY MUCHTAR,87104500,4120177388,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,972800,payment,September 2025 - CC 5657,active
+745,1279565981,WENNY DIANA,82097400,4120177391,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,972800,payment,September 2025 - CC 5657,active
+746,1279605694,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177401,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/25/2025,8/27/2025,2,1274225,payment,September 2025 - CC 5657,active
+747,1279470664,HENDRICA WINNY RURUK,90117612,4120177375,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,8/26/2025,8/29/2025,3,1343700,payment,September 2025 - CC 5657,active
+748,1279482488,MIRSAN,84087802,4120177398,Kota Makassar,Kab. Kolaka,Kota Makassar - Kab. Kolaka,8/26/2025,8/28/2025,2,1415700,payment,September 2025 - CC 5657,active
+749,1279474522,HENDRICA WINNY RURUK,90117612,4120177375,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,8/26/2025,8/29/2025,3,1498999,payment,September 2025 - CC 5657,active
+750,1279471612,HENDRICA WINNY RURUK,90117612,4120177375,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,8/26/2025,8/29/2025,3,1619800,payment,September 2025 - CC 5657,active
+751,1279503376,SATRIA PRASAMYA,88127601,4120177403,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,8/25/2025,8/27/2025,2,2344900,payment,September 2025 - CC 5657,active
+752,1279584794,AHMAD FATHAN MAARIF,96197614,4120177408,Kota Kendari,Kab. Bogor,Kota Kendari - Kab. Bogor,8/26/2025,8/28/2025,2,2670500,payment,September 2025 - CC 5657,active
+753,1279492834,SATRIA PRASAMYA,88127601,4120177403,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,8/25/2025,8/27/2025,2,2928158,payment,September 2025 - CC 5657,active
+754,1279652903,AHMAD FATHAN MAARIF,96197614,4120177408,Kota Kendari,Kab. Bogor,Kota Kendari - Kab. Bogor,8/26/2025,8/28/2025,2,725760,payment,September 2025 - CC 5657,active
+755,1279653136,HINDARTO RHOMAD NUR WICAKSONO,93187610,4120177409,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,8/26/2025,8/28/2025,2,725760,payment,September 2025 - CC 5657,active
+756,1279698230,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177401,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/25/2025,8/27/2025,2,1321800,payment,September 2025 - CC 5657,active
+757,1279647652,HINDARTO RHOMAD NUR WICAKSONO,93187610,4120177409,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,8/26/2025,8/28/2025,2,1921500,payment,September 2025 - CC 5657,active
+758,1279777435,BIMA SAKTI MAHARDIKA BUDI,95197623,4120177430,Kab. Muna,Kota Kendari,Kab. Muna - Kota Kendari,8/27/2025,8/30/2025,3,201691,payment,September 2025 - CC 5657,active
+759,1279784974,DIAN ADHIRAMA ACHDAR,81067606,4120177429,Kota Makassar,Kab. Bulukumba,Kota Makassar - Kab. Bulukumba,8/26/2025,8/28/2025,2,380000,payment,September 2025 - CC 5657,active
+760,1279861056,ZAKI ASHARI,90087607,4120177448,Kota Makassar,Kab. Bulukumba,Kota Makassar - Kab. Bulukumba,8/27/2025,8/29/2025,2,525000,payment,September 2025 - CC 5657,active
+761,1279813489,I WAYAN EDY PURNAMA ARSA,91147609,4120177438,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/27/2025,8/30/2025,3,718700,payment,September 2025 - CC 5657,active
+762,1279761551,ANDI DWI MULYANA,77037604,4120177390,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/24/2025,8/26/2025,2,748100,payment,September 2025 - CC 5657,active
+763,1279842298,ASDARIA,93167609,4120177432,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,771158,payment,September 2025 - CC 5657,active
+764,1279841815,ASDARIA,93167609,4120177432,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,778611,payment,September 2025 - CC 5657,active
+765,1279829955,YANUAR MUHAMMAD IQBAL,95207604,4120177396,Kab. Bone,Kota Mataram,Kab. Bone - Kota Mataram,9/1/2025,9/4/2025,3,832944,payment,September 2025 - CC 5657,active
+766,1279827915,ASDARIA,93167609,4120177432,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,844100,payment,September 2025 - CC 5657,active
+767,1279816776,KIKI RESKI ANDRIANI,93153811,4120177437,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,844100,payment,September 2025 - CC 5657,active
+768,1279830032,I WAYAN EDY PURNAMA ARSA,91147609,4120177438,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/27/2025,8/30/2025,3,965100,payment,September 2025 - CC 5657,active
+769,1279864389,HESFIALWAN B,89087601,4120177460,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/26/2025,8/27/2025,1,1186600,payment,September 2025 - CC 5657,active
+770,1279712833,NABILA NUR FAIRUZ,1241589,4120177304,Kota Kendari,Kota Bogor,Kota Kendari-Kota Bogor,8/26/2025,8/28/2025,2,1425000,payment,September 2025 - CC 5657,active
+771,1279823108,MUHAMMAD SUSGANDINATA,86097601,4120177435,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,8/27/2025,8/30/2025,3,1455300,payment,September 2025 - CC 5657,active
+772,1279813147,KOMANG YEHUDA PRAWIRA,86098203,4120177439,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/27/2025,8/30/2025,3,1683800,payment,September 2025 - CC 5657,active
+773,1279825408,BOBY ALFIYANTO,98187623,4120176451,Kab. Bone,Kota Semarang,Kab. Bone-Kota Semarang,7/6/2025,8/28/2025,53,1690000,payment,September 2025 - CC 5657,active
+774,1279783288,RESJAN MANAYA SAMBARA,91107603,4120177362,Jakarta Selatan,Jakarta Selatan,Jakarta Selatan - Jakarta Selatan,8/24/2025,8/27/2025,3,1852100,payment,September 2025 - CC 5657,active
+775,1279766065,BIMA SAKTI MAHARDIKA BUDI,95197623,4120177430,Kab. Muna,Kota Kendari,Kab. Muna - Kota Kendari,8/27/2025,8/30/2025,3,1885500,payment,September 2025 - CC 5657,active
+776,1279840512,KIKI RESKI ANDRIANI,93153811,4120177437,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,2352360,payment,September 2025 - CC 5657,active
+777,1279840520,ASDARIA,93167609,4120177432,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,2352360,payment,September 2025 - CC 5657,active
+778,1279718541,JULYANZAH PERDANA PUTRA,88128002,4120177386,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/24/2025,8/27/2025,3,2381300,payment,September 2025 - CC 5657,active
+779,1279746426,AGUS SALIM,75947601,4120177367,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/1/2025,9/4/2025,3,3379200,payment,September 2025 - CC 5657,active
+780,1279933746,AHMAD FATHAN MAARIF,96197614,4120177408,Kota Kendari,Kab. Bogor,Kota Kendari - Kab. Bogor,8/26/2025,8/28/2025,2,725000,payment,September 2025 - CC 5657,active
+781,1279919097,HESFIALWAN B,89087601,4120177460,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/26/2025,8/27/2025,1,970000,payment,September 2025 - CC 5657,active
+782,1279880270,BONILISA SA'PANG RANTEBALIK,94170108,4120177450,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,1246600,payment,September 2025 - CC 5657,active
+783,1279885673,MIRSAN,84087802,4120177398,Kota Makassar,Kab. Kolaka,Kota Makassar - Kab. Kolaka,8/26/2025,8/28/2025,2,1315800,payment,September 2025 - CC 5657,active
+784,1279922897,NURDIANTY MAHYUDDIN,85117400,4120177436,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,8/27/2025,8/30/2025,3,1455300,payment,September 2025 - CC 5657,active
+785,1279938851,AHMAD FATHAN MAARIF,96197614,4120177408,Kota Kendari,Kab. Bogor,Kota Kendari - Kab. Bogor,8/26/2025,8/28/2025,2,1514100,payment,September 2025 - CC 5657,active
+786,1279944100,I WAYAN EDY PURNAMA ARSA,91147609,4120177438,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/27/2025,8/30/2025,3,1666668,payment,September 2025 - CC 5657,active
+787,1279923720,KOMANG YEHUDA PRAWIRA,86098203,4120177439,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,8/27/2025,8/30/2025,3,1984500,payment,September 2025 - CC 5657,active
+788,1279945762,FATMAWATI,86104000,4120177452,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,2156200,payment,September 2025 - CC 5657,active
+789,1279949244,JASMAN,89107607,4120177447,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,2222200,payment,September 2025 - CC 5657,active
+790,1279933421,SULTAN,73937614,4120177469,Kota Makassar,Kota Manado,Kota Makassar - Kota Manado,8/27/2025,8/30/2025,3,2530598,payment,September 2025 - CC 5657,active
+791,1279931493,SULTAN,73937614,4120177469,Kota Makassar,Kota Manado,Kota Makassar - Kota Manado,8/27/2025,8/30/2025,3,2843500,payment,September 2025 - CC 5657,active
+792,1280063887,DIAN ADHIRAMA ACHDAR,81067606,4120177429,Kota Makassar,Kab. Bulukumba,Kota Makassar - Kab. Bulukumba,8/26/2025,8/28/2025,2,760000,payment,September 2025 - CC 5657,active
+793,1279996489,RATHY SHINTA UTAMI,86093800,4120177458,Kota Makassar,Kota Parepare,Kota Makassar - Kota Parepare,8/27/2025,8/29/2025,2,800000,payment,September 2025 - CC 5657,active
+794,1279995722,SUNARTI,92168019,4120177461,Kota Makassar,Kab. Pinrang,Kota Makassar - Kota Parepare - Kab. Pinrang,8/27/2025,8/29/2025,2,1000000,payment,September 2025 - CC 5657,active
+795,1280007159,LALLA,72937616,4120177468,Kota Makassar,Kota Manado,Kota Makassar - Kota Manado,8/28/2025,8/30/2025,2,1446900,payment,September 2025 - CC 5657,active
+796,1279972692,HESFIALWAN B,89087601,4120177460,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/26/2025,8/27/2025,1,1750000,payment,September 2025 - CC 5657,active
+797,1280049268,MUHAMMAD IMRAN SARBIN AR,74937604,4120177476,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,1870200,payment,September 2025 - CC 5657,active
+798,1279979206,SATRIA PRASAMYA,88127601,4120177403,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,8/25/2025,8/27/2025,2,2156200,payment,September 2025 - CC 5657,active
+799,1280052318,MUHAMMAD IMRAN SARBIN AR,74937604,4120177476,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,2298909,payment,September 2025 - CC 5657,active
+800,1280090086,WASHILATUL HUDA,95197611,4120177412,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/28/2025,8/29/2025,1,2343100,payment,September 2025 - CC 5657,active
+801,1279989558,ZULFIKRI,86088002,4120177454,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,2788200,payment,September 2025 - CC 5657,active
+802,1280006203,LALLA,72937616,4120177468,Kota Makassar,Kota Manado,Kota Makassar - Kota Manado,8/28/2025,8/30/2025,2,2929898,payment,September 2025 - CC 5657,active
+803,1280215756,WASHILATUL HUDA,95197611,4120177412,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/28/2025,8/29/2025,1,736000,payment,September 2025 - CC 5657,active
+804,1280153538,KIKI RESKI ANDRIANI,93153811,4120177437,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,744200,payment,September 2025 - CC 5657,active
+805,1280153613,ASDARIA,93167609,4120177432,Kota Makassar,Kota Baubau,Kota Makassar - Kota Baubau,8/27/2025,8/30/2025,3,744200,payment,September 2025 - CC 5657,active
+806,1280210256,BAMA RUSMALI,96197617,4120177473,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/28/2025,8/29/2025,1,848038,payment,September 2025 - CC 5657,active
+807,1280149341,EKO HANGGORO WICAKSONO,84067601,4120177475,Kota Makassar,Kota Sukabumi,Kota Makassar - Kota Sukabumi,8/28/2025,8/30/2025,2,929280,payment,September 2025 - CC 5657,active
+808,1280140394,WAWANG WIRATAMA,83098401,4120177463,Kota Makassar,Kab. Bone,Kota Makassar - Kab. Bone,8/27/2025,8/29/2025,2,1566360,payment,September 2025 - CC 5657,active
+809,1280139102,ALAMSYAH ANWAR,78050000,4120177456,Kota Makassar,Kab. Bone,Kota Makassar - Kab. Bone,8/27/2025,8/29/2025,2,1566360,payment,September 2025 - CC 5657,active
+810,1280196454,BAMA RUSMALI,96197617,4120177473,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/28/2025,8/29/2025,1,2301000,payment,September 2025 - CC 5657,active
+811,1280132670,EKO HANGGORO WICAKSONO,84067601,4120177475,Kota Makassar,Kota Sukabumi,Kota Makassar - Kota Sukabumi,8/28/2025,8/30/2025,2,3962600,payment,September 2025 - CC 5657,active
+812,1280379885,ZAKI ASHARI,90087607,4120177448,Kota Makassar,Kab. Bulukumba,Kota Makassar - Kab. Bulukumba,8/27/2025,8/29/2025,2,405000,payment,September 2025 - CC 5657,active
+813,1280371861,M. LUKMAN HAKIM,87127603,4120177453,Kota Makassar,Kab. Bulukumba,Kota Makassar - Kab. Bulukumba,8/27/2025,8/29/2025,2,405000,payment,September 2025 - CC 5657,active
+814,1280299982,APRIZAL ARIF AMIR,93157607,4120177481,Kab. Buton Tengah,Kota Baubau,Kab. Buton Tengah - Kota Baubau,8/29/2025,8/30/2025,1,784120,payment,September 2025 - CC 5657,active
+815,1280308209,RICKY TITIN TRIPUTRA,91157612,4120177487,Kab. Wakatobi,Kota Baubau,Kab. Wakatobi - Kota Baubau,8/28/2025,8/30/2025,2,789920,payment,September 2025 - CC 5657,active
+816,1280355920,SATRIA ANSARUDIN ANWAR,96167802,4120177415,Kota Baubau,Kota Kendari,Kota Baubau - Kota Kendari,8/27/2025,8/30/2025,3,1084339,payment,September 2025 - CC 5657,active
+817,1280356009,FORTUNATUS YOSANTONINO SETYONO PUTRA,97196206,4120177433,Kota Kendari,Kota Kendari,Kota Kendari - Kota Kendari,8/27/2025,8/30/2025,3,1084339,payment,September 2025 - CC 5657,active
+818,1280238660,YANUAR MUHAMMAD IQBAL,95207604,4120177396,Kab. Bone,Kota Mataram,Kab. Bone - Kota Mataram,9/1/2025,9/4/2025,3,1879600,payment,September 2025 - CC 5657,active
+819,1280376865,ABDUL RAIS,91127600,4120177506,Kota Baubau,Kota Yogyakarta,Kota Baubau - Kota Yogyakarta,9/1/2025,9/5/2025,4,2598500,payment,September 2025 - CC 5657,active
+820,1280344826,MUHAMMAD IQBAAL MS,94177619,4120177496,Kota Baubau,Kota Yogyakarta,Kota Baubau - Kota Yogyakarta,9/1/2025,9/5/2025,4,3247100,payment,September 2025 - CC 5657,active
+821,1280346724,MUHAMMAD IQBAAL MS,94177619,4120177496,Kota Baubau,Kota Yogyakarta,Kota Baubau - Kota Yogyakarta,9/1/2025,9/5/2025,4,2827000,payment,September 2025 - CC 5657,active
+822,1280387742,ANDI FAUZAN ALIM,98237600,4120177484,Kab. Bulukumba,Kota Makassar,Kab. Bulukumba - Kota Makassar,8/28/2025,8/29/2025,1,628625,payment,September 2025 - CC 5657,active
+823,1280451961,EKO HANGGORO WICAKSONO,84067601,4120177475,Kota Makassar,Kota Sukabumi,Kota Makassar - Kota Sukabumi,8/28/2025,8/30/2025,2,746975,payment,September 2025 - CC 5657,active
+824,1280548362,SEKARWATI CIPTOROSO,96197610,4120177514,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/2/2025,9/5/2025,3,744200,payment,September 2025 - CC 5657,active
+825,1280602319,JASMAN,89107607,4120177447,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,750000,payment,September 2025 - CC 5657,active
+826,1280640250,ISWANTO HAKIM,90117611,4120177480,Kab. Muna,Kota Baubau,Kab. Muna - Kota Baubau,8/28/2025,8/30/2025,2,782655,payment,September 2025 - CC 5657,active
+827,1280636942,AGUS RIANTO WIBOWO,96137735,4120177497,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/2/2025,9/5/2025,3,970800,payment,September 2025 - CC 5657,active
+828,1280530544,MUHAMMAD SUSGANDINATA,86097601,4120177435,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,8/27/2025,8/30/2025,3,1355400,payment,September 2025 - CC 5657,active
+829,1280580127,YOGA YUNIAR B M,96196205,4120177517,Kab. Pinrang,Jakarta Barat,Kab. Pinrang - Jakarta Barat,8/30/2025,9/6/2025,7,1547700,payment,September 2025 - CC 5657,active
+830,1280558996,SEKARWATI CIPTOROSO,96197610,4120177514,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/2/2025,9/5/2025,3,1738800,payment,September 2025 - CC 5657,active
+831,1280590472,FATMAWATI,86104000,4120177452,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,1750000,payment,September 2025 - CC 5657,active
+832,1280628483,M. JABAL NOOR,88087601,4120177501,Kota Kendari,Jakarta Barat,Kota Kendari - Jakarta Barat,8/30/2025,9/6/2025,7,1881500,payment,September 2025 - CC 5657,active
+833,1280599920,RISKY ASWARA ASWIN,95187604,4120177519,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,2329800,payment,September 2025 - CC 5657,active
+834,1280620370,MUHAMMAD REZKI NEHRU,96167812,4120177486,Kota Makassar,Kota Cilegon,Kota Makassar - Kota Cilegon,8/31/2025,9/5/2025,5,2349600,payment,September 2025 - CC 5657,active
+835,1280615523,M. JABAL NOOR,88087601,4120177501,Kota Kendari,Jakarta Barat,Kota Kendari - Jakarta Barat,8/30/2025,9/6/2025,7,2422000,payment,September 2025 - CC 5657,active
+836,1280637841,MUH. RIYAN MIFTA,96187604,4120177502,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,8/31/2025,9/5/2025,5,2643000,payment,September 2025 - CC 5657,active
+837,1280628422,NUR LAYLA SARI HS,93177609,4120177518,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,8/30/2025,9/6/2025,7,4735300,payment,September 2025 - CC 5657,active
+838,1280674442,JASMAN,89107607,4120177447,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,8/27/2025,8/30/2025,3,1787100,payment,September 2025 - CC 5657,active
+839,1280756627,MUHAMMAD ROYAN BUDI RINALDY,85128000,4120177521,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,1330000,payment,September 2025 - CC 5657,active
+840,1280770841,RESJAN MANAYA SAMBARA,91107603,4120177507,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,1330000,payment,September 2025 - CC 5657,active
+841,1280775598,ANDY JUNIWASTIAR,91107606,4120177526,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,1330000,payment,September 2025 - CC 5657,active
+842,1280750410,ARMAN ARIF,88087610,4120177516,Kota Palopo,Jakarta Barat,Kota Palopo - Jakarta Barat,8/30/2025,9/6/2025,7,3724700,payment,September 2025 - CC 5657,active
+843,1280897809,YOGA YUNIAR B M,96196205,4120177517,Kab. Pinrang,Jakarta Barat,Kab. Pinrang - Jakarta Barat,8/30/2025,9/6/2025,7,637338,payment,September 2025 - CC 5657,active
+844,1280738301,MUH. RIYAN MIFTA,96187604,4120177502,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,8/31/2025,9/5/2025,5,2595600,payment,September 2025 - CC 5657,active
+845,1281531139,RATHY SHINTA UTAMI,86093800,4120177479,Kota Makassar,Kab. Mamuju,Kota Makassar - Kab. Mamuju,9/3/2025,9/5/2025,2,778500,payment,September 2025 - CC 5657,active
+846,1281413447,RATHY SHINTA UTAMI,86093800,4120177479,Kota Makassar,Kab. Mamuju,Kota Makassar - Kab. Mamuju,8/31/2025,9/3/2025,3,873400,payment,September 2025 - CC 5657,active
+847,1281513970,RESJAN MANAYA SAMBARA,91107603,4120177507,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,1134200,payment,September 2025 - CC 5657,active
+848,1281517448,ANDY JUNIWASTIAR,91107606,4120177526,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,1134200,payment,September 2025 - CC 5657,active
+849,1281427064,KOMANG YEHUDA PRAWIRA,86098203,4120177539,Kota Makassar,Kab. Mamuju,Kota Makassar - Kab. Mamuju,9/3/2025,9/5/2025,2,1651900,payment,September 2025 - CC 5657,active
+850,1281674926,MUHAMMAD ROYAN BUDI RINALDY,85128000,4120177521,Kota Makassar,Kota Yogyakarta,Kota Makassar - Kota Yogyakarta,9/1/2025,9/5/2025,4,1134200,payment,September 2025 - CC 5657,active
+851,1281744423,MUHAMMAD REZKI NEHRU,96167812,4120177486,Kota Makassar,Kota Cilegon,Kota Makassar - Kota Cilegon,8/31/2025,9/5/2025,5,1431600,payment,September 2025 - CC 5657,active
+852,1281656532,YOGA YUNIAR B M,96196205,4120177517,Kab. Pinrang,Jakarta Barat,Kab. Pinrang - Jakarta Barat,8/30/2025,9/6/2025,7,1431600,payment,September 2025 - CC 5657,active
+853,1281853254,MUH. RIYAN MIFTA,96187604,4120177502,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,8/31/2025,9/5/2025,5,2371200,payment,September 2025 - CC 5657,active
+854,1282019059,EDYANSYAH,70957602,4120177579,Kota Makassar,Jakarta Pusat,Kota Makassar - Kab. Bombana - Jakarta Pusat,9/8/2025,9/12/2025,4,915000,payment,September 2025 - CC 5657,active
+855,1282067546,AGUS SALIM,75947601,4120177585,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/8/2025,9/10/2025,2,990700,payment,September 2025 - CC 5657,active
+856,1282127514,BAYU BASKORO,96197613,4120177567,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,9/8/2025,9/9/2025,1,810000,payment,September 2025 - CC 5657,active
+857,1282123254,EKO WAHYU PRASONGKO,72937606,4120177577,Kota Makassar,Kab. Bombana,Kota Makassar - Kab. Bombana,9/8/2025,9/10/2025,2,975800,payment,September 2025 - CC 5657,active
+858,1282125756,EKO WAHYU PRASONGKO,72937606,4120177577,Kota Makassar,Kab. Bombana,Kota Makassar - Kab. Bombana,9/8/2025,9/10/2025,2,1600000,payment,September 2025 - CC 5657,active
+859,1282128832,EDYANSYAH,70957602,4120177579,Kota Makassar,Jakarta Pusat,Kota Makassar - Kab. Bombana - Jakarta Pusat,9/8/2025,9/12/2025,4,1600000,payment,September 2025 - CC 5657,active
+860,1282131581,BAYU BASKORO,96197613,4120177567,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,9/8/2025,9/9/2025,1,1874200,payment,September 2025 - CC 5657,active
+861,1282121674,BAYU BASKORO,96197613,4120177567,Kota Makassar,Jakarta Pusat,Kota Makassar - Jakarta Pusat,9/8/2025,9/9/2025,1,2289800,payment,September 2025 - CC 5657,active
+862,1282117420,ANGGA SETIAWAN,91107608,4120177599,Kota Makassar,Kota Cilegon,Kota Makassar - Kota Cilegon,9/7/2025,9/12/2025,5,2350900,payment,September 2025 - CC 5657,active
+863,1278695371,SARLINA M.KILYKILY,73947604,4120177374,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,8/21/2025,8/23/2025,2,858500,refund,September 2025 - CC 5657,active
+864,1278694261,M. ISSAM CHALIBI,91167604,4120177346,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,8/21/2025,8/23/2025,2,902800,refund,September 2025 - CC 5657,active
+865,1277517205,EDYANSYAH,70957602,4120177253,Kota Makassar,Kota Bandung,Kota Makassar - Jakarta Pusat - Kota Bandung,8/19/2025,8/22/2025,3,873504,refund,September 2025 - CC 5657,active
+866,1278411633,AHMAD AMIRUL SYARIF,87108002,4120177320,Kota Makassar,Kab. Kolaka Utara,Kota Makassar - Kab. Kolaka Utara,8/25/2025,8/28/2025,3,1989000,refund,September 2025 - CC 5657,active
+867,1280344826,MUHAMMAD IQBAAL MS,94177619,4120177496,Kota Baubau,Kota Yogyakarta,Kota Baubau - Kota Yogyakarta,9/1/2025,9/5/2025,4,2639500,refund,September 2025 - CC 5657,active
+868,1280379885,ZAKI ASHARI,90087607,4120177448,Kota Makassar,Kab. Bulukumba,Kota Makassar - Kab. Bulukumba,8/27/2025,8/29/2025,2,405000,refund,September 2025 - CC 5657,active
+869,1280637841,MUH. RIYAN MIFTA,96187604,4120177502,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,8/31/2025,9/5/2025,5,2643000,refund,September 2025 - CC 5657,active
+870,1280548362,SEKARWATI CIPTOROSO,96197610,4120177514,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/2/2025,9/5/2025,3,397000,refund,September 2025 - CC 5657,active
+871,1279746426,AGUS SALIM,75947601,4120177367,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/1/2025,9/4/2025,3,693900,refund,September 2025 - CC 5657,active
+872,1280558996,SEKARWATI CIPTOROSO,96197610,4120177514,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/2/2025,9/5/2025,3,1738800,refund,September 2025 - CC 5657,active
+873,1279698230,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177401,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,8/25/2025,8/27/2025,2,1321800,refund,September 2025 - CC 5657,active
+874,1280636942,AGUS RIANTO WIBOWO,96137735,4120177497,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/2/2025,9/5/2025,3,717204,refund,September 2025 - CC 5657,active
+875,1279746426,AGUS SALIM,75947601,4120177367,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/1/2025,9/4/2025,3,1213189,refund,September 2025 - CC 5657,active
+876,1282156267,ARJINOFALTIN,89087605,4120177578,Kota Makassar,Kab. Bombana,Kota Makassar - Kab. Bombana,9/8/2025,9/10/2025,2,939600,payment,September 2025 - CC 9386,active
+877,1282169844,AGUS HARI WIBOWO,85097602,4120177603,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,1140600,payment,September 2025 - CC 9386,active
+878,1282156176,SATRIA PRASAMYA,88127601,4120177604,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,2335900,payment,September 2025 - CC 9386,active
+879,1282172316,SATRIA PRASAMYA,88127601,4120177604,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,4380000,payment,September 2025 - CC 9386,active
+880,1282237861,YOGA YUNIAR B M,96196205,4120177517,Kab. Pinrang,Jakarta Barat,Kab. Pinrang - Jakarta Barat,8/30/2025,9/6/2025,7,641250,payment,September 2025 - CC 9386,active
+881,1282422174,BAGUS ALBARANU YULIATMOKO,96207604,4120177607,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/8/2025,9/10/2025,2,705000,payment,September 2025 - CC 9386,active
+882,1282328697,ABDURACHMAN ALHOFIKI,94197605,4120177602,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,705000,payment,September 2025 - CC 9386,active
+883,1282311288,NUR LAYLA SARI HS,93177609,4120177518,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,8/30/2025,9/6/2025,7,841192,payment,September 2025 - CC 9386,active
+884,1282410613,I WAYAN EDY PURNAMA ARSA,91147609,4120177586,Kota Makassar,Kab. Konawe Utara,Kota Makassar - Kab. Konawe Utara,9/8/2025,9/10/2025,2,864200,payment,September 2025 - CC 9386,active
+885,1282462092,LELY SRIHANDAYANI,85097604,4120177608,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,926640,payment,September 2025 - CC 9386,active
+886,1282363266,ISKANDAR AZHAR,88097609,4120177611,Kota Makassar,Kota Bogor,Kota Makassar-Kota Bogor,9/7/2025,9/10/2025,3,935000,payment,September 2025 - CC 9386,active
+887,1282333652,ABDURACHMAN ALHOFIKI,94197605,4120177602,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,1750000,payment,September 2025 - CC 9386,active
+888,1282362057,ISKANDAR AZHAR,88097609,4120177611,Kota Makassar,Kota Bogor,Kota Makassar-Kota Bogor,9/7/2025,9/10/2025,3,1804000,payment,September 2025 - CC 9386,active
+889,1282367476,HUSEN SOBRI,76957800,4120177612,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/7/2025,9/10/2025,3,1804000,payment,September 2025 - CC 9386,active
+890,1282448709,BAGUS ALBARANU YULIATMOKO,96207604,4120177607,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/8/2025,9/10/2025,2,2294000,payment,September 2025 - CC 9386,active
+891,1282375469,LELY SRIHANDAYANI,85097604,4120177608,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,2341600,payment,September 2025 - CC 9386,active
+892,1282219412,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,2347100,payment,September 2025 - CC 9386,active
+893,1282316897,ABDURACHMAN ALHOFIKI,94197605,4120177602,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,2347100,payment,September 2025 - CC 9386,active
+894,1282465156,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,2820000,payment,September 2025 - CC 9386,active
+895,1282579388,ISKANDAR AZHAR,88097609,4120177611,Kota Makassar,Kota Bogor,Kota Makassar-Kota Bogor,9/7/2025,9/10/2025,3,2335900,payment,September 2025 - CC 9386,active
+896,1282579712,SITTI FAUZIAH AHMAD,93157614,4120177606,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/7/2025,9/10/2025,3,2335900,payment,September 2025 - CC 9386,active
+897,1282576311,HUSEN SOBRI,76957800,4120177612,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/7/2025,9/10/2025,3,2347100,payment,September 2025 - CC 9386,active
+898,1282578012,MUH. HUSHARDI HUSAIN,95197608,4120177613,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,9/7/2025,9/12/2025,5,2510100,payment,September 2025 - CC 9386,active
+899,1282850479,RIVAD YUNUS,97177623,4120177593,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,900000,payment,September 2025 - CC 9386,active
+900,1282848469,RUDIANSA,91127625,4120177598,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,900000,payment,September 2025 - CC 9386,active
+901,1282745592,EKO WAHYU PRASONGKO,72937606,4120177577,Kota Makassar,Kab. Bombana,Kota Makassar - Kab. Bombana,9/8/2025,9/10/2025,2,939600,payment,September 2025 - CC 9386,active
+902,1282844804,FERI ARDIANSYAH,96167826,4120177590,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,1260000,payment,September 2025 - CC 9386,active
+903,1282845029,ANDI DEDE HAFIZULLAH,98177609,4120177596,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,1260000,payment,September 2025 - CC 9386,active
+904,1282843869,MUHAMMAD FATHUR RAYYAN,96177621,4120177592,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,1260000,payment,September 2025 - CC 9386,active
+905,1282745804,EDYANSYAH,70957602,4120177579,Kota Makassar,Jakarta Pusat,Kota Makassar - Kab. Bombana - Jakarta Pusat,9/8/2025,9/12/2025,4,1618300,payment,September 2025 - CC 9386,active
+906,1282745845,ARJINOFALTIN,89087605,4120177578,Kota Makassar,Kab. Bombana,Kota Makassar - Kab. Bombana,9/8/2025,9/10/2025,2,1750000,payment,September 2025 - CC 9386,active
+907,1282758201,AGUS HARI WIBOWO,85097602,4120177603,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,1752500,payment,September 2025 - CC 9386,active
+908,1282769219,BAHAGIA KASPAR MONGAN,90148000,4120177605,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,2395700,payment,September 2025 - CC 9386,active
+909,1282776518,SATRIA PRASAMYA,88127601,4120177604,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,2395700,payment,September 2025 - CC 9386,active
+910,1282894851,ABDURACHMAN ALHOFIKI,94197605,4120177602,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,840000,payment,September 2025 - CC 9386,active
+911,1282919258,FAUZAN HODEIBI HADDAD,87087601,4120177621,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,9/8/2025,9/11/2025,3,844100,payment,September 2025 - CC 9386,active
+912,1282904319,AGUS HARI WIBOWO,85097602,4120177603,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,965925,payment,September 2025 - CC 9386,active
+913,1282904682,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/8/2025,3,1073250,payment,September 2025 - CC 9386,active
+914,1282878877,FAUZAN HODEIBI HADDAD,87087601,4120177621,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,9/8/2025,9/11/2025,3,1139700,payment,September 2025 - CC 9386,active
+915,1282925488,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177622,Kota Baubau,Kab. Muna,Kota Baubau - Kab. Muna,9/8/2025,9/11/2025,3,1153800,payment,September 2025 - CC 9386,active
+916,1282917847,FAUZAN HODEIBI HADDAD,87087601,4120177621,Kota Makassar,Kota Makassar,Kota Makassar - Kota Makassar,9/8/2025,9/11/2025,3,2040000,payment,September 2025 - CC 9386,active
+917,1282905315,ADHITYA IBNU ABDILLAH,91147605,4120177615,Kota Palopo,Kota Makassar,Kota Palopo - Kota Makassar,9/8/2025,9/11/2025,3,2275875,payment,September 2025 - CC 9386,active
+918,1282901239,A. DZAKKY SHUFI,87107613,4120177631,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/8/2025,9/12/2025,4,2309900,payment,September 2025 - CC 9386,active
+919,1282895293,MANSYUR FAHMI,96197639,4120177627,Kab. Mamuju,Jakarta Selatan,Kab. Mamuju - Jakarta Selatan,9/8/2025,9/13/2025,5,2341600,payment,September 2025 - CC 9386,active
+920,1282974400,ANDI DEDE HAFIZULLAH,98177609,4120177596,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,250000,payment,September 2025 - CC 9386,active
+921,1282984643,RUDIANSA,91127625,4120177598,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,250000,payment,September 2025 - CC 9386,active
+922,1282986077,RIVAD YUNUS,97177623,4120177593,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,250000,payment,September 2025 - CC 9386,active
+923,1282960886,MUHAMMAD FATHUR RAYYAN,96177621,4120177592,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,250000,payment,September 2025 - CC 9386,active
+924,1282961062,FERI ARDIANSYAH,96167826,4120177590,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,250000,payment,September 2025 - CC 9386,active
+925,1283093776,DIAN ADHIRAMA ACHDAR,81067606,4120177635,Kota Makassar,Kab. Polewali Mandar,Kota Makassar - Kab. Polewali Mandar,9/8/2025,9/12/2025,4,291200,payment,September 2025 - CC 9386,active
+926,1283048463,A. DZAKKY SHUFI,87107613,4120177631,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/8/2025,9/12/2025,4,914297,payment,September 2025 - CC 9386,active
+927,1282996239,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177637,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,939700,payment,September 2025 - CC 9386,active
+928,1282961406,JULYANZAH PERDANA PUTRA,88128002,4120177614,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,1065100,payment,September 2025 - CC 9386,active
+929,1283101560,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177624,Kota Baubau,Kota Banjarbaru,Kota Baubau - Kota Banjarbaru,9/14/2025,9/18/2025,4,1245200,payment,September 2025 - CC 9386,active
+930,1283006483,SYAIFUL ISLAM,94187617,4120177623,Kab. Bone,Kota Makassar,Kab. Bone - Kota Makassar,9/8/2025,9/10/2025,2,1270358,payment,September 2025 - CC 9386,active
+931,1283013428,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177637,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,1333800,payment,September 2025 - CC 9386,active
+932,1283034628,JULYANZAH PERDANA PUTRA,88128002,4120177614,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,1587600,payment,September 2025 - CC 9386,active
+933,1282997884,LELY SRIHANDAYANI,85097604,4120177608,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,2370400,payment,September 2025 - CC 9386,active
+934,1283075231,TASH'QIA VENINTIA,96197618,4120177601,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/8/2025,9/11/2025,3,2553000,payment,September 2025 - CC 9386,active
+935,1283081925,SEPTYANTO NUGROHO,95197610,4120177643,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/9/2025,9/13/2025,4,2680000,payment,September 2025 - CC 9386,active
+936,1282988798,MANSYUR FAHMI,96197639,4120177627,Kab. Mamuju,Jakarta Selatan,Kab. Mamuju - Jakarta Selatan,9/8/2025,9/13/2025,5,3236185,payment,September 2025 - CC 9386,active
+937,1283131857,KRESKY YULIANTO,96137676,4120177641,Kota Makassar,Kab. Luwu Timur,Kota Makassar - Kab. Luwu Timur,9/8/2025,9/13/2025,5,525000,payment,September 2025 - CC 9386,active
+938,1283112870,SEPTYANTO NUGROHO,95197610,4120177643,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/9/2025,9/13/2025,4,876400,payment,September 2025 - CC 9386,active
+939,1283140044,JULIO ISNANJAR ARDHIYANTO,87117612,4120177633,Kab. Bulukumba,Kota Makassar,Kab. Bulukumba - Kota Makassar,9/9/2025,9/11/2025,2,1362953,payment,September 2025 - CC 9386,active
+940,1283102400,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177624,Kota Baubau,Kota Banjarbaru,Kota Baubau - Kota Banjarbaru,9/14/2025,9/18/2025,4,2168800,payment,September 2025 - CC 9386,active
+941,1283315757,DIAN ADHIRAMA ACHDAR,81067606,4120177635,Kota Makassar,Kab. Polewali Mandar,Kota Makassar - Kab. Polewali Mandar,9/8/2025,9/12/2025,4,270400,payment,September 2025 - CC 9386,active
+942,1283329176,KRESKY YULIANTO,96137676,4120177641,Kota Makassar,Kab. Luwu Timur,Kota Makassar - Kab. Luwu Timur,9/8/2025,9/13/2025,5,572850,payment,September 2025 - CC 9386,active
+943,1283348481,I WAYAN EDY PURNAMA ARSA,91147609,4120177586,Kota Makassar,Kab. Konawe Utara,Kota Makassar - Kab. Konawe Utara,9/8/2025,9/10/2025,2,641026,payment,September 2025 - CC 9386,active
+944,1283360383,SEKARWATI CIPTOROSO,96197610,4120177659,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/10/2025,9/13/2025,3,744200,payment,September 2025 - CC 9386,active
+945,1283208967,ANDI MU'AYYAD MAPPAKAYA,96137658,4120177630,Kab. Bulukumba,Kab. Bone,Kab. Bulukumba - Kab. Bone,9/8/2025,9/12/2025,4,810000,payment,September 2025 - CC 9386,active
+946,1283290367,BAGUS ALBARANU YULIATMOKO,96207604,4120177607,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/8/2025,9/10/2025,2,840000,payment,September 2025 - CC 9386,active
+947,1283349572,I WAYAN EDY PURNAMA ARSA,91147609,4120177586,Kota Makassar,Kab. Konawe Utara,Kota Makassar - Kab. Konawe Utara,9/8/2025,9/10/2025,2,857400,payment,September 2025 - CC 9386,active
+948,1283218255,AGUS RIANTO WIBOWO,96137735,4120177647,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/10/2025,9/13/2025,3,861400,payment,September 2025 - CC 9386,active
+949,1283212092,AGUS SALIM,75947601,4120177585,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/8/2025,9/10/2025,2,861400,payment,September 2025 - CC 9386,active
+950,1283278295,LELY SRIHANDAYANI,85097604,4120177608,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/8/2025,9/10/2025,2,990000,payment,September 2025 - CC 9386,active
+951,1283265535,KHAYRUNNISA B. MUHAMMADIA,93167626,4120177642,Kota Makassar,Kota Depok,Kota Makassar - Kota Depok,9/11/2025,9/13/2025,2,1242700,payment,September 2025 - CC 9386,active
+952,1283362602,SEKARWATI CIPTOROSO,96197610,4120177659,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/10/2025,9/13/2025,3,1787100,payment,September 2025 - CC 9386,active
+953,1283272908,HUSEN SOBRI,76957800,4120177612,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/7/2025,9/10/2025,3,1874200,payment,September 2025 - CC 9386,active
+954,1283327139,YULI ASHANIAIS RAMADANI,79047601,4120177649,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/10/2025,9/11/2025,1,2183400,payment,September 2025 - CC 9386,active
+955,1283327187,MIRSAN,84087802,4120177648,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/10/2025,9/11/2025,1,2183400,payment,September 2025 - CC 9386,active
+956,1283267596,BAGUS ALBARANU YULIATMOKO,96207604,4120177607,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/8/2025,9/10/2025,2,2232900,payment,September 2025 - CC 9386,active
+957,1283269952,ISKANDAR AZHAR,88097609,4120177611,Kota Makassar,Kota Bogor,Kota Makassar-Kota Bogor,9/7/2025,9/10/2025,3,2235500,payment,September 2025 - CC 9386,active
+958,1283258169,SITTI FAUZIAH AHMAD,93157614,4120177606,Kota Makassar,Kab. Bogor,Kota Makassar - Kab. Bogor,9/7/2025,9/10/2025,3,2235500,payment,September 2025 - CC 9386,active
+959,1283366776,A. DZAKKY SHUFI,87107613,4120177631,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/8/2025,9/12/2025,4,899200,payment,September 2025 - CC 9386,active
+960,1283374037,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/13/2025,8,1237500,payment,September 2025 - CC 9386,active
+961,1283372586,RICKY TITIN TRIPUTRA,91157612,4120177666,Kab. Wakatobi,Kota Baubau,Kab. Wakatobi - Kota Baubau,9/10/2025,9/12/2025,2,1370400,payment,September 2025 - CC 9386,active
+962,1283533109,DIAN ADHIRAMA ACHDAR,81067606,4120177635,Kota Makassar,Kab. Polewali Mandar,Kota Makassar - Kab. Polewali Mandar,9/8/2025,9/12/2025,4,405599,payment,September 2025 - CC 9386,active
+963,1283542546,MIRSAN,84087802,4120177648,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/10/2025,9/11/2025,1,1004300,payment,September 2025 - CC 9386,active
+964,1283543658,YULI ASHANIAIS RAMADANI,79047601,4120177649,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/10/2025,9/11/2025,1,1226940,payment,September 2025 - CC 9386,active
+965,1283475142,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/13/2025,8,1237500,payment,September 2025 - CC 9386,active
+966,1283459742,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177637,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,1320000,payment,September 2025 - CC 9386,active
+967,1283583189,AHMAD FATHAN MAARIF,96197614,4120177673,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/10/2025,9/12/2025,2,1677089,payment,September 2025 - CC 9386,active
+968,1283512959,GABRIELLE ALLENA,98241171,4120177656,Kota Cilegon,Kota Cilegon,Kota Cilegon - Kota Cilegon,9/14/2025,9/19/2025,5,1905200,payment,September 2025 - CC 9386,active
+969,1283535506,SOFYAN ASBAR,96187638,4120177670,Kab. Mamuju,Kota Makassar,Kab. Mamuju - Kota Makassar,9/10/2025,9/13/2025,3,2010000,payment,September 2025 - CC 9386,active
+970,1283626556,KRESKY YULIANTO,96137676,4120177641,Kota Makassar,Kab. Luwu Timur,Kota Makassar - Kab. Luwu Timur,9/8/2025,9/13/2025,5,364000,payment,September 2025 - CC 9386,active
+971,1283666832,MUHAMMAD ISMAIL,78027603,4120177661,Kota Makassar,Kab. Enrekang,Kota Makassar - Kab. Enrekang,9/10/2025,9/11/2025,1,459550,payment,September 2025 - CC 9386,active
+972,1283680912,HUSLAN HUSAIN,71907601,4120177664,Kota Makassar,Kab. Pinrang,Kota Makassar - Kab. Pinrang,9/10/2025,9/11/2025,1,590850,payment,September 2025 - CC 9386,active
+973,1283667231,WENNY DIANA,82097400,4120177662,Kota Makassar,Kab. Enrekang,Kota Makassar - Kab. Enrekang,9/10/2025,9/11/2025,1,590850,payment,September 2025 - CC 9386,active
+974,1283620310,APRIZAL ARIF AMIR,93157607,4120177667,Kab. Buton Tengah,Kota Baubau,Kab. Buton Tengah - Kota Baubau,9/11/2025,9/12/2025,1,615400,payment,September 2025 - CC 9386,active
+975,1283699188,JULYANZAH PERDANA PUTRA,88128002,4120177614,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,793800,payment,September 2025 - CC 9386,active
+976,1283667643,SEKARWATI CIPTOROSO,96197610,4120177659,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/10/2025,9/13/2025,3,844100,payment,September 2025 - CC 9386,active
+977,1283645584,A. DZAKKY SHUFI,87107613,4120177631,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/8/2025,9/12/2025,4,2086800,payment,September 2025 - CC 9386,active
+978,1283816031,A. MALLOMBASSI,86118004,4120177657,Kab. Bone,Kab. Bulukumba,Kab. Bone-Kab. Bulukumba,9/11/2025,9/12/2025,1,380000,payment,September 2025 - CC 9386,active
+979,1283824756,KRESKY YULIANTO,96137676,4120177641,Kota Makassar,Kab. Luwu Timur,Kota Makassar - Kab. Luwu Timur,9/8/2025,9/13/2025,5,593249,payment,September 2025 - CC 9386,active
+980,1283764159,ISWANTO HAKIM,90117611,4120177665,Kab. Muna,Kota Baubau,Kab. Muna - Kota Baubau,9/10/2025,9/12/2025,2,615400,payment,September 2025 - CC 9386,active
+981,1283733251,ANDI WARIS,95197613,4120177683,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/11/2025,9/13/2025,2,705200,payment,September 2025 - CC 9386,active
+982,1283857365,AGUS HARI WIBOWO,85097602,4120177603,Kota Makassar,Jakarta,Kota Makassar-Kota Bogor-Jakarta,9/5/2025,9/13/2025,8,735000,payment,September 2025 - CC 9386,active
+983,1283724037,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/13/2025,8,1237500,payment,September 2025 - CC 9386,active
+984,1283762773,MUH. HUSHARDI HUSAIN,95197608,4120177613,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,9/7/2025,9/12/2025,5,2199300,payment,September 2025 - CC 9386,active
+985,1283769630,YULI ASHANIAIS RAMADANI,79047601,4120177649,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/10/2025,9/11/2025,1,2232900,payment,September 2025 - CC 9386,active
+986,1283791653,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177624,Kota Baubau,Kota Banjarbaru,Kota Baubau - Kota Banjarbaru,9/14/2025,9/18/2025,4,2468900,payment,September 2025 - CC 9386,active
+987,1283739641,AGUS SALIM,75947601,4120177684,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/16/2025,9/18/2025,2,3170200,payment,September 2025 - CC 9386,active
+988,1283938402,ANDI WARIS,95197613,4120177683,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/11/2025,9/13/2025,2,741000,payment,September 2025 - CC 9386,active
+989,1283861388,JULYANZAH PERDANA PUTRA,88128002,4120177614,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,1233800,payment,September 2025 - CC 9386,active
+990,1283873551,AHMAD FATHAN MAARIF,96197614,4120177673,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/10/2025,9/12/2025,2,2585800,payment,September 2025 - CC 9386,active
+991,1284107175,KRESKY YULIANTO,96137676,4120177641,Kota Makassar,Kab. Luwu Timur,Kota Makassar - Kab. Luwu Timur,9/8/2025,9/13/2025,5,500000,payment,September 2025 - CC 9386,active
+992,1284005588,AGUS HARI WIBOWO,85097602,4120177603,Kota Makassar,Jakarta,Kota Makassar-Kota Bogor-Jakarta,9/5/2025,9/13/2025,8,700000,payment,September 2025 - CC 9386,active
+993,1284161577,SYAHLAN,88087602,4120177707,Kota Makassar,Kab. Muna,Kota Makassar - Kab. Muna,9/14/2025,9/17/2025,3,866600,payment,September 2025 - CC 9386,active
+994,1284106780,SEPTYANTO NUGROHO,95197610,4120177643,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/9/2025,9/13/2025,4,876400,payment,September 2025 - CC 9386,active
+995,1284009029,JULYANZAH PERDANA PUTRA,88128002,4120177614,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,916617,payment,September 2025 - CC 9386,active
+996,1283979109,DALMASIUS NUGROHO ADI PUTRANTO,80077601,4120177637,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/8/2025,9/13/2025,5,921500,payment,September 2025 - CC 9386,active
+997,1284163454,SYAHLAN,88087602,4120177707,Kota Makassar,Kab. Muna,Kota Makassar - Kab. Muna,9/14/2025,9/17/2025,3,952600,payment,September 2025 - CC 9386,active
+998,1284185820,RACHMAT NUR,78068001,4120177718,Kota Makassar,Kab. Kepulauan Selayar,Kota Makassar - Kab. Kepulauan Selayar,9/12/2025,9/14/2025,2,1084337,payment,September 2025 - CC 9386,active
+999,1284086504,ANGGA SETIAWAN,91107608,4120177599,Kota Makassar,Kota Cilegon,Kota Makassar - Kota Cilegon,9/7/2025,9/12/2025,5,1844400,payment,September 2025 - CC 9386,active
+1000,1284012621,MIRSAN,84087802,4120177648,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/10/2025,9/12/2025,2,1844400,payment,September 2025 - CC 9386,active
+1001,1284050674,FACHRUDDIN SYARIF,98187625,4120177710,Kota Kendari,Jakarta Pusat,Kota Kendari - Jakarta Pusat,9/14/2025,9/19/2025,5,1867300,payment,September 2025 - CC 9386,active
+1002,1284048970,MUHAMMAD RAHMAT PATI YUNUS,92127609,4120177712,Kota Kendari,Kota Cilegon,Kota Kendari - Kota Cilegon,9/14/2025,9/19/2025,5,1867300,payment,September 2025 - CC 9386,active
+1003,1283956711,RULI RIZALUDDIN,79055400,4120177600,Kota Makassar,Kota Bogor,Kota Makassar - Kota Bogor,9/5/2025,9/13/2025,8,1933200,payment,September 2025 - CC 9386,active
+1004,1284114323,BAMA RUSMALI,96197617,4120177706,Kota Makassar,Kota Cilegon,Kota Makassar - Kota Cilegon,9/14/2025,9/19/2025,5,2182800,payment,September 2025 - CC 9386,active
+1005,1284114348,MUH ISMAIL ANWAR,97177614,4120177687,Kota Makassar,Kota Cilegon,Kota Makassar - Kota Cilegon,9/14/2025,9/19/2025,5,2182800,payment,September 2025 - CC 9386,active
+1006,1283991200,MANSYUR FAHMI,96197639,4120177627,Kab. Mamuju,Jakarta Selatan,Kab. Mamuju - Jakarta Selatan,9/8/2025,9/13/2025,5,2244000,payment,September 2025 - CC 9386,active
+1007,1284259338,INDAH ADELIA NUR SYAHBANI,97197614,4120177722,Kab. Polewali Mandar,Kab. Mamuju,Kab. Polewali Mandar - Kab. Mamuju,9/14/2025,9/15/2025,1,570000,payment,September 2025 - CC 9386,active
+1008,1284257708,ENDAH SURYANING WULANDARI,96196200,4120177717,Kota Parepare,Kota Surabaya,Kota Parepare - Kota Surabaya,9/14/2025,9/20/2025,6,2066200,payment,September 2025 - CC 9386,active
+1009,1284464335,MUHAMMAD ANDHI,96167880,4120177725,Kab. Mamasa,Kab. Mamuju,Kab. Mamasa - Kab. Mamuju,9/14/2025,9/15/2025,1,570000,payment,September 2025 - CC 9386,active
+1010,1284472867,SEPTYANTO NUGROHO,95197610,4120177723,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/14/2025,9/17/2025,3,1787600,payment,September 2025 - CC 9386,active
+1011,1284476218,SEPTYANTO NUGROHO,95197610,4120177723,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/14/2025,9/17/2025,3,2034510,payment,September 2025 - CC 9386,active
+1012,1284756891,M.SYAMSUL KAMAR,71947602,4120177728,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,1415700,payment,September 2025 - CC 9386,active
+1013,1284739079,AKBAR KHASHEMI HAMZAH,89145602,4120177733,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,9/16/2025,9/18/2025,2,2000000,payment,September 2025 - CC 9386,active
+1014,1284718336,AKBAR KHASHEMI HAMZAH,89145602,4120177733,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,9/16/2025,9/18/2025,2,2345200,payment,September 2025 - CC 9386,active
+1015,1284672926,SEPTYANTO NUGROHO,95197610,4120177723,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/14/2025,9/17/2025,3,2395400,payment,September 2025 - CC 9386,active
+1016,1284828532,MUCHAMAD PAMUNGKAS,92197600,4120177741,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,800000,payment,September 2025 - CC 9386,active
+1017,1284828810,MUCHAMAD PAMUNGKAS,92197600,4120177741,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,800000,payment,September 2025 - CC 9386,active
+1018,1284829367,MUCHAMAD PAMUNGKAS,92197600,4120177741,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,800000,payment,September 2025 - CC 9386,active
+1019,1284819356,IBRAHIM,88107607,4120177736,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,1024700,payment,September 2025 - CC 9386,active
+1020,1284817734,MUCHAMAD PAMUNGKAS,92197600,4120177741,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,1024700,payment,September 2025 - CC 9386,active
+1021,1284778155,MUHAMMAD ICHLAS FATTAH,71937801,4120177729,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,1340200,payment,September 2025 - CC 9386,active
+1022,1284827806,AMBO TUWO,76027600,4120177743,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,9/16/2025,9/18/2025,2,1831600,payment,September 2025 - CC 9386,active
+1023,1284882684,IBRAHIM,88107607,4120177736,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,975600,payment,September 2025 - CC 9386,active
+1024,1284993363,ANDI ANGGA SAPUTRA BATARA,89087603,4120177753,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/17/2025,9/19/2025,2,975600,payment,September 2025 - CC 9386,active
+1025,1284993573,SARLINA M.KILYKILY,73947604,4120177771,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/17/2025,9/19/2025,2,1504000,payment,September 2025 - CC 9386,active
+1026,1284928569,HADHI BAGUS SETYANTO,87117602,4120177758,Kota Makassar,Kota Malang,Kota Makassar - Kota Malang,9/16/2025,9/20/2025,4,1618400,payment,September 2025 - CC 9386,active
+1027,1284903059,ARMAN,74937601,4120177755,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,9/17/2025,9/27/2025,10,1939100,payment,September 2025 - CC 9386,active
+1028,1284899346,M. LUKMAN HAKIM,87127603,4120177747,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/17/2025,9/19/2025,2,2303500,payment,September 2025 - CC 9386,active
+1029,1284975861,RHAMADANI WIBISONO,90127601,4120177752,Kota Palopo,Kota Makassar,Kota Palopo - Kota Makassar,9/17/2025,9/19/2025,2,2615300,payment,September 2025 - CC 9386,active
+1030,1284882100,IBRAHIM,88107607,4120177736,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,2940000,payment,September 2025 - CC 9386,active
+1031,1284975236,YULI ASHANIAIS RAMADANI,79047601,4120177763,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/17/2025,9/19/2025,2,3544694,payment,September 2025 - CC 9386,active
+1032,1284934687,AMBO TUWO,76027600,4120177743,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,9/16/2025,9/18/2025,2,3562428,payment,September 2025 - CC 9386,active
+1033,1284932326,NUR LAYLA SARI HS,93177609,4120177754,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,9/17/2025,9/27/2025,10,4740600,payment,September 2025 - CC 9386,active
+1034,1284964943,WAWANG WIRATAMA,83098401,4120177759,Kota Makassar,Kota Malang,Kota Makassar - Kota Malang,9/16/2025,9/20/2025,4,4760000,payment,September 2025 - CC 9386,active
+1035,1285008102,RHAMADANI WIBISONO,90127601,4120177752,Kota Palopo,Kota Makassar,Kota Palopo - Kota Makassar,9/17/2025,9/19/2025,2,776900,payment,September 2025 - CC 9386,active
+1036,1285006362,RHAMADANI WIBISONO,90127601,4120177752,Kota Palopo,Kota Makassar,Kota Palopo - Kota Makassar,9/17/2025,9/19/2025,2,862341,payment,September 2025 - CC 9386,active
+1037,1284998244,MUHAMMAD ICHLAS FATTAH,71937801,4120177729,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,975600,payment,September 2025 - CC 9386,active
+1038,1285040778,SUPRIANTO MARWING,95207607,4120177777,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah - Kota Makassar,9/17/2025,9/19/2025,2,1139700,payment,September 2025 - CC 9386,active
+1039,1285031069,ARDAYA PRATAMA,1247601,4120177772,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/17/2025,9/19/2025,2,1139700,payment,September 2025 - CC 9386,active
+1040,1285031276,MUHAMMAD IQBAL NUR,89097601,4120177765,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/17/2025,9/19/2025,2,1139700,payment,September 2025 - CC 9386,active
+1041,1285051591,ARDAYA PRATAMA,1247601,4120177772,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/17/2025,9/19/2025,2,1447110,payment,September 2025 - CC 9386,active
+1042,1285005327,ANDI ANGGA SAPUTRA BATARA,89087603,4120177753,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/17/2025,9/19/2025,2,1518000,payment,September 2025 - CC 9386,active
+1043,1285009610,MUHAMMAD ICHLAS FATTAH,71937801,4120177729,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,1923078,payment,September 2025 - CC 9386,active
+1044,1285072768,YULI ASHANIAIS RAMADANI,79047601,4120177763,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/17/2025,9/19/2025,2,2303500,payment,September 2025 - CC 9386,active
+1045,1285061599,ANDY JUNIWASTIAR,91107606,4120177760,Kota Makassar,Jakarta Barat,Kota Makassar - Jakarta Barat,9/17/2025,9/27/2025,10,2345200,payment,September 2025 - CC 9386,active
+1046,1285096049,ANGGIH PRASETYA,88117613,4120177784,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/17/2025,9/19/2025,2,744200,payment,September 2025 - CC 9386,active
+1047,1285115802,SUPRIANTO MARWING,95207607,4120177777,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah - Kota Makassar,9/17/2025,9/19/2025,2,844100,payment,September 2025 - CC 9386,active
+1048,1285131374,ROLANDI TUMPAL FERNANDES MARTUA SIREGAR,90147609,4120177798,Kab. Bone,Kota Makassar,Kab. Bone - Kota Makassar,9/17/2025,9/18/2025,1,954362,payment,September 2025 - CC 9386,active
+1049,1285150729,RIKO ASHARI,94197621,4120177800,Kota Palopo,Kota Makassar,Kota Palopo - Kota Makassar,9/17/2025,9/19/2025,2,1023686,payment,September 2025 - CC 9386,active
+1050,1285201081,DESHINTA AMALIA SHOLIHAH,92177616,4120177726,Kota Makassar,Kota Surabaya,Kota Makassar - Kota Surabaya,9/14/2025,9/20/2025,6,1213800,payment,September 2025 - CC 9386,active
+1051,1285143302,KHAERUL JIHADI,94197615,4120177786,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah - Kota Makassar,9/17/2025,9/19/2025,2,1276500,payment,September 2025 - CC 9386,active
+1052,1285154028,DEWI ARJUNI KUSNADI,84037602,4120177773,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/18/2025,9/19/2025,1,1445800,payment,September 2025 - CC 9386,active
+1053,1285120216,MUHAMMAD IQBAL NUR,89097601,4120177765,Kota Baubau,Kota Makassar,Kota Baubau - Kota Makassar,9/17/2025,9/19/2025,2,1500400,payment,September 2025 - CC 9386,active
+1054,1285149136,INDAH ADELIA NUR SYAHBANI,97197614,4120177780,Kab. Polewali Mandar,Kota Makassar,Kab. Polewali Mandar - Kota Makassar,9/17/2025,9/19/2025,2,1529412,payment,September 2025 - CC 9386,active
+1055,1285098985,AMI PRAWOTO RANDALAYUK,91107604,4120177751,Kota Palopo,Kota Makassar,Kota Palopo - Kota Makassar,9/17/2025,9/19/2025,2,1560000,payment,September 2025 - CC 9386,active
+1056,1285096427,MAYA MAWARNI BIRANA,217600,4120177638,Kota Banjarbaru,Kota Banjarbaru,Kota Banjarbaru - Kota Banjarbaru,9/14/2025,9/18/2025,4,1693200,payment,September 2025 - CC 9386,active
+1057,1285156349,SARLINA M.KILYKILY,73947604,4120177771,Kota Kendari,Kota Makassar,Kota Kendari - Kota Makassar,9/17/2025,9/19/2025,2,1746029,payment,September 2025 - CC 9386,active
+1058,1285086268,AKBAR KHASHEMI HAMZAH,89145602,4120177733,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,9/16/2025,9/18/2025,2,1837700,payment,September 2025 - CC 9386,active
+1059,1285093728,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177624,Kota Baubau,Kota Banjarbaru,Kota Baubau-Kota Banjarbaru,9/14/2025,9/18/2025,4,1950900,payment,September 2025 - CC 9386,active
+1060,1285086433,SYAHLAN,88087602,4120177762,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/18/2025,9/19/2025,1,2757900,payment,September 2025 - CC 9386,active
+1061,1285239102,ISMAIL SYAHRIR,82087610,4120177816,Kab. Bulukumba,Kota Makassar,Kab. Bulukumba - Kota Makassar,9/18/2025,9/19/2025,1,700757,payment,September 2025 - CC 9386,active
+1062,1285230155,ANDI MUHAMMAD FAISAL TAMRIN,88097612,4120177799,Kab. Bone,Kota Makassar,Kab. Bone-Kota Makassar,9/18/2025,9/19/2025,1,723705,payment,September 2025 - CC 9386,active
+1063,1285243140,AHMAD FAUZI ALADIN SM,85120401,4120177749,Kota Makassar,Kab. Toraja Utara,Kota Makassar - Kab. Toraja Utara,9/17/2025,9/19/2025,2,925926,payment,September 2025 - CC 9386,active
+1064,1285242344,AGUS PUTRA ABBAS,87147800,4120177748,Kota Makassar,Kab. Toraja Utara,Kota Makassar - Kab. Toraja Utara,9/17/2025,9/19/2025,2,925926,payment,September 2025 - CC 9386,active
+1065,1285251713,MUCHAMAD PAMUNGKAS,92197600,4120177741,Kota Makassar,Kota Kendari,Kota Makassar - Kota Kendari,9/16/2025,9/19/2025,3,975600,payment,September 2025 - CC 9386,active
+1066,1285305871,SOFYAN ASBAR,96187638,4120177680,Kab. Mamuju,Kota Cilegon,Kab. Mamuju - Kota Cilegon,9/14/2025,9/19/2025,5,2000200,payment,September 2025 - CC 9386,active
+1067,1285306862,MUH ISMAIL ANWAR,97177614,4120177687,Kota Makassar,Kota Cilegon,Kota Makassar-Kota Cilegon,9/14/2025,9/19/2025,5,2001500,payment,September 2025 - CC 9386,active
+1068,1285300577,AMBO TUWO,76027600,4120177743,Kota Makassar,Kota Bandung,Kota Makassar - Kota Bandung,9/16/2025,9/18/2025,2,2309700,payment,September 2025 - CC 9386,active
+1069,1285362783,DHYMAS WICAKSONO,94197618,4120177801,Kab. Wajo,Kota Makassar,Kab. Wajo - Kota Makassar,9/18/2025,9/19/2025,1,625228,payment,September 2025 - CC 9386,active
+1070,1285326810,RAHMAT HIDAYAT,93127602,4120177791,Kab. Polewali Mandar,Kota Makassar,Kab. Polewali Mandar-Kota Makassar,9/17/2025,9/19/2025,2,720000,payment,September 2025 - CC 9386,active
+1071,1285332713,SUPRIANTO MARWING,95207607,4120177777,Kab. Buton Tengah,Kota Makassar,Kab. Buton Tengah-Kota Makassar,9/17/2025,9/19/2025,2,729412,payment,September 2025 - CC 9386,active
+1072,1285345975,ANDI ANGGA SAPUTRA BATARA,89087603,4120177753,Kota Kendari,Kota Makassar,Kota Kendari-Kota Makassar,9/17/2025,9/19/2025,2,741000,payment,September 2025 - CC 9386,active
+1073,1285432488,ANGGIH PRASETYA,88117613,4120177784,Kota Baubau,Kota Makassar,Kota Baubau-Kota Makassar,9/17/2025,9/19/2025,2,803950,payment,September 2025 - CC 9386,active
+1074,1285470867,ARDAYA PRATAMA,1247601,4120177772,Kota Baubau,Kota Makassar,Kota Baubau-Kota Makassar,9/17/2025,9/19/2025,2,844100,payment,September 2025 - CC 9386,active
+1075,1285398477,M.SYAMSUL KAMAR,71947602,4120177728,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,845100,payment,September 2025 - CC 9386,active
+1076,1285438600,M.SYAMSUL KAMAR,71947602,4120177728,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,845100,payment,September 2025 - CC 9386,active
+1077,1285355082,HADHI BAGUS SETYANTO,87117602,4120177758,Kota Makassar,Kota Malang,Kota Makassar - Kota Malang,9/16/2025,9/20/2025,4,1141400,payment,September 2025 - CC 9386,active
+1078,1285422005,I WAYAN EDY PURNAMA ARSA,91147609,4120177844,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,9/22/2025,9/24/2025,2,1355400,payment,September 2025 - CC 9386,active
+1079,1285421353,I WAYAN EDY PURNAMA ARSA,91147609,4120177844,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,9/22/2025,9/24/2025,2,1455300,payment,September 2025 - CC 9386,active
+1080,1285459596,LELY SRIHANDAYANI,85097604,4120177819,Kota Makassar,Kota Denpasar,Kota Makassar - Kota Denpasar,9/18/2025,9/20/2025,2,1888000,payment,September 2025 - CC 9386,active
+1081,1285472366,NURUL SOFIANSYAH,96187630,4120177831,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1082,1285472907,REZA ANUGRAH,96137687,4120177834,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1083,1285473007,SIGIT TRI HARTANTO,97187621,4120177824,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1084,1285472622,MUHAMMAD NUR HADI,97187630,4120177821,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1085,1285472663,MUHAMMAD RAMADHAN,96177625,4120177839,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1086,1285473075,MUHAMMAD ISLAH FADHIL,97177619,4120177837,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1087,1285472726,MUHAMMAD RUM,83087611,4120177828,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1088,1285472732,MUHAMMAD FAJAR DWI AFANDI,97187600,4120177832,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1089,1285472884,SYAHRUL HARDIANSYAH,97187605,4120177838,Kota Makassar,Kota Semarang,Kota Makassar - Kota Semarang,9/20/2025,9/24/2025,4,2138100,payment,September 2025 - CC 9386,active
+1090,1285426407,WENNY DIANA,82097400,4120177866,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/18/2025,9/19/2025,1,2334400,payment,September 2025 - CC 9386,active
+1091,1285459789,MUHAMMAD ISMAIL,78027603,4120177865,Kota Makassar,Jakarta Selatan,Kota Makassar - Jakarta Selatan,9/18/2025,9/19/2025,1,2345200,payment,September 2025 - CC 9386,active
+1092,1285421342,KOMANG YEHUDA PRAWIRA,86098203,4120177845,Kota Makassar,Kota Palopo,Kota Makassar - Kota Palopo,9/22/2025,9/24/2025,2,2810700,payment,September 2025 - CC 9386,active
+1093,1283101560,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177624,Kota Baubau,Kota Banjarbaru,Kota Baubau - Kota Banjarbaru,9/14/2025,9/18/2025,4,1090500,refund,September 2025 - CC 9386,active
+1094,1283102400,SHALAHUDDIN ALAYUBI SITANGGANG,95237601,4120177624,Kota Baubau,Kota Banjarbaru,Kota Baubau - Kota Banjarbaru,9/14/2025,9/18/2025,4,1607042,refund,September 2025 - CC 9386,active
+1095,1285398477,M.SYAMSUL KAMAR,71947602,4120177728,Kota Makassar,Kota Kendari,Kota Makassar - Kab. Kolaka - Kota Kendari,9/16/2025,9/19/2025,3,845100,refund,September 2025 - CC 9386,active

@@ -1,0 +1,17 @@
+=== DATA CLEANING SUMMARY ===
+
+Input File: Rekapitulasi Pembayaran CC Juli 2025.csv
+Output File: cc_transactions_cleaned.csv
+Cleaned Rows: 241
+Skipped Rows (Summary): 7
+Processing Date: 2025-10-30 03:36:00
+
+=== CLEANING OPERATIONS ===
+1. Removed trailing whitespaces from names
+2. Normalized trip destinations (added spaces)
+3. Split destinations into Origin and Destination columns
+4. Converted date format from DD/MM/YYYY to YYYY-MM-DD
+5. Split trip dates into Departure Date and Return Date
+6. Calculated trip duration in days
+7. Calculated cost per day (Payment / Duration)
+8. Removed summary rows at the end
