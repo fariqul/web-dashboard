@@ -20,7 +20,13 @@ class DashboardController extends Controller
         // Get BFKO summary (Fund 52)
         $bfkoTotal = BfkoData::sum('nilai_angsuran');
         $bfkoCount = BfkoData::count();
-        $bfkoEmployees = BfkoData::select('nip')->distinct()->count();
+        // Count unique employees - must use get()->count() for accurate distinct count
+        $bfkoEmployees = BfkoData::whereNotNull('nip')
+            ->where('nip', '!=', '')
+            ->select('nip')
+            ->distinct()
+            ->get()
+            ->count();
         
         // Get Service Fee summary (Fund 54)
         $serviceFeeTotal = ServiceFee::sum('transaction_amount');
@@ -31,7 +37,13 @@ class DashboardController extends Controller
         // Get CC Card summary (Fund 54)
         $ccTotal = CCTransaction::sum('payment_amount');
         $ccCount = CCTransaction::count();
-        $ccEmployees = CCTransaction::select('personel_number')->distinct()->count();
+        // Count unique employees - must use get()->count() for accurate distinct count
+        $ccEmployees = CCTransaction::whereNotNull('personel_number')
+            ->where('personel_number', '!=', '')
+            ->select('personel_number')
+            ->distinct()
+            ->get()
+            ->count();
         
         // Get SPPD summary (Fund 54)
         $sppdTotal = SppdTransaction::sum('paid_amount');

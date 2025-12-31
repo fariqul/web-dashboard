@@ -1,102 +1,181 @@
 # Panduan Instalasi Dashboard Monitoring PLN
 
-## Requirements
-- PHP >= 8.2
-- Composer
-- Node.js >= 18.x
-- SQLite (sudah include di PHP)
+## 🚀 Quick Start (Rekomendasi)
 
-## Langkah Instalasi
+**Jika Anda sudah install PHP, Composer, dan Node.js:**
 
-### 1. Install Prerequisites
+1. Double-click `setup.bat` - Setup otomatis
+2. Double-click `start-app.bat` - Jalankan aplikasi
+3. Buka browser: http://localhost:8000
 
-#### Windows:
-1. **PHP 8.2+**
-   - Download: https://windows.php.net/download/
-   - Extract ke `C:\php`
-   - Tambahkan `C:\php` ke PATH environment variable
-   - Copy `php.ini-development` menjadi `php.ini`
-   - Enable extensions di php.ini (hapus ; di depan):
-     ```
+---
+
+## 📋 Requirements
+
+| Software | Versi Minimum | Download |
+|----------|--------------|----------|
+| PHP | 8.2+ | https://windows.php.net/download/ |
+| Composer | 2.x | https://getcomposer.org/ |
+| Node.js | 18.x (LTS) | https://nodejs.org/ |
+
+## 📥 Langkah Instalasi Prerequisites
+
+### 1. Install PHP
+
+1. Download **VS17 x64 Thread Safe** dari https://windows.php.net/download/
+2. Extract ke `C:\php`
+3. **Tambahkan ke PATH:**
+   - Tekan `Win + R`, ketik `sysdm.cpl`, Enter
+   - Tab "Advanced" → "Environment Variables"
+   - Di "System variables", cari `Path` → Edit → New → `C:\php`
+   - OK semua dialog
+4. **Konfigurasi php.ini:**
+   - Di folder `C:\php`, copy `php.ini-development` menjadi `php.ini`
+   - Buka `php.ini` dengan Notepad
+   - Cari dan hapus `;` (uncomment) di baris:
+     ```ini
+     extension=openssl
      extension=pdo_sqlite
-     extension=sqlite3
      extension=mbstring
      extension=fileinfo
-     extension=openssl
+     extension=zip
+     extension_dir = "ext"
      ```
+5. **Verifikasi:** Buka CMD baru, ketik `php -v`
 
-2. **Composer**
-   - Download: https://getcomposer.org/Composer-Setup.exe
-   - Jalankan installer
+### 2. Install Composer
 
-3. **Node.js & NPM**
-   - Download LTS: https://nodejs.org/
-   - Jalankan installer
+1. Download https://getcomposer.org/Composer-Setup.exe
+2. Jalankan installer
+3. **Verifikasi:** Buka CMD baru, ketik `composer -V`
 
-### 2. Setup Project
+### 3. Install Node.js
+
+1. Download LTS dari https://nodejs.org/
+2. Jalankan installer (default semua)
+3. **Verifikasi:** Buka CMD baru, ketik `npm -v`
+
+---
+
+## 🛠️ Setup Project
+
+### Cara Otomatis (Rekomendasi)
+
+1. Copy folder project ke lokasi yang diinginkan
+2. **Double-click `setup.bat`**
+3. Tunggu sampai selesai
+4. Jika ditanya "Langsung jalankan aplikasi?", ketik `Y`
+
+### Cara Manual
 
 ```powershell
-# Clone atau copy project
-git clone https://github.com/FirjiAchmad24/dashmonitoring-pln.git
-cd dashmonitoring-pln
-
-# Install PHP dependencies
-composer install
-
-# Install JavaScript dependencies
-npm install
-
-# Copy environment file
+# 1. Copy environment file
 Copy-Item .env.example .env
 
-# Generate application key
+# 2. Install PHP dependencies
+composer install
+
+# 3. Install JavaScript dependencies
+npm install
+
+# 4. Generate application key
 php artisan key:generate
 
-# Create database dan jalankan migrasi
-php artisan migrate
+# 5. Buat database
+New-Item -Path database\database.sqlite -ItemType File -Force
 
-# (Opsional) Import data dari CSV
-# Copy file CSV ke folder data/
-# Kemudian import via interface web
+# 6. Jalankan migrasi
+php artisan migrate
 ```
 
-### 3. Jalankan Development Server
+---
 
-**Terminal 1 - Laravel Backend:**
+## ▶️ Menjalankan Aplikasi
+
+### Cara Otomatis (Rekomendasi)
+
+**Double-click `start-app.bat`** - Otomatis menjalankan kedua server dan membuka browser
+
+### Cara Manual
+
+**Terminal 1 - Backend:**
 ```powershell
 php artisan serve
 ```
 
-**Terminal 2 - Vite Frontend:**
+**Terminal 2 - Frontend:**
 ```powershell
 npm run dev
 ```
 
 Akses aplikasi di: http://localhost:8000
 
-## Import Data
+---
+
+## 📊 Import Data
 
 1. Buka http://localhost:8000
-2. Login (jika ada auth)
-3. Navigasi ke halaman import untuk masing-masing monitoring:
-   - BFKO Monitoring
-   - CC Card Monitoring  
-   - Service Fee Monitoring
-4. Upload file CSV sesuai format
+2. Navigasi ke halaman monitoring yang diinginkan:
+   - **BFKO Monitoring** - Import file Excel BFKO
+   - **CC Card Monitoring** - Import file CSV CC Card
+   - **Service Fee Monitoring** - Import file Excel Service Fee
+   - **SPPD Monitoring** - Import file Excel SPPD
+3. Klik tombol Import dan pilih file
 
-## Troubleshooting
+### Format File yang Didukung:
+- **BFKO:** Excel (.xlsx) dengan format standar
+- **CC Card:** CSV dengan 9 atau 14 kolom
+- **Service Fee:** Excel (.xlsx) dengan format standar
+- **SPPD:** Excel (.xlsx) dengan format standar
 
-### Error "SQLite extension not loaded"
-- Pastikan `extension=pdo_sqlite` dan `extension=sqlite3` sudah di-enable di `php.ini`
-- Restart terminal setelah edit php.ini
+---
 
-### Error "npm command not found"
+## 🔧 Troubleshooting
+
+### Error "PHP tidak ditemukan"
+- Pastikan PHP sudah di-install dan ditambahkan ke PATH
+- **Restart terminal/CMD** setelah menambahkan PATH
+- Cek dengan: `where php`
+
+### Error "pdo_sqlite tidak aktif"
+- Buka `C:\php\php.ini`
+- Cari `extension=pdo_sqlite`, hapus `;` di depannya
+- Pastikan `extension_dir = "ext"` juga di-uncomment
+- Restart terminal
+
+### Error "npm tidak ditemukan"
 - Pastikan Node.js sudah terinstall
-- Restart terminal setelah install Node.js
+- Restart terminal setelah install
+- Cek dengan: `where npm`
 
-### Error "composer command not found"
-- Pastikan Composer sudah terinstall
-- Restart terminal setelah install Composer
+### Error "SQLSTATE[HY000] unable to open database file"
+- Pastikan folder `database` ada
+- Jalankan: `php artisan migrate --force`
+
+### Halaman kosong / Error 500
+- Cek log di `storage/logs/laravel.log`
+- Pastikan `php artisan key:generate` sudah dijalankan
+- Jalankan: `php artisan config:clear`
+
+---
+
+## 📁 Struktur File Penting
+
+```
+├── setup.bat           # Setup otomatis (jalankan pertama kali)
+├── start-app.bat       # Jalankan aplikasi (kedua server)
+├── start-backend.bat   # Jalankan backend saja
+├── start-frontend.bat  # Jalankan frontend saja
+├── .env                # Konfigurasi (dibuat dari .env.example)
+└── database/
+    └── database.sqlite # Database SQLite
+```
+
+---
+
+## 👥 Support
+
+Jika ada masalah, hubungi tim IT atau lihat log error di `storage/logs/laravel.log`
 
 ### Port 8000 sudah dipakai
 ```powershell

@@ -234,9 +234,12 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                                                     <div className={`w-4 h-4 rounded-full mr-3`} style={{ backgroundColor: item.color }}></div>
                                                     <span className="text-sm font-medium text-gray-700">{item.name}</span>
                                                 </div>
-                                                <span className="text-sm font-bold text-gray-800 ml-4">
-                                                    {item.percentage}%
-                                                </span>
+                                                {/* Hide percentage when only one category (Fund 52) */}
+                                                {categoryData.length > 1 && (
+                                                    <span className="text-sm font-bold text-gray-800 ml-4">
+                                                        {item.percentage}%
+                                                    </span>
+                                                )}
                                             </div>
                                             <div className="ml-7 text-xs text-gray-500">
                                                 {formatCurrency(item.value)} • {
@@ -249,10 +252,12 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                                         </Link>
                                     );
                                 })}
-                                <div className="mt-3 pt-3 border-t border-gray-200">
-                                    <div className="text-xs text-gray-600">
+                                <div className={`mt-3 pt-3 border-t border-gray-200 ${categoryData.length === 1 ? 'bg-yellow-50 -mx-2 px-2 py-2 rounded-lg' : ''}`}>
+                                    <div className={categoryData.length === 1 ? 'text-base text-yellow-800' : 'text-xs text-gray-600'}>
                                         <span className="font-semibold">Grand Total: </span>
-                                        {formatCurrency(categoryData.reduce((sum, item) => sum + item.value, 0))}
+                                        <span className={categoryData.length === 1 ? 'text-xl font-bold' : ''}>
+                                            {formatCurrency(categoryData.reduce((sum, item) => sum + item.value, 0))}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
