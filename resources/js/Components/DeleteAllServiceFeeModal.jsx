@@ -18,16 +18,16 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
     const handleDelete = (e) => {
         e.preventDefault();
         
-        if (confirmation !== 'DELETE ALL') {
-            alert('Please type "DELETE ALL" to confirm deletion');
+        if (confirmation !== 'HAPUS SEMUA') {
+            alert('Ketik "HAPUS SEMUA" untuk konfirmasi penghapusan');
             return;
         }
 
         const count = getDeleteCount();
-        const typeLabel = serviceType === 'all' ? 'ALL Service Fee data (Hotel + Flight)' : 
-                         serviceType === 'hotel' ? 'ALL Hotel data' : 'ALL Flight data';
+        const typeLabel = serviceType === 'all' ? 'SEMUA data Service Fee (Hotel + Flight)' : 
+                         serviceType === 'hotel' ? 'SEMUA data Hotel' : 'SEMUA data Flight';
         
-        const confirmMessage = `⚠️ FINAL WARNING!\n\nYou are about to delete ${count.toLocaleString()} records:\n${typeLabel}\n\nThis action CANNOT be undone!\n\nAre you absolutely sure?`;
+        const confirmMessage = `⚠️ PERINGATAN TERAKHIR!\n\nAnda akan menghapus ${count.toLocaleString()} data:\n${typeLabel}\n\nTindakan ini TIDAK DAPAT dibatalkan!\n\nApakah Anda yakin?`;
         
         if (!confirm(confirmMessage)) {
             return;
@@ -38,7 +38,7 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
         router.delete('/service-fee/delete-all', {
             data: {
                 service_type: serviceType,
-                confirmation: confirmation
+                confirmation: 'HAPUS SEMUA'
             },
             onSuccess: () => {
                 setConfirmation('');
@@ -47,7 +47,7 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
             },
             onError: (errors) => {
                 console.error('Delete failed:', errors);
-                alert('Failed to delete data. Please try again.');
+                alert('Gagal menghapus data. Silakan coba lagi.');
             },
             onFinish: () => {
                 setIsDeleting(false);
@@ -80,15 +80,15 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                     {/* Content */}
                     <div className="p-6">
                         <h3 className="text-xl font-bold text-red-600 mb-2 text-center">
-                            ⚠️ DELETE ALL DATA ⚠️
+                            ⚠️ HAPUS SEMUA DATA ⚠️
                         </h3>
                         <p className="text-sm text-gray-600 mb-4 text-center">
-                            This will <span className="font-bold text-red-600">PERMANENTLY DELETE</span> all selected data
+                            Tindakan ini akan <span className="font-bold text-red-600">MENGHAPUS PERMANEN</span> semua data yang dipilih
                         </p>
 
                         {/* Data Summary */}
                         <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                            <h4 className="font-semibold text-gray-700 mb-2">Current Data:</h4>
+                            <h4 className="font-semibold text-gray-700 mb-2">Data Saat Ini:</h4>
                             <div className="grid grid-cols-3 gap-2 text-sm">
                                 <div className="bg-blue-100 rounded p-2 text-center">
                                     <div className="font-bold text-blue-600">{hotelCount.toLocaleString()}</div>
@@ -109,7 +109,7 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                             {/* Service Type Selection */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    What to Delete? *
+                                    Apa yang Ingin Dihapus? *
                                 </label>
                                 <div className="space-y-2">
                                     <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-red-50 transition">
@@ -122,8 +122,8 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                                             className="w-4 h-4 text-red-600 focus:ring-red-500"
                                         />
                                         <span className="ml-3 text-gray-700">
-                                            🗑️ <span className="font-semibold">ALL Data</span> (Hotel + Flight) 
-                                            <span className="text-red-600 ml-1">({totalRecords.toLocaleString()} records)</span>
+                                            🗑️ <span className="font-semibold">SEMUA Data</span> (Hotel + Flight) 
+                                            <span className="text-red-600 ml-1">({totalRecords.toLocaleString()} data)</span>
                                         </span>
                                     </label>
                                     <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition">
@@ -136,8 +136,8 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                                             className="w-4 h-4 text-blue-600 focus:ring-blue-500"
                                         />
                                         <span className="ml-3 text-gray-700">
-                                            🏨 <span className="font-semibold">Hotel Only</span>
-                                            <span className="text-blue-600 ml-1">({hotelCount.toLocaleString()} records)</span>
+                                            🏨 <span className="font-semibold">Hotel Saja</span>
+                                            <span className="text-blue-600 ml-1">({hotelCount.toLocaleString()} data)</span>
                                         </span>
                                     </label>
                                     <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-green-50 transition">
@@ -150,8 +150,8 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                                             className="w-4 h-4 text-green-600 focus:ring-green-500"
                                         />
                                         <span className="ml-3 text-gray-700">
-                                            ✈️ <span className="font-semibold">Flight Only</span>
-                                            <span className="text-green-600 ml-1">({flightCount.toLocaleString()} records)</span>
+                                            ✈️ <span className="font-semibold">Flight Saja</span>
+                                            <span className="text-green-600 ml-1">({flightCount.toLocaleString()} data)</span>
                                         </span>
                                     </label>
                                 </div>
@@ -160,15 +160,15 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                             {/* Confirmation Input */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Type <span className="font-mono bg-red-100 px-2 py-1 rounded text-red-600">DELETE ALL</span> to confirm *
+                                    Ketik <span className="font-mono bg-red-100 px-2 py-1 rounded text-red-600">HAPUS SEMUA</span> untuk konfirmasi *
                                 </label>
                                 <input
                                     type="text"
                                     value={confirmation}
-                                    onChange={(e) => setConfirmation(e.target.value)}
-                                    placeholder="Type DELETE ALL"
+                                    onChange={(e) => setConfirmation(e.target.value.toUpperCase())}
+                                    placeholder="Ketik HAPUS SEMUA"
                                     className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-red-500 text-center font-mono text-lg ${
-                                        confirmation === 'DELETE ALL' 
+                                        confirmation === 'HAPUS SEMUA' 
                                             ? 'border-green-500 bg-green-50' 
                                             : 'border-gray-300'
                                     }`}
@@ -182,11 +182,11 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                                         <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                                     </svg>
                                     <div className="text-sm text-red-700">
-                                        <p className="font-bold mb-1">Warning!</p>
+                                        <p className="font-bold mb-1">Peringatan!</p>
                                         <ul className="list-disc list-inside space-y-1">
-                                            <li>This action is <strong>IRREVERSIBLE</strong></li>
-                                            <li>All selected data will be permanently deleted</li>
-                                            <li>Make sure you have a backup if needed</li>
+                                            <li>Tindakan ini <strong>TIDAK DAPAT DIBATALKAN</strong></li>
+                                            <li>Semua data yang dipilih akan dihapus permanen</li>
+                                            <li>Pastikan Anda sudah memiliki backup jika diperlukan</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -200,13 +200,13 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                                     className="flex-1 px-4 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 font-semibold transition"
                                     disabled={isDeleting}
                                 >
-                                    Cancel
+                                    Batal
                                 </button>
                                 <button
                                     type="submit"
-                                    disabled={isDeleting || confirmation !== 'DELETE ALL' || getDeleteCount() === 0}
+                                    disabled={isDeleting || confirmation !== 'HAPUS SEMUA' || getDeleteCount() === 0}
                                     className={`flex-1 px-4 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2 ${
-                                        confirmation === 'DELETE ALL' && getDeleteCount() > 0
+                                        confirmation === 'HAPUS SEMUA' && getDeleteCount() > 0
                                             ? 'bg-red-600 hover:bg-red-700 text-white'
                                             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                                     }`}
@@ -217,11 +217,11 @@ export default function DeleteAllServiceFeeModal({ isOpen, onClose, totalRecords
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                             </svg>
-                                            Deleting...
+                                            Menghapus...
                                         </>
                                     ) : (
                                         <>
-                                            🗑️ Delete {getDeleteCount().toLocaleString()} Records
+                                            🗑️ Hapus {getDeleteCount().toLocaleString()} Data
                                         </>
                                     )}
                                 </button>

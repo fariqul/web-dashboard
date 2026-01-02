@@ -25,13 +25,13 @@ Route::get('/bfko/export/excel', [BfkoController::class, 'exportExcel'])->name('
 
 Route::get('/service-fee', [ServiceFeeController::class, 'index'])->name('service-fee.index');
 Route::get('/service-fee/sheets', [ServiceFeeController::class, 'getAvailableSheets']);
-Route::get('/service-fee/{id}', [ServiceFeeController::class, 'show']);
 Route::post('/service-fee/store', [ServiceFeeController::class, 'store']);
-Route::put('/service-fee/{id}', [ServiceFeeController::class, 'update']);
-Route::delete('/service-fee/{id}', [ServiceFeeController::class, 'destroy']);
 Route::post('/service-fee/import-csv', [ServiceFeeController::class, 'importCsv']);
 Route::delete('/service-fee/sheet/delete', [ServiceFeeController::class, 'destroySheet']);
 Route::delete('/service-fee/delete-all', [ServiceFeeController::class, 'deleteAll'])->name('service-fee.delete.all');
+Route::get('/service-fee/{id}', [ServiceFeeController::class, 'show']);
+Route::put('/service-fee/{id}', [ServiceFeeController::class, 'update']);
+Route::delete('/service-fee/{id}', [ServiceFeeController::class, 'destroy']);
 
 Route::get('/cc-card/destination-detail', function () {
     $destination = request('destination');
@@ -149,6 +149,90 @@ Route::get('/cc-card/destination-detail', function () {
             'totalTrips' => $totalTrips,
             'averageAmount' => 'Rp ' . number_format($averageAmount, 0, ',', '.'),
             'uniqueEmployees' => $uniqueEmployees,
+        ]
+    ]);
+});
+
+// CC Card Refund Detail Route (by employee name)
+Route::get('/cc-card/refund-detail', function () {
+    $employeeName = request('employee');
+    $selectedSheet = request('sheet', 'all');
+    $selectedYear = request('year', 'all');
+    $searchQuery = request('search', '');
+    $sortField = request('sort', 'departure_date');
+    $sortDirection = request('direction', 'desc');
+    
+    if (!$employeeName) {
+        return redirect('/cc-card');
+    }
+    
+    // Query refund transactions by employee name
+    $query = \App\Models\CCTransaction::where('employee_name', $employeeName)
+        ->where('transaction_type', 'refund');
+    
+    if ($selectedSheet !== 'all') {
+        $query->where('sheet', $selectedSheet);
+    }
+    if ($selectedYear !== 'all') {
+        $query->whereRaw("strftime('%Y', created_at) = ?", [$selectedYear]);
+    }
+    
+    // Apply search filter
+    if (!empty($searchQuery)) {
+        $query->where(function($q) use ($searchQuery) {
+            $q->where('booking_id', 'like', '%' . $searchQuery . '%')
+              ->orWhere('sheet', 'like', '%' . $searchQuery . '%');
+        });
+    }
+    
+    // Get all transactions for summary (before pagination)
+    $allTransactions = $query->get();
+    $totalAmount = $allTransactions->sum('payment_amount');
+    $totalRefunds = $allTransactions->count();
+    $averageAmount = $totalRefunds > 0 ? $totalAmount / $totalRefunds : 0;
+    
+    // Apply sorting
+    $validSortFields = ['booking_id', 'payment_amount', 'created_at', 'sheet', 'departure_date', 'trip_destination_full'];
+    if (!in_array($sortField, $validSortFields)) {
+        $sortField = 'created_at';
+    }
+    if (!in_array($sortDirection, ['asc', 'desc'])) {
+        $sortDirection = 'desc';
+    }
+    
+    // Apply pagination
+    $transactions = \App\Models\CCTransaction::where('employee_name', $employeeName)
+        ->where('transaction_type', 'refund')
+        ->when($selectedSheet !== 'all', function($q) use ($selectedSheet) {
+            $q->where('sheet', $selectedSheet);
+        })
+        ->when($selectedYear !== 'all', function($q) use ($selectedYear) {
+            $q->whereRaw("strftime('%Y', created_at) = ?", [$selectedYear]);
+        })
+        ->when(!empty($searchQuery), function($q) use ($searchQuery) {
+            $q->where(function($subQ) use ($searchQuery) {
+                $subQ->where('booking_id', 'like', '%' . $searchQuery . '%')
+                     ->orWhere('sheet', 'like', '%' . $searchQuery . '%');
+            });
+        })
+        ->orderBy($sortField, $sortDirection)
+        ->paginate(10)
+        ->withQueryString();
+    
+    return Inertia::render('RefundDetail', [
+        'employeeName' => $employeeName,
+        'selectedSheet' => $selectedSheet,
+        'selectedYear' => $selectedYear,
+        'transactions' => $transactions,
+        'filters' => [
+            'search' => $searchQuery,
+            'sort' => $sortField,
+            'direction' => $sortDirection,
+        ],
+        'summary' => [
+            'totalAmount' => 'Rp ' . number_format($totalAmount, 0, ',', '.'),
+            'totalRefunds' => $totalRefunds,
+            'averageAmount' => 'Rp ' . number_format($averageAmount, 0, ',', '.'),
         ]
     ]);
 });
@@ -1021,13 +1105,14 @@ Route::get('/cc-card', function () {
         })
         ->values(); // Return all destinations, frontend will handle limiting to 5
     
-    // Refund transactions list
+    // Refund transactions list - group by employee_name since refunds don't have destination
     $refundList = $refundTransactions
-        ->groupBy('trip_destination_full')
+        ->groupBy('employee_name')
         ->map(function($group) {
             return [
-                'route' => $group->first()->trip_destination_full,
-                'trips' => $group->count() . ' refunds',
+                'route' => $group->first()->employee_name, // Use employee name as "route" for display
+                'employee_name' => $group->first()->employee_name,
+                'trips' => $group->count() . ' refund' . ($group->count() > 1 ? 's' : ''),
                 'amount' => 'Rp ' . number_format($group->sum('payment_amount'), 0, ',', '.'),
                 'rawAmount' => $group->sum('payment_amount'),
                 'type' => 'refund'

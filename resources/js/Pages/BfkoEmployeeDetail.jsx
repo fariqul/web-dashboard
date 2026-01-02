@@ -35,11 +35,17 @@ const formatDate = (dateString) => {
 // Custom Tooltip for Bar Chart
 const CustomBarTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
+        const data = payload[0].payload;
+        const statusText = data.status === 'Lunas' ? 'Lunas' : 'Belum Bayar';
+        const statusColor = data.status === 'Lunas' ? 'text-green-600' : 'text-yellow-600';
         return (
             <div className="bg-white p-3 border border-gray-300 rounded-lg shadow-lg">
-                <p className="font-semibold text-gray-800">{payload[0].payload.month}</p>
-                <p className="text-green-600 font-medium">
-                    Total: {formatRupiah(payload[0].payload.amount * 1000000)}
+                <p className="font-semibold text-gray-800">{data.month}</p>
+                <p className={`${statusColor} font-medium`}>
+                    Total: {formatRupiah(data.amount * 1000000)}
+                </p>
+                <p className={`${statusColor} text-sm`}>
+                    Status: {statusText}
                 </p>
             </div>
         );
@@ -81,7 +87,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
 
     // Calculate progress statistics based on status_angsuran
     // Complete = status is "Lunas" OR has tanggal_bayar
-    // In Progress = status is "Cicilan" OR no tanggal_bayar
+    // In Progress = status is "Belum Bayar", "Cicilan" OR no tanggal_bayar
     const completedPayments = payments.filter(p => {
         // Prioritas: status_angsuran, lalu tanggal_bayar
         if (p.status_angsuran) {
@@ -93,7 +99,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
     const inProgressPayments = payments.filter(p => {
         // Prioritas: status_angsuran, lalu tanggal_bayar
         if (p.status_angsuran) {
-            return p.status_angsuran === 'Cicilan';
+            return p.status_angsuran !== 'Lunas'; // Termasuk "Cicilan", "Belum Bayar", dll
         }
         return !p.tanggal_bayar || p.tanggal_bayar === '-';
     }).length;
@@ -101,21 +107,34 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
     const totalPayments = payments.length;
     const completedPercentage = totalPayments > 0 ? Math.round((completedPayments / totalPayments) * 100) : 0;
 
-    // Group payments by month for chart
+    // Group payments by month for chart - include status info
     const monthlyPayments = {};
     payments.forEach(payment => {
         const key = `${payment.bulan.substring(0, 3)} ${payment.tahun}`;
+        // Determine if this payment is paid (Lunas) or not
+        const isPaid = payment.status_angsuran === 'Lunas' || 
+                       (payment.tanggal_bayar && payment.tanggal_bayar !== '-');
+        
         if (!monthlyPayments[key]) {
-            monthlyPayments[key] = 0;
+            monthlyPayments[key] = {
+                amount: 0,
+                status: isPaid ? 'Lunas' : 'Belum Bayar'
+            };
         }
-        monthlyPayments[key] += parseFloat(payment.nilai_angsuran);
+        monthlyPayments[key].amount += parseFloat(payment.nilai_angsuran);
+        // If any payment in this month is not paid, mark as Belum Bayar
+        if (!isPaid) {
+            monthlyPayments[key].status = 'Belum Bayar';
+        }
     });
     
     const monthlyChartData = Object.entries(monthlyPayments)
         .slice(-6) // Last 6 months
-        .map(([month, amount]) => ({
+        .map(([month, data]) => ({
             month,
-            amount: amount / 1000000 // Convert to millions
+            amount: data.amount / 1000000, // Convert to millions
+            status: data.status,
+            fill: data.status === 'Lunas' ? '#22c55e' : '#fbbf24' // Green for Lunas, Yellow for Belum Bayar
         }));
 
     const progressData = [
@@ -333,10 +352,13 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                         <Tooltip content={<CustomBarTooltip />} />
                                         <Bar 
                                             dataKey="amount" 
-                                            fill="#22c55e" 
                                             radius={[8, 8, 0, 0]}
                                             name="Pembayaran"
-                                        />
+                                        >
+                                            {monthlyChartData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.fill} />
+                                            ))}
+                                        </Bar>
                                     </BarChart>
                                 </ResponsiveContainer>
                             ) : (

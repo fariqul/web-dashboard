@@ -1026,19 +1026,37 @@ class BfkoController extends Controller
     private function cleanAmountBfko($value)
     {
         if (is_numeric($value)) {
-            return (int)$value;
+            return (float)$value;
         }
         
         $value = trim((string)$value);
         
-        // Handle Indonesian format with dots as thousand separator (3.734.355)
-        if (preg_match('/^\d{1,3}(\.\d{3})+$/', str_replace(' ', '', $value))) {
-            $value = str_replace('.', '', $value);
+        // Remove spaces
+        $value = str_replace(' ', '', $value);
+        
+        // Handle format with comma as thousand separator and dot as decimal (e.g., 300,000,000.00)
+        // Remove .00 or .XX decimal first if present, then remove commas
+        if (preg_match('/^[\d,]+\.\d{2}$/', $value)) {
+            $value = preg_replace('/\.\d{2}$/', '', $value);
+            $value = str_replace(',', '', $value);
+            return (float)$value;
         }
         
-        // Remove commas and other non-numeric chars
-        $cleaned = preg_replace('/[^\d]/', '', $value);
-        return (int)$cleaned;
+        // Handle Indonesian format with dots as thousand separator (3.734.355)
+        if (preg_match('/^\d{1,3}(\.\d{3})+$/', $value)) {
+            $value = str_replace('.', '', $value);
+            return (float)$value;
+        }
+        
+        // Handle format with comma as thousand separator only (3,734,355)
+        if (preg_match('/^\d{1,3}(,\d{3})+$/', $value)) {
+            $value = str_replace(',', '', $value);
+            return (float)$value;
+        }
+        
+        // Remove commas (might be thousand separator) and other non-numeric chars except dot
+        $cleaned = preg_replace('/[^\d.]/', '', $value);
+        return (float)$cleaned;
     }
     
     private function formatExcelDateBfko($value)

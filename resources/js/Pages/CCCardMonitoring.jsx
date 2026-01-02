@@ -765,20 +765,39 @@ export default function CCCardMonitoring({
                                             </div>
                                             <button
                                                 onClick={() => {
-                                                    const params = {
-                                                        destination: dest.route,
-                                                        type: transactionTypeFilter
-                                                    };
-                                                    
-                                                    // If year filter is selected, pass year parameter
-                                                    if (selectedFilter.startsWith('year:')) {
-                                                        params.year = selectedFilter.replace('year:', '');
-                                                    } else if (selectedFilter !== 'all') {
-                                                        // If sheet filter is selected, pass sheet parameter
-                                                        params.sheet = selectedFilter;
+                                                    // Check if this is a refund item
+                                                    if (dest.type === 'refund') {
+                                                        // For refunds, navigate to refund-detail with employee name
+                                                        const params = {
+                                                            employee: dest.employee_name || dest.route
+                                                        };
+                                                        
+                                                        // If year filter is selected, pass year parameter
+                                                        if (selectedFilter.startsWith('year:')) {
+                                                            params.year = selectedFilter.replace('year:', '');
+                                                        } else if (selectedFilter !== 'all') {
+                                                            // If sheet filter is selected, pass sheet parameter
+                                                            params.sheet = selectedFilter;
+                                                        }
+                                                        
+                                                        router.get('/cc-card/refund-detail', params);
+                                                    } else {
+                                                        // For payments, navigate to destination-detail
+                                                        const params = {
+                                                            destination: dest.route,
+                                                            type: 'payment'
+                                                        };
+                                                        
+                                                        // If year filter is selected, pass year parameter
+                                                        if (selectedFilter.startsWith('year:')) {
+                                                            params.year = selectedFilter.replace('year:', '');
+                                                        } else if (selectedFilter !== 'all') {
+                                                            // If sheet filter is selected, pass sheet parameter
+                                                            params.sheet = selectedFilter;
+                                                        }
+                                                        
+                                                        router.get('/cc-card/destination-detail', params);
                                                     }
-                                                    
-                                                    router.get('/cc-card/destination-detail', params);
                                                 }}
                                                 className="w-full mt-2 px-3 sm:px-4 py-1.5 bg-cyan-500 hover:bg-cyan-600 text-white text-xs sm:text-sm rounded-md transition font-medium"
                                             >

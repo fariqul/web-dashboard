@@ -720,16 +720,21 @@ class ServiceFeeController extends Controller
                     
                     // If service fee is missing or zero, calculate as fallback
                     if ($serviceFee == 0) {
-                        $serviceFee = floor($transactionAmount * 0.01);
+                        $serviceFee = round($transactionAmount * 0.01);
                     }
                     
-                    $vat = floor($serviceFee * 0.11);
+                    $vat = round($serviceFee * 0.11);
                     
-                    // Determine service type from data - check flight-specific columns first
-                    if (!empty($data['Route']) || !empty($data['Airline ID']) || !empty($data['Trip Type']) || !empty($data['Pax'])) {
-                        $serviceType = 'flight';
-                    } elseif (!empty($data['Hotel Name']) || !empty($data['Room Type'])) {
+                    // Determine service type from data
+                    // Check if has actual non-empty hotel data first (more reliable indicator)
+                    $hasHotelData = !empty(trim($data['Hotel Name'] ?? '')) || !empty(trim($data['Room Type'] ?? ''));
+                    $hasFlightData = !empty(trim($data['Route'] ?? '')) || !empty(trim($data['Airline ID'] ?? '')) || 
+                                     !empty(trim($data['Trip Type'] ?? '')) || !empty(trim($data['Pax'] ?? ''));
+                    
+                    if ($hasHotelData && !$hasFlightData) {
                         $serviceType = 'hotel';
+                    } elseif ($hasFlightData && !$hasHotelData) {
+                        $serviceType = 'flight';
                     } else {
                         // Fallback: detect from booking ID (FL for flight, HL for hotel)
                         $serviceType = (stripos($bookingId, 'FL') !== false) ? 'flight' : 'hotel';
@@ -787,10 +792,35 @@ class ServiceFeeController extends Controller
                         'employee_name' => $employeeName,
                     ];
                     
+                    // Auto-extract room type and employee name from hotel name if not already set
+                    // Also extract if room_type is 'N/A', empty string, or null (placeholder values)
+                    $roomType = $recordData['room_type'] ?? '';
+                    $roomTypeEmpty = empty(trim($roomType)) || strtoupper(trim($roomType)) === 'N/A';
+                    \Log::debug("Room type check for {$bookingId}", [
+                        'original_room_type' => $roomType,
+                        'is_empty' => $roomTypeEmpty,
+                        'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
+                    ]);
+                    if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
+                        $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
+                        \Log::debug("Extraction result for {$bookingId}", $extracted);
+                        if (!empty($extracted['hotel_name'])) {
+                            $recordData['hotel_name'] = $extracted['hotel_name'];
+                        }
+                        if (!empty($extracted['room_type'])) {
+                            $recordData['room_type'] = $extracted['room_type'];
+                        }
+                        // Also fill employee name if extracted and currently empty
+                        if (empty($recordData['employee_name']) && !empty($extracted['employee_name'])) {
+                            $recordData['employee_name'] = $extracted['employee_name'];
+                        }
+                    }
+                    
                     \Log::info("Processing row (preprocessed): {$bookingId}", [
                         'service_type' => $serviceType,
                         'route' => $data['Route'] ?? 'N/A',
-                        'hotel_name' => $data['Hotel Name'] ?? 'N/A',
+                        'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
+                        'room_type' => $recordData['room_type'] ?? 'N/A',
                     ]);
                     
                     try {
@@ -822,8 +852,8 @@ class ServiceFeeController extends Controller
 
                     // Calculate service fee
                     $transactionAmount = $this->parseAmount($data['Transaction Amount'] ?? '0');
-                    $serviceFee = floor($transactionAmount * 0.01);
-                    $vat = floor($serviceFee * 0.11);
+                    $serviceFee = round($transactionAmount * 0.01);
+                    $vat = round($serviceFee * 0.11);
 
                     // Auto-generate sheet name from transaction time if not provided
                     $transactionDate = \Carbon\Carbon::parse($data['Transaction Time']);
@@ -853,6 +883,23 @@ class ServiceFeeController extends Controller
                         'booker_email' => $parsedData['booker_email'] ?? null,
                         'employee_name' => $parsedData['employee_name'] ?? null,
                     ];
+
+                    // Auto-extract room type and employee name from hotel name if not already set
+                    // Also extract if room_type is 'N/A' (placeholder value)
+                    $roomTypeEmpty = empty($recordData['room_type']) || strtoupper(trim($recordData['room_type'])) === 'N/A';
+                    if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
+                        $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
+                        if (!empty($extracted['hotel_name'])) {
+                            $recordData['hotel_name'] = $extracted['hotel_name'];
+                        }
+                        if (!empty($extracted['room_type'])) {
+                            $recordData['room_type'] = $extracted['room_type'];
+                        }
+                        // Also fill employee name if extracted and currently empty
+                        if (empty($recordData['employee_name']) && !empty($extracted['employee_name'])) {
+                            $recordData['employee_name'] = $extracted['employee_name'];
+                        }
+                    }
 
                     // Create or update record
                     try {
@@ -909,6 +956,258 @@ class ServiceFeeController extends Controller
         return redirect()->route('service-fee.index')
             ->with('success', $message)
             ->with('import_errors', $allErrors);
+    }
+
+    /**
+     * Extract room type and employee name from hotel name if room_type is empty
+     * Comprehensive extraction for various hotel name patterns
+     */
+    private function extractRoomTypeFromHotelName($hotelName, $existingRoomType = null)
+    {
+        // If room type already exists and not empty, just check for employee name
+        if (!empty($existingRoomType) && $existingRoomType !== 'N/A') {
+            $extractedEmployee = null;
+            // Check for lowercase employee name at end "mohamad sulthan"
+            if (preg_match('/\s+([a-z]+\s+[a-z]+)$/i', $hotelName, $m)) {
+                $name = trim($m[1]);
+                if (preg_match('/^[a-z]/', $name) || preg_match('/^(\w+)\s+\1$/i', $name)) {
+                    $extractedEmployee = $name;
+                    $hotelName = trim(substr($hotelName, 0, -strlen($m[0])));
+                }
+            }
+            // Check for ALL CAPS employee name
+            if (!$extractedEmployee && preg_match('/\s+([A-Z]{2,}(?:\s+[A-Z]{1,}){1,4})$/u', $hotelName, $matches)) {
+                $potentialName = trim($matches[1]);
+                $roomKeywords = ['DELUXE', 'SUPERIOR', 'STANDARD', 'EXECUTIVE', 'SUITE', 'KING', 'QUEEN', 'TWIN', 'DOUBLE', 'SINGLE', 'BED', 'ROOM', 'HOTEL', 'PALACE', 'CONVENTION'];
+                $isRoomKeyword = false;
+                foreach ($roomKeywords as $keyword) {
+                    if (stripos($potentialName, $keyword) !== false) {
+                        $isRoomKeyword = true;
+                        break;
+                    }
+                }
+                if (!$isRoomKeyword && strlen($potentialName) > 5) {
+                    $extractedEmployee = $potentialName;
+                    $hotelName = trim(str_replace($potentialName, '', $hotelName));
+                }
+            }
+            return ['hotel_name' => rtrim($hotelName, ' -'), 'room_type' => $existingRoomType, 'employee_name' => $extractedEmployee];
+        }
+
+        $originalHotel = $hotelName;
+        $extractedEmployee = null;
+        $extractedRoom = null;
+
+        // Step 1: Extract employee name
+        
+        // Pattern: lowercase name at end "mohamad sulthan", duplicated "Yusdi Yusdi"
+        if (preg_match('/\s+([a-z]+\s+[a-z]+)$/i', $hotelName, $m)) {
+            $name = trim($m[1]);
+            if (preg_match('/^[a-z]/', $name) || preg_match('/^(\w+)\s+\1$/i', $name)) {
+                $extractedEmployee = $name;
+                $hotelName = trim(substr($hotelName, 0, -strlen($m[0])));
+            }
+        }
+        
+        // Pattern: Single letter at end like "2 A", "1 I" - remove it
+        if (preg_match('/\s+(\d+)\s+([A-Z])$/u', $hotelName, $m)) {
+            $hotelName = trim(substr($hotelName, 0, -strlen($m[0]))) . ' ' . $m[1];
+        }
+        
+        // Pattern: number followed by single name "2 Ibrahim", "1 Fauzan"
+        if (!$extractedEmployee && preg_match('/\s+(\d+)\s+([A-Z][a-z]{2,})$/u', $hotelName, $matches)) {
+            $potentialName = trim($matches[2]);
+            $keywords = ['Hotel', 'Resort', 'Inn', 'Bed', 'Room', 'Double', 'Twin', 'King', 'Queen', 'Size', 'Bunk', 'Single', 'Superior', 'Deluxe', 'Standard'];
+            $isKeyword = false;
+            foreach ($keywords as $kw) {
+                if (strcasecmp($potentialName, $kw) === 0) {
+                    $isKeyword = true;
+                    break;
+                }
+            }
+            if (!$isKeyword) {
+                $extractedEmployee = $potentialName;
+                $hotelName = trim(substr($hotelName, 0, -strlen($matches[0]))) . ' ' . $matches[1];
+            }
+        }
+        
+        // Pattern: number followed by mixed case name "4 Arie Pratama"
+        if (!$extractedEmployee && preg_match('/\s+(\d+)\s+([A-Z][a-z]+(?:\s+[A-Za-z][a-z]*){1,3})$/u', $hotelName, $matches)) {
+            $potentialName = trim($matches[2]);
+            $keywords = ['Hotel', 'Resort', 'Inn', 'Bed', 'Room', 'Double', 'Twin', 'King', 'Queen', 'Size', 'Bunk'];
+            $isKeyword = false;
+            foreach ($keywords as $kw) {
+                if (stripos($potentialName, $kw) !== false) {
+                    $isKeyword = true;
+                    break;
+                }
+            }
+            if (!$isKeyword) {
+                $extractedEmployee = $potentialName;
+                $hotelName = trim(substr($hotelName, 0, -strlen($matches[0]))) . ' ' . $matches[1];
+            }
+        }
+        
+        // Pattern: ALL CAPS name at end
+        if (!$extractedEmployee && preg_match('/\s+([A-Z]{2,}(?:\s+[A-Z]{1,}){1,4})$/u', $hotelName, $empMatches)) {
+            $potentialName = trim($empMatches[1]);
+            $roomKeywords = ['DELUXE', 'SUPERIOR', 'STANDARD', 'EXECUTIVE', 'SUITE', 'KING', 'QUEEN', 'TWIN', 'DOUBLE', 'SINGLE', 'BED', 'ROOM', 'HOTEL', 'PALACE', 'CONVENTION', 'SOPPENG', 'THAMRIN', 'JAKARTA', 'IHG', 'SIZE'];
+            $isRoomKeyword = false;
+            foreach ($roomKeywords as $keyword) {
+                if (stripos($potentialName, $keyword) !== false) {
+                    $isRoomKeyword = true;
+                    break;
+                }
+            }
+            if (!$isRoomKeyword && strlen($potentialName) > 5) {
+                $extractedEmployee = $potentialName;
+                $hotelName = trim(str_replace($potentialName, '', $hotelName));
+            }
+        }
+
+        // Step 2: Extract room type using comprehensive patterns
+        $roomPatterns = [
+            // NEW PATTERNS FOR MISSING CASES:
+            // "Privilege 1 King Bed" (with or without "With")
+            '/\b(Privilege)\s+(?:With\s+)?(\d+\s+(?:Double|King|Queen|Twin|Single)(?:\s*-?\s*Size)?\s+Beds?)\s*$/i',
+            // "Deluxe Pemuda" (for Louis Kienne Pemuda Deluxe)
+            '/\b(Deluxe)\s+(Double|Twin)\s+Or\s+(Twin|Double)\s*$/i',
+            // "Deluxe Twin Bed" (without qualifier) 
+            '/\b(Deluxe|Deluxe\s+Twin|Deluxe\s+King)\s+Bed\s*$/i',
+            // "Max Happiness" variants
+            '/\b(Max\s+Happiness\s+(?:Double(?:\s+Superior\s+Grand)?|Doublebed))\s*(?:\d+)?\s*$/i',
+            // "Happiness Doublebed" (MaxOne Hotels)
+            '/\b(Happiness)\s*(Double(?:bed)?)\s*$/i',
+            // "Sorowako Double - 2 People"
+            '/\b(Sorowako|Soroako)\s+(Double|Twin)\s*-\s*\d+\s*People\s*$/i',
+            // "Sorowako Twin Superior Non-Smoking"  
+            '/\b(Sorowako|Soroako)\s+(Twin|Double)\s+Superior\s+(?:Non[- ]?Smoking)?\s*$/i',
+            // "Privilege With 1 King - Size Bed"
+            '/\b(Privilege)\s+With\s+\d+\s+\w+(?:\s*-\s*Size)?\s+Bed\s*$/i',
+            
+            // "Superior 1 Double Bed", "Deluxe 1 King Bed"
+            '/\b(Superior|Deluxe|Standard|Executive|Privilege|Premium|Premier)\s+(\d+\s+(?:Double|King|Queen|Twin|Single)\s+Beds?)\s*$/i',
+            // "Superior With 1 Double Bed", "Deluxe With 2 Single Beds"
+            '/\b(Superior|Deluxe|Standard)\s+With\s+(\d+\s+(?:Double|King|Queen|Twin|Single)(?:\s*-?\s*Size)?\s+Beds?)\s*$/i',
+            // "Superior With One Double Bed"
+            '/\b(Superior|Deluxe|Standard)\s+With\s+(One|Two)\s+(?:Double|King|Queen|Twin|Single)\s+Beds?\s*$/i',
+            // "Standard 1 King - Size Bed 2 A"
+            '/\b(Standard|Superior|Deluxe|Privilege)\s+\d+\s+\w+\s*-\s*Size\s+Bed.*$/i',
+            // "Standard 1 Double And 1 Bunk Bed"
+            '/\b(Standard|Superior|Deluxe)\s+\d+\s+\w+\s+And\s+\d+\s+\w+\s+Bed\s*$/i',
+            // "Deluxe 1 King Bed With Sofa Bed"
+            '/\b(Deluxe|Superior|Standard)\s+\d+\s+\w+\s+Bed\s+With\s+Sofa\s+Bed\s*$/i',
+            // "1 King Bed", "2 Twin Beds"
+            '/\b(\d+\s+(?:King|Queen|Twin|Double|Single)\s+Beds?)\s*$/i',
+            // "Standard 1 Queen Bed"
+            '/\b(Standard)\s+(\d+\s+Queen\s+Bed)\s*$/i',
+            // "Condotel 2 Bedroom"
+            '/\b(Condotel)\s+\d+\s+Bedroom\s*$/i',
+            // "Superior With Double Bed"
+            '/\b(Superior|Deluxe|Standard)\s+With\s+(Double|King|Queen|Twin|Single)\s+Bed\s*$/i',
+            // "Deluxe Double Or Twin", "Executive Royal Double Or Twin"
+            '/\b(Deluxe|Executive\s+Royal|Superior)\s+(Double|Twin)\s+Or\s+(Twin|Double)\s*$/i',
+            // "Superior Double Bed", "Deluxe Single Bed", "Standard King Bed" (must be before general pattern)
+            '/\b(Superior|Deluxe|Standard|Executive|Premium|Classic)\s+(Double|King|Queen|Twin|Single)\s+Bed\s*$/i',
+            // "Deluxe Single 2", "Deluxe Single" (at end with optional number)
+            '/\b(Deluxe|Superior|Standard)\s+(Single|Double|Twin)(?:\s+\d+)?\s*$/i',
+            // "Deluxe Twin 2 Tn", "Superior Twin 1" 
+            '/\b(Deluxe|Superior|Standard|Executive|Privilege)\s+(Double|Twin|Single|King|Queen)(?:\s+\d+)?(?:\s+Tn)?\s*$/i',
+            // "Deluxe Bed", "Superior Bed"
+            '/\b(Deluxe|Superior)\s+Bed\s*$/i',
+            // "Double - 2 People"
+            '/\b(Double|Twin)\s*-\s*\d+\s*People\s*$/i',
+            // "Twin Superior Non-Smoking"
+            '/\b(Twin|Double)\s+Superior\s+Non[- ]?Smoking\s*$/i',
+            // "Deluxe Kingbed", "Deluxe Queen Bf", "Happiness Doublebed"
+            '/\b(Deluxe|Superior|Standard|Happiness)\s+(Kingbed|Queen\s+Bf|Doublebed)\s*$/i',
+            // "Double Superior Queen Bed Non Balcony"
+            '/\b(Double\s+Superior\s+Queen\s+Bed(?:\s+Non\s+Balcony)?)\s*$/i',
+            // "Premier King", "Premier Hollywood"
+            '/\b(Premier|Executive)\s+(King|Queen|Hollywood)\s*$/i',
+            // "Deluxe King Bed", "Executive Queen Bed", "Deluxe Twin Bed"
+            '/\b(Deluxe|Executive|Premium|Classic)\s+(King|Queen|Twin|Double)\s+Bed\s*$/i',
+            // "Deluxe Premier", "Deluxe Family", "Deluxe Business", "Deluxe Balcony"
+            '/\b(Deluxe|Superior)\s+(Premier|Family|Business|Balcony)\s*$/i',
+            // "Classic Braga View"
+            '/\b(Classic)\s+\w+\s+View\s*$/i',
+            // "Executive Cabin"
+            '/\b(Executive)\s+(Cabin)\s*$/i',
+            // "Smart Hollywood"
+            '/\b(Smart)\s+(Hollywood)\s*$/i',
+            // "Hollywood" alone at end (for Luminor etc)
+            '/\b(Hollywood)\s*$/i',
+            // "Harris Unique", "Harris" alone at end
+            '/\b(Harris)(?:\s+Unique)?\s*$/i',
+            // "Ra Twin Bed"
+            '/\b(Ra)\s+(Twin|Double|King)\s+Bed\s*$/i',
+            // "Juno Skyline View"
+            '/\b(Juno)\s+Skyline\s+View\s*$/i',
+            // "Yello Monas"
+            '/\b(Yello)\s+Monas\s*$/i',
+            // "Champs Hollywood"
+            '/\b(Champs)\s+Hollywood\s*$/i',
+            // "Comfy"
+            '/\b(Comfy)\s*$/i',
+            // "Warmth"
+            '/\b(Warmth)\s*$/i',
+            // "Vip"
+            '/\b(Vip|VIP)\s*$/i',
+            // "Premiere"
+            '/\b(Premiere|Premierre)\s*$/i',
+            // "Villa 2"
+            '/\b(Villa)\s+\d+\s*$/i',
+            // "Apartment"
+            '/\b(Apartment)\s*$/i',
+            // "2 Bed" at end
+            '/\b(\d+\s+Bed)\s*$/i',
+            // "Max Happiness Double Superior Grand"
+            '/\b(Max\s+Happiness\s+Double\s+Superior\s+Grand)\s*$/i',
+            // "Standard - 1 Double Bed"
+            '/\b(Standard|Superior|Deluxe)\s*-\s*\d+\s+(Double|King|Queen|Twin|Single)\s+Bed\s*$/i',
+            // "Superior With 1 New" (incomplete)
+            '/\b(Superior|Deluxe)\s+With\s+\d+\s+New\s*$/i',
+            // "Executive 3 A"
+            '/\b(Executive|Superior|Deluxe|Standard|Premium|Privilege|Club)\s+\d+(?:\s+[A-Z])?\s*$/i',
+            // "Family Ro" (truncated)
+            '/\bFamily\s+Ro\s*$/i',
+            // Room number "205", "101"
+            '/\s+(\d{3})\s*$/',
+            // "Kamar Sedang 1"
+            '/\bKamar\s+Sedang\s*\d*\s*$/i',
+            // "1 Bedroom Executive Twin 1"
+            '/\b(\d+\s+Bedroom\s+Executive\s+Twin\s+\d+)\s*$/i',
+            // "Deluxe Kingbed" - MaxOne format
+            '/\b(Deluxe|Superior)\s+(Kingbed|Queenbed|Doublebed|Twinbed)\s*$/i',
+        ];
+        
+        foreach ($roomPatterns as $pattern) {
+            if (preg_match($pattern, $hotelName, $m)) {
+                // Special case for Family Ro -> Family Room
+                if (stripos($m[0], 'Family Ro') !== false) {
+                    $extractedRoom = 'Family Room';
+                }
+                // Special case for room number
+                elseif (preg_match('/^\s*(\d{3})\s*$/', $m[0])) {
+                    $extractedRoom = 'Room ' . trim($m[1]);
+                } else {
+                    $extractedRoom = trim($m[0]);
+                }
+                $hotelName = trim(substr($hotelName, 0, -strlen($m[0])));
+                break;
+            }
+        }
+
+        // Clean up
+        $hotelName = preg_replace('/\s+\d+\s*$/', '', $hotelName);
+        $hotelName = rtrim($hotelName, ' -,');
+        $hotelName = preg_replace('/\s+/', ' ', $hotelName);
+
+        return [
+            'hotel_name' => trim($hotelName) ?: $originalHotel, 
+            'room_type' => $extractedRoom,
+            'employee_name' => $extractedEmployee
+        ];
     }
 
     private function parseHotelDescription($description)
@@ -1307,7 +1606,7 @@ class ServiceFeeController extends Controller
     {
         $validated = $request->validate([
             'service_type' => 'nullable|in:hotel,flight,all',
-            'confirmation' => 'required|string|in:DELETE ALL',
+            'confirmation' => 'required|string|in:DELETE ALL,HAPUS SEMUA',
         ]);
 
         $serviceType = $validated['service_type'] ?? 'all';
