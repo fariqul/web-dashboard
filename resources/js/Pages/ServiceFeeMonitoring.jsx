@@ -65,6 +65,7 @@ export default function ServiceFeeMonitoring({
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [deleteSheetModalOpen, setDeleteSheetModalOpen] = useState(false);
     const [deleteAllModalOpen, setDeleteAllModalOpen] = useState(false);
+    const [isFixingRooms, setIsFixingRooms] = useState(false);
     const [selectedRecord, setSelectedRecord] = useState(null);
     const [sortBy, setSortBy] = useState(filters?.sort_by || 'transaction_time');
     const [sortOrder, setSortOrder] = useState(filters?.sort_order || 'desc');
@@ -93,6 +94,48 @@ export default function ServiceFeeMonitoring({
             toast(flash.info, { icon: 'ℹ️' });
         }
     }, [flash]);
+
+    // Handle Fix Empty Room Types
+    const handleFixRooms = async () => {
+        setIsFixingRooms(true);
+        
+        try {
+            const response = await fetch('/service-fee/fix-rooms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+                    'Accept': 'application/json',
+                },
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                toast.success(`✅ Fixed ${data.fixed_count} rooms! ${data.remaining_count} still empty.`, {
+                    duration: 5000,
+                });
+                
+                // Show some examples of unfixed if any
+                if (data.remaining_count > 0 && data.unfixed_samples?.length > 0) {
+                    toast(`📋 Sample unfixed: ${data.unfixed_samples.slice(0, 3).join(', ')}`, {
+                        icon: 'ℹ️',
+                        duration: 6000,
+                    });
+                }
+                
+                // Reload page to show updated data
+                router.reload();
+            } else {
+                toast.error(data.message || 'Failed to fix rooms');
+            }
+        } catch (error) {
+            console.error('Fix rooms error:', error);
+            toast.error('Failed to fix rooms: ' + error.message);
+        } finally {
+            setIsFixingRooms(false);
+        }
+    };
 
     const handleSheetChange = (sheet) => {
         router.get('/service-fee', { 
@@ -679,6 +722,8 @@ export default function ServiceFeeMonitoring({
                         onPageChange={handlePageChange}
                         onPerPageChange={handlePerPageChange}
                         perPage={perPage}
+                        onFixRooms={handleFixRooms}
+                        isFixingRooms={isFixingRooms}
                     />
                 )}
 
@@ -740,12 +785,23 @@ export default function ServiceFeeMonitoring({
     );
 }
 
-function HotelTab({ bookings, summary, formatCurrency, onView, onEdit, onDelete, onSort, getSortIcon, sortBy, onPageChange, onPerPageChange, perPage }) {
+function HotelTab({ bookings, summary, formatCurrency, onView, onEdit, onDelete, onSort, getSortIcon, sortBy, onPageChange, onPerPageChange, perPage, onFixRooms, isFixingRooms }) {
     return (
         <div className="space-y-6">
             {/* Summary Card */}
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 border-l-4 border-blue-500">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">🏨 Hotel Summary</h3>
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold text-gray-900">🏨 Hotel Summary</h3>
+                    <button
+                        onClick={onFixRooms}
+                        disabled={isFixingRooms}
+                        className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-sm rounded-lg font-medium transition-all duration-200 flex items-center gap-1.5 shadow hover:shadow-md"
+                        title="Fix Empty Room Types"
+                    >
+                        <span>{isFixingRooms ? '⏳' : '🔧'}</span>
+                        <span>{isFixingRooms ? 'Fixing...' : 'Fix Rooms'}</span>
+                    </button>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <p className="text-sm text-gray-600">Total Bookings</p>

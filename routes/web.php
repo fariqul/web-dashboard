@@ -27,6 +27,7 @@ Route::get('/service-fee', [ServiceFeeController::class, 'index'])->name('servic
 Route::get('/service-fee/sheets', [ServiceFeeController::class, 'getAvailableSheets']);
 Route::post('/service-fee/store', [ServiceFeeController::class, 'store']);
 Route::post('/service-fee/import-csv', [ServiceFeeController::class, 'importCsv']);
+Route::post('/service-fee/fix-rooms', [ServiceFeeController::class, 'fixEmptyRooms'])->name('service-fee.fix-rooms');
 Route::delete('/service-fee/sheet/delete', [ServiceFeeController::class, 'destroySheet']);
 Route::delete('/service-fee/delete-all', [ServiceFeeController::class, 'deleteAll'])->name('service-fee.delete.all');
 Route::get('/service-fee/{id}', [ServiceFeeController::class, 'show']);

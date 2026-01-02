@@ -959,11 +959,130 @@ class ServiceFeeController extends Controller
     }
 
     /**
+     * Fix empty room types by extracting from hotel name
+     * This can be called via AJAX button in frontend
+     */
+    public function fixEmptyRooms()
+    {
+        $unfixed = ServiceFee::where('service_type', 'hotel')
+            ->where(function($q) {
+                $q->whereNull('room_type')
+                  ->orWhere('room_type', '')
+                  ->orWhere('room_type', 'N/A');
+            })
+            ->get();
+
+        $fixed = 0;
+        $unfixedList = [];
+
+        foreach ($unfixed as $hotel) {
+            $result = $this->extractRoomTypeFromHotelName($hotel->hotel_name);
+            
+            if ($result['room_type']) {
+                $hotel->room_type = $result['room_type'];
+                if ($result['hotel_name'] && $result['hotel_name'] !== $hotel->hotel_name) {
+                    $hotel->hotel_name = $result['hotel_name'];
+                }
+                if ($result['employee_name'] && empty($hotel->employee_name)) {
+                    $hotel->employee_name = $result['employee_name'];
+                }
+                $hotel->save();
+                $fixed++;
+            } else {
+                // Try additional patterns for simple cases like "Hotel Name Deluxe"
+                $simpleRoom = $this->extractSimpleRoomType($hotel->hotel_name);
+                if ($simpleRoom) {
+                    $hotel->room_type = $simpleRoom['room_type'];
+                    $hotel->hotel_name = $simpleRoom['hotel_name'];
+                    $hotel->save();
+                    $fixed++;
+                } else {
+                    $unfixedList[] = [
+                        'id' => $hotel->id,
+                        'hotel_name' => $hotel->hotel_name,
+                    ];
+                }
+            }
+        }
+
+        $remaining = ServiceFee::where('service_type', 'hotel')
+            ->where(function($q) {
+                $q->whereNull('room_type')
+                  ->orWhere('room_type', '')
+                  ->orWhere('room_type', 'N/A');
+            })
+            ->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Fixed {$fixed} records. {$remaining} remaining.",
+            'fixed_count' => $fixed,
+            'remaining_count' => $remaining,
+            'unfixed_samples' => array_column(array_slice($unfixedList, 0, 10), 'hotel_name'),
+        ]);
+    }
+
+    /**
+     * Extract simple room type patterns like "Hotel Name Deluxe", "Hotel Name Superior"
+     */
+    private function extractSimpleRoomType($hotelName)
+    {
+        // Pattern 1: Room types in the middle like "2Br At", "Superior With"
+        $middlePatterns = [
+            // "Best Deal And Homey 2Br At Bale Hinggil" -> room: 2BR
+            '/\b(2Br|3Br|1Br|Studio|2\s*Bedroom|3\s*Bedroom|1\s*Bedroom)\s+At\b/i' => 1,
+            // "all seasons Jakarta Thamrin Superior With" -> room: Superior
+            '/\b(Superior|Deluxe|Standard|Executive|Premium)\s+With\b/i' => 1,
+            // "Hotel Name 2BR Room" pattern
+            '/\b(2BR|3BR|1BR|Studio)\s+Room\b/i' => 1,
+        ];
+        
+        foreach ($middlePatterns as $pattern => $group) {
+            if (preg_match($pattern, $hotelName, $m)) {
+                $roomType = strtoupper(trim($m[$group]));
+                // Normalize room types
+                $roomType = preg_replace('/(\d)\s*B[Rr]/', '$1BR', $roomType);
+                $roomType = preg_replace('/(\d)\s*Bedroom/i', '$1BR', $roomType);
+                // Clean hotel name - remove the room type part
+                $cleanName = preg_replace($pattern, '', $hotelName);
+                $cleanName = preg_replace('/\s+/', ' ', trim($cleanName));
+                return [
+                    'room_type' => $roomType,
+                    'hotel_name' => $cleanName,
+                ];
+            }
+        }
+        
+        // Pattern 2: Simple room types at end of hotel name
+        $simplePatterns = [
+            'Deluxe', 'Superior', 'Standard', 'Executive', 'Premium', 'Club', 
+            'Suite', 'Family', 'Twin', 'Double', 'Single', 'King', 'Queen',
+            'Grand Deluxe', 'Deluxe Superior', 'Happiness Double Superior',
+            '2BR', '3BR', '1BR', 'Studio',
+        ];
+        
+        foreach ($simplePatterns as $pattern) {
+            if (preg_match('/\s+(' . preg_quote($pattern, '/') . ')\s*$/i', $hotelName, $m)) {
+                return [
+                    'room_type' => trim($m[1]),
+                    'hotel_name' => trim(substr($hotelName, 0, -strlen($m[0]))),
+                ];
+            }
+        }
+        
+        return null;
+    }
+
+    /**
      * Extract room type and employee name from hotel name if room_type is empty
      * Comprehensive extraction for various hotel name patterns
      */
     private function extractRoomTypeFromHotelName($hotelName, $existingRoomType = null)
     {
+        // CRITICAL: Strip trailing single digit (like "1", "2") that comes from CSV 
+        // These are often guest count or room numbers appended to description
+        $hotelName = preg_replace('/\s+\d\s*$/', '', trim($hotelName));
+        
         // If room type already exists and not empty, just check for employee name
         if (!empty($existingRoomType) && $existingRoomType !== 'N/A') {
             $extractedEmployee = null;
@@ -1001,11 +1120,15 @@ class ServiceFeeController extends Controller
         // Step 1: Extract employee name
         
         // Pattern: lowercase name at end "mohamad sulthan", duplicated "Yusdi Yusdi"
+        // BUT NOT "2 People", "- 2 People" etc
         if (preg_match('/\s+([a-z]+\s+[a-z]+)$/i', $hotelName, $m)) {
             $name = trim($m[1]);
-            if (preg_match('/^[a-z]/', $name) || preg_match('/^(\w+)\s+\1$/i', $name)) {
-                $extractedEmployee = $name;
-                $hotelName = trim(substr($hotelName, 0, -strlen($m[0])));
+            // Skip if it looks like room info (e.g., "2 People", "1 Bedroom")
+            if (!preg_match('/^\d+\s+(People|Bedroom|Bed|Person)/i', $name)) {
+                if (preg_match('/^[a-z]/', $name) || preg_match('/^(\w+)\s+\1$/i', $name)) {
+                    $extractedEmployee = $name;
+                    $hotelName = trim(substr($hotelName, 0, -strlen($m[0])));
+                }
             }
         }
         
@@ -1017,7 +1140,7 @@ class ServiceFeeController extends Controller
         // Pattern: number followed by single name "2 Ibrahim", "1 Fauzan"
         if (!$extractedEmployee && preg_match('/\s+(\d+)\s+([A-Z][a-z]{2,})$/u', $hotelName, $matches)) {
             $potentialName = trim($matches[2]);
-            $keywords = ['Hotel', 'Resort', 'Inn', 'Bed', 'Room', 'Double', 'Twin', 'King', 'Queen', 'Size', 'Bunk', 'Single', 'Superior', 'Deluxe', 'Standard'];
+            $keywords = ['Hotel', 'Resort', 'Inn', 'Bed', 'Room', 'Double', 'Twin', 'King', 'Queen', 'Size', 'Bunk', 'Single', 'Superior', 'Deluxe', 'Standard', 'People', 'Bedroom'];
             $isKeyword = false;
             foreach ($keywords as $kw) {
                 if (strcasecmp($potentialName, $kw) === 0) {
@@ -1034,7 +1157,7 @@ class ServiceFeeController extends Controller
         // Pattern: number followed by mixed case name "4 Arie Pratama"
         if (!$extractedEmployee && preg_match('/\s+(\d+)\s+([A-Z][a-z]+(?:\s+[A-Za-z][a-z]*){1,3})$/u', $hotelName, $matches)) {
             $potentialName = trim($matches[2]);
-            $keywords = ['Hotel', 'Resort', 'Inn', 'Bed', 'Room', 'Double', 'Twin', 'King', 'Queen', 'Size', 'Bunk'];
+            $keywords = ['Hotel', 'Resort', 'Inn', 'Bed', 'Room', 'Double', 'Twin', 'King', 'Queen', 'Size', 'Bunk', 'Bedroom', 'People'];
             $isKeyword = false;
             foreach ($keywords as $kw) {
                 if (stripos($potentialName, $kw) !== false) {
@@ -1067,7 +1190,15 @@ class ServiceFeeController extends Controller
 
         // Step 2: Extract room type using comprehensive patterns
         $roomPatterns = [
-            // NEW PATTERNS FOR MISSING CASES:
+            // SPECIAL EDGE CASES (must be first)
+            // "Sorowako Double - 2 People"
+            '/\b(Sorowako|Soroako)\s+(Double|Twin)\s*-\s*\d+\s*People\s*$/i',
+            // "Condotel 2 Bedroom"
+            '/\b(Condotel)\s+\d+\s+Bedroom\s*$/i',
+            // "2BR Apartment" or "Apartment Apartment"
+            '/\b(\d+BR\s+)?Apartment(?:\s+Apartment)?\s*$/i',
+            // "Superior With 1 New" (truncated data)
+            '/\b(Superior|Deluxe|Standard)\s+With\s+\d+\s+New\s*$/i',
             // "Privilege 1 King Bed" (with or without "With")
             '/\b(Privilege)\s+(?:With\s+)?(\d+\s+(?:Double|King|Queen|Twin|Single)(?:\s*-?\s*Size)?\s+Beds?)\s*$/i',
             // "Deluxe Pemuda" (for Louis Kienne Pemuda Deluxe)
@@ -1078,8 +1209,6 @@ class ServiceFeeController extends Controller
             '/\b(Max\s+Happiness\s+(?:Double(?:\s+Superior\s+Grand)?|Doublebed))\s*(?:\d+)?\s*$/i',
             // "Happiness Doublebed" (MaxOne Hotels)
             '/\b(Happiness)\s*(Double(?:bed)?)\s*$/i',
-            // "Sorowako Double - 2 People"
-            '/\b(Sorowako|Soroako)\s+(Double|Twin)\s*-\s*\d+\s*People\s*$/i',
             // "Sorowako Twin Superior Non-Smoking"  
             '/\b(Sorowako|Soroako)\s+(Twin|Double)\s+Superior\s+(?:Non[- ]?Smoking)?\s*$/i',
             // "Privilege With 1 King - Size Bed"
@@ -1101,8 +1230,6 @@ class ServiceFeeController extends Controller
             '/\b(\d+\s+(?:King|Queen|Twin|Double|Single)\s+Beds?)\s*$/i',
             // "Standard 1 Queen Bed"
             '/\b(Standard)\s+(\d+\s+Queen\s+Bed)\s*$/i',
-            // "Condotel 2 Bedroom"
-            '/\b(Condotel)\s+\d+\s+Bedroom\s*$/i',
             // "Superior With Double Bed"
             '/\b(Superior|Deluxe|Standard)\s+With\s+(Double|King|Queen|Twin|Single)\s+Bed\s*$/i',
             // "Deluxe Double Or Twin", "Executive Royal Double Or Twin"
