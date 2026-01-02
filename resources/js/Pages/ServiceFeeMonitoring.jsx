@@ -6,6 +6,7 @@ import ViewServiceFeeModal from '../Components/ViewServiceFeeModal';
 import EditServiceFeeModal from '../Components/EditServiceFeeModal';
 import DeleteConfirmModal from '../Components/DeleteConfirmModal';
 import DeleteSheetModal from '../Components/DeleteSheetModal';
+import DeleteAllServiceFeeModal from '../Components/DeleteAllServiceFeeModal';
 import SheetSelector from '../Components/SheetSelector';
 import Pagination from '../Components/Pagination';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
@@ -63,6 +64,7 @@ export default function ServiceFeeMonitoring({
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [deleteSheetModalOpen, setDeleteSheetModalOpen] = useState(false);
+    const [deleteAllModalOpen, setDeleteAllModalOpen] = useState(false);
     const [selectedRecord, setSelectedRecord] = useState(null);
     const [sortBy, setSortBy] = useState(filters?.sort_by || 'transaction_time');
     const [sortOrder, setSortOrder] = useState(filters?.sort_order || 'desc');
@@ -231,6 +233,14 @@ export default function ServiceFeeMonitoring({
                         </div>
                         
                         <div className="flex gap-3">
+                            <button
+                                onClick={() => setDeleteAllModalOpen(true)}
+                                className="px-5 py-3 bg-red-700/90 backdrop-blur-md hover:bg-red-800 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
+                                title="Delete All Data"
+                            >
+                                <span className="text-2xl">⚠️</span>
+                                <span>Delete All</span>
+                            </button>
                             <button
                                 onClick={() => setDeleteSheetModalOpen(true)}
                                 className="px-5 py-3 bg-red-500/80 backdrop-blur-md hover:bg-red-600 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
@@ -718,6 +728,13 @@ export default function ServiceFeeMonitoring({
                 isOpen={deleteSheetModalOpen}
                 onClose={() => setDeleteSheetModalOpen(false)}
                 sheets={availableSheets}
+            />
+            <DeleteAllServiceFeeModal
+                isOpen={deleteAllModalOpen}
+                onClose={() => setDeleteAllModalOpen(false)}
+                totalRecords={(hotelSummary?.totalBookings || 0) + (flightSummary?.totalBookings || 0)}
+                hotelCount={hotelSummary?.totalBookings || 0}
+                flightCount={flightSummary?.totalBookings || 0}
             />
         </MainLayout>
     );

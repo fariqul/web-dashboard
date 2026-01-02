@@ -31,6 +31,7 @@ Route::put('/service-fee/{id}', [ServiceFeeController::class, 'update']);
 Route::delete('/service-fee/{id}', [ServiceFeeController::class, 'destroy']);
 Route::post('/service-fee/import-csv', [ServiceFeeController::class, 'importCsv']);
 Route::delete('/service-fee/sheet/delete', [ServiceFeeController::class, 'destroySheet']);
+Route::delete('/service-fee/delete-all', [ServiceFeeController::class, 'deleteAll'])->name('service-fee.delete.all');
 
 Route::get('/cc-card/destination-detail', function () {
     $destination = request('destination');
@@ -849,15 +850,17 @@ Route::get('/cc-card', function () {
         $totalPayment = $netPayment + $filteredAdditionalFees;
     }
     
-    // Hitung total biaya administrasi dan bunga (biaya_transfer)
+    // Hitung total biaya administrasi dan bunga (semua additional fees)
     // Ambil sheet names dari transaksi yang sudah difilter
     $relevantSheets = $transactions->pluck('sheet')->unique()->toArray();
     
-    // Sum biaya_transfer hanya dari sheets yang ada di transaksi yang difilter
+    // Sum semua biaya tambahan dari sheets yang ada di transaksi yang difilter
     $totalAdminInterest = 0;
     if (!empty($relevantSheets)) {
-        $totalAdminInterest = SheetAdditionalFee::whereIn('sheet_name', $relevantSheets)
-            ->sum('biaya_transfer');
+        $fees = SheetAdditionalFee::whereIn('sheet_name', $relevantSheets)->get();
+        foreach ($fees as $fee) {
+            $totalAdminInterest += $fee->biaya_adm_bunga + $fee->biaya_transfer + $fee->iuran_tahunan;
+        }
     }
     
     // Daftar sheet yang tersedia
@@ -1319,6 +1322,7 @@ Route::get('/cc-card', function () {
 Route::get('/cc-card/transaction/autocomplete', [CCTransactionController::class, 'autocomplete']);
 Route::post('/cc-card/transaction/store', [CCTransactionController::class, 'store']);
 Route::post('/cc-card/transaction/import', [CCTransactionController::class, 'import']);
+Route::delete('/cc-card/delete-all', [CCTransactionController::class, 'deleteAll']);
 Route::get('/cc-card/transaction/{id}', [CCTransactionController::class, 'show']);
 Route::put('/cc-card/transaction/{id}', [CCTransactionController::class, 'update']);
 Route::delete('/cc-card/transaction/{id}', [CCTransactionController::class, 'destroy']);

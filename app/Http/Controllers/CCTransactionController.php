@@ -347,7 +347,15 @@ class CCTransactionController extends Controller
                 $this->ensureSheetExists($sheetName);
             }
             
-            $message = "Import berhasil! Ditambahkan: $imported, Diupdate: $updated, Dilewati: $skipped";
+            // Build informative message
+            $message = "Import berhasil! Ditambahkan: $imported";
+            if ($updated > 0) {
+                $message .= ", Diupdate: $updated";
+            }
+            if ($skipped > 0) {
+                $skipReason = $updateExisting ? "format tidak valid" : "sudah ada (centang 'Update data yang sudah ada' untuk mengupdate)";
+                $message .= ", Dilewati: $skipped ($skipReason)";
+            }
             
             return redirect('/cc-card')->with('success', $message);
             
@@ -360,6 +368,30 @@ class CCTransactionController extends Controller
             
             Log::error('CC Card import error: ' . $e->getMessage());
             return back()->with('error', 'Import gagal: ' . $e->getMessage());
+        }
+    }
+    
+    /**
+     * Delete all CC Card transactions
+     */
+    public function deleteAll()
+    {
+        try {
+            DB::beginTransaction();
+            
+            // Delete all transactions
+            CCTransaction::truncate();
+            
+            // Also delete all sheet additional fees
+            SheetAdditionalFee::truncate();
+            
+            DB::commit();
+            
+            return redirect('/cc-card')->with('success', 'Semua data CC Card berhasil dihapus.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('CC Card delete all error: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
     
@@ -590,144 +622,220 @@ class CCTransactionController extends Controller
     
     /**
      * Convert Excel file to CC Card CSV format
+     * Supports multiple sheets with different CC numbers (e.g., "Juli 25 - 5657", "September 25 - 9386")
+     * Also extracts refund transactions and additional fees from summary section
      */
     private function convertExcelToCCCardCsv($file)
     {
         try {
             $spreadsheet = IOFactory::load($file->getRealPath());
-            $sheet = $spreadsheet->getActiveSheet();
-            $rows = $sheet->toArray();
+            $sheetNames = $spreadsheet->getSheetNames();
             
-            Log::info('CC Card Excel loaded, total rows: ' . count($rows));
+            Log::info('CC Card Excel loaded', [
+                'total_sheets' => count($sheetNames),
+                'sheet_names' => $sheetNames
+            ]);
             
-            // Find header row
-            $headerRow = null;
-            $headerRowIndex = -1;
-            
-            for ($i = 0; $i < min(5, count($rows)); $i++) {
-                $row = $rows[$i];
-                // Look for key columns
-                if (in_array('Booking ID', $row) || in_array('Name', $row) || in_array('Trip Number', $row)) {
-                    $headerRow = $row;
-                    $headerRowIndex = $i;
-                    Log::info('CC Card header found at row: ' . $i);
-                    break;
-                }
-            }
-            
-            if (!$headerRow) {
-                Log::error('CC Card header row not found');
-                return null;
-            }
-            
-            // Find column indices
-            $bookingIdCol = array_search('Booking ID', $headerRow);
-            $nameCol = array_search('Name', $headerRow);
-            $personelCol = array_search('Personel Number', $headerRow);
-            $tripNumCol = array_search('Trip Number', $headerRow);
-            $destCol = array_search('Trip Destination', $headerRow);
-            $tripDateCol = array_search('Trip Date', $headerRow);
-            $paymentCol = array_search('Payment', $headerRow);
-            $typeCol = array_search('Transaction Type', $headerRow);
-            
-            if ($bookingIdCol === false || $nameCol === false || $tripNumCol === false) {
-                return null;
-            }
-            
-            // Detect sheet name from filename or use default
-            $fileName = $file->getClientOriginalName();
-            $sheetName = pathinfo($fileName, PATHINFO_FILENAME);
-            
-            // Try to extract CC number and month/year from filename
-            $ccNumber = '5657'; // default
-            if (preg_match('/(\d{4})/', $sheetName, $matches)) {
-                $ccNumber = $matches[1];
-            }
-            
-            // Try to extract month and year from filename
-            $monthYear = '';
-            if (preg_match('/(Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember)\s*(\d{4})/i', $sheetName, $matches)) {
-                $monthYear = $matches[1] . ' ' . $matches[2];
-            } else {
-                // Default to current month/year
-                $monthNames = ['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-                $monthYear = $monthNames[date('n')] . ' ' . date('Y');
-            }
-            
-            $defaultSheetName = $monthYear . ' - CC ' . $ccNumber;
-            
-            // Build CSV
+            // Build CSV header
             $csvLines = [];
             $csvLines[] = 'No.,Booking ID,Name,Personel Number,Trip Number,Origin,Destination,Trip Destination,Departure Date,Return Date,Duration Days,Payment,Transaction Type,Sheet';
             
             $transactionNumber = 1;
             
-            // Process data rows
-            for ($i = $headerRowIndex + 1; $i < count($rows); $i++) {
-                $row = $rows[$i];
+            // Store additional fees per sheet to save after processing
+            $sheetFees = [];
+            
+            // Process each sheet
+            foreach ($sheetNames as $sheetIndex => $originalSheetName) {
+                $sheet = $spreadsheet->getSheet($sheetIndex);
+                $rows = $sheet->toArray();
                 
-                // Skip empty rows
-                if (empty($row[$bookingIdCol])) {
-                    continue;
-                }
+                Log::info("Processing CC Card sheet: $originalSheetName", ['rows' => count($rows)]);
                 
-                $bookingId = $this->cleanValueCC($row[$bookingIdCol]);
-                $name = $this->cleanValueCC($row[$nameCol] ?? '');
-                $personelNumber = $this->cleanValueCC($row[$personelCol] ?? '');
-                $tripNumber = $this->cleanValueCC($row[$tripNumCol] ?? '');
-                $tripDestination = $this->cleanValueCC($row[$destCol] ?? '');
-                $tripDate = $this->cleanValueCC($row[$tripDateCol] ?? '');
-                $payment = $this->cleanAmountCC($row[$paymentCol] ?? 0);
-                $transactionType = strtolower($this->cleanValueCC($row[$typeCol] ?? 'payment'));
+                // Parse sheet name to get month, year, and CC number
+                // Format: "Juli 25 - 5657" or "September 25 - 9386"
+                $sheetNameForDb = $this->parseSheetName($originalSheetName);
                 
-                // Parse trip destination (origin - destination)
-                $origin = '';
-                $destination = '';
-                if (strpos($tripDestination, ' - ') !== false) {
-                    list($origin, $destination) = explode(' - ', $tripDestination, 2);
-                    $origin = trim($origin);
-                    $destination = trim($destination);
-                }
+                // Find header row in this sheet
+                $headerRow = null;
+                $headerRowIndex = -1;
                 
-                // Parse trip date (departure - return)
-                $departureDate = '';
-                $returnDate = '';
-                $durationDays = 0;
-                if (strpos($tripDate, ' - ') !== false) {
-                    list($dep, $ret) = explode(' - ', $tripDate, 2);
-                    $departureDate = $this->parseDateCC(trim($dep));
-                    $returnDate = $this->parseDateCC(trim($ret));
-                    
-                    if ($departureDate && $returnDate) {
-                        $depTime = strtotime($departureDate);
-                        $retTime = strtotime($returnDate);
-                        $durationDays = round(($retTime - $depTime) / 86400);
+                for ($i = 0; $i < min(10, count($rows)); $i++) {
+                    $row = $rows[$i];
+                    // Look for key columns - check if any cell contains these values
+                    $rowString = implode('|', array_map('strval', $row));
+                    if (stripos($rowString, 'Booking ID') !== false || 
+                        (stripos($rowString, 'Name') !== false && stripos($rowString, 'Trip') !== false)) {
+                        $headerRow = $row;
+                        $headerRowIndex = $i;
+                        Log::info("CC Card header found in sheet '$originalSheetName' at row: $i");
+                        break;
                     }
                 }
                 
-                $csvLines[] = sprintf(
-                    '"%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s"',
-                    $transactionNumber++,
-                    $bookingId,
-                    $name,
-                    $personelNumber,
-                    $tripNumber,
-                    $origin,
-                    $destination,
-                    $tripDestination,
-                    $departureDate,
-                    $returnDate,
-                    $durationDays,
-                    $payment,
-                    $transactionType,
-                    $defaultSheetName
+                if (!$headerRow) {
+                    Log::warning("CC Card header not found in sheet: $originalSheetName, skipping");
+                    continue;
+                }
+                
+                // Find column indices (case-insensitive search)
+                $bookingIdCol = $this->findColumnIndex($headerRow, ['Booking ID', 'BookingID', 'Booking_ID']);
+                $nameCol = $this->findColumnIndex($headerRow, ['Name', 'Nama']);
+                $personelCol = $this->findColumnIndex($headerRow, ['Personel Number', 'PersonelNumber', 'Personel']);
+                $tripNumCol = $this->findColumnIndex($headerRow, ['Trip Number', 'TripNumber', 'Trip_Number']);
+                $destCol = $this->findColumnIndex($headerRow, ['Trip Destination', 'TripDestination', 'Destination']);
+                $tripDateCol = $this->findColumnIndex($headerRow, ['Trip Date', 'TripDate', 'Date']);
+                $paymentCol = $this->findColumnIndex($headerRow, ['Payment', 'Amount', 'Pembayaran']);
+                $typeCol = $this->findColumnIndex($headerRow, ['Transaction Type', 'TransactionType', 'Type']);
+                
+                if ($bookingIdCol === false || $nameCol === false) {
+                    Log::warning("Required columns not found in sheet: $originalSheetName");
+                    continue;
+                }
+                
+                // ============================================
+                // PART 1: Extract Summary Section Data
+                // ============================================
+                $summaryData = $this->extractSummarySection($rows, $paymentCol);
+                
+                // Store additional fees for this sheet
+                $sheetFees[$sheetNameForDb] = [
+                    'biaya_adm_bunga' => $summaryData['biaya_adm_bunga'],
+                    'biaya_transfer' => $summaryData['biaya_transfer'],
+                    'iuran_tahunan' => $summaryData['iuran_tahunan'],
+                ];
+                
+                Log::info("CC Card summary extracted for sheet '$sheetNameForDb'", $summaryData);
+                
+                // Add refund transactions from summary section
+                foreach ($summaryData['refund_transactions'] as $refundTx) {
+                    $csvLines[] = sprintf(
+                        '"%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                        $transactionNumber++,
+                        $refundTx['booking_id'],
+                        $refundTx['name'],
+                        '', // personel_number not available for refunds
+                        '', // trip_number
+                        '', // origin
+                        '', // destination
+                        '', // trip_destination
+                        '', // departure_date
+                        '', // return_date
+                        0,  // duration_days
+                        $refundTx['amount'],
+                        'refund',
+                        $sheetNameForDb
+                    );
+                }
+                
+                // ============================================
+                // PART 2: Process Regular Payment Data Rows
+                // ============================================
+                for ($i = $headerRowIndex + 1; $i < count($rows); $i++) {
+                    $row = $rows[$i];
+                    
+                    // Skip empty rows or summary rows
+                    $bookingId = isset($row[$bookingIdCol]) ? trim((string)$row[$bookingIdCol]) : '';
+                    if (empty($bookingId) || !preg_match('/\d/', $bookingId)) {
+                        continue;
+                    }
+                    
+                    // Stop when we reach summary section (TOTAL PAYMENT row)
+                    $rowString = implode('|', array_map('strval', $row));
+                    if (stripos($rowString, 'TOTAL PAYMENT') !== false) {
+                        break;
+                    }
+                    
+                    // Skip if it looks like a summary row
+                    $name = isset($row[$nameCol]) ? trim((string)$row[$nameCol]) : '';
+                    if (empty($name) || stripos($name, 'Total') !== false || stripos($name, 'Grand') !== false) {
+                        continue;
+                    }
+                    
+                    $bookingId = $this->cleanValueCC($bookingId);
+                    $name = $this->cleanValueCC($name);
+                    $personelNumber = $this->cleanValueCC($row[$personelCol] ?? '');
+                    $tripNumber = $this->cleanValueCC($row[$tripNumCol] ?? '');
+                    $tripDestination = $this->cleanValueCC($row[$destCol] ?? '');
+                    $tripDate = $this->cleanValueCC($row[$tripDateCol] ?? '');
+                    $payment = $this->cleanAmountCC($row[$paymentCol] ?? 0);
+                    $transactionType = strtolower($this->cleanValueCC($row[$typeCol] ?? 'payment'));
+                    
+                    // Validate transaction type
+                    if (!in_array($transactionType, ['payment', 'refund'])) {
+                        $transactionType = 'payment';
+                    }
+                    
+                    // Parse trip destination (origin - destination)
+                    $origin = '';
+                    $destination = '';
+                    if (strpos($tripDestination, ' - ') !== false) {
+                        $parts = explode(' - ', $tripDestination, 2);
+                        $origin = trim($parts[0]);
+                        $destination = trim($parts[1]);
+                    }
+                    
+                    // Parse trip date (departure - return)
+                    $departureDate = '';
+                    $returnDate = '';
+                    $durationDays = 0;
+                    if (strpos($tripDate, ' - ') !== false) {
+                        $parts = explode(' - ', $tripDate, 2);
+                        $departureDate = $this->parseDateCC(trim($parts[0]));
+                        $returnDate = $this->parseDateCC(trim($parts[1]));
+                        
+                        if ($departureDate && $returnDate) {
+                            $depTime = strtotime($departureDate);
+                            $retTime = strtotime($returnDate);
+                            $durationDays = max(0, round(($retTime - $depTime) / 86400));
+                        }
+                    }
+                    
+                    $csvLines[] = sprintf(
+                        '"%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                        $transactionNumber++,
+                        $bookingId,
+                        $name,
+                        $personelNumber,
+                        $tripNumber,
+                        $origin,
+                        $destination,
+                        $tripDestination,
+                        $departureDate,
+                        $returnDate,
+                        $durationDays,
+                        $payment,
+                        $transactionType,
+                        $sheetNameForDb
+                    );
+                }
+            }
+            
+            if (count($csvLines) <= 1) {
+                Log::warning('CC Card Excel conversion resulted in no data');
+                return null;
+            }
+            
+            // ============================================
+            // PART 3: Save Additional Fees to Database
+            // ============================================
+            foreach ($sheetFees as $sheetName => $fees) {
+                SheetAdditionalFee::updateOrCreate(
+                    ['sheet_name' => $sheetName],
+                    [
+                        'biaya_adm_bunga' => $fees['biaya_adm_bunga'],
+                        'biaya_transfer' => $fees['biaya_transfer'],
+                        'iuran_tahunan' => $fees['iuran_tahunan'],
+                    ]
                 );
+                Log::info("CC Card additional fees saved for sheet: $sheetName", $fees);
             }
             
             $csvData = implode("\n", $csvLines);
-            Log::info('CC Card CSV generated', [
-                'total_lines' => count($csvLines),
-                'default_sheet_name' => $defaultSheetName
+            Log::info('CC Card CSV generated from all sheets', [
+                'total_lines' => count($csvLines) - 1, // minus header
+                'sheets_processed' => count($sheetNames),
+                'sheets_with_fees' => count($sheetFees)
             ]);
             
             return $csvData;
@@ -737,6 +845,169 @@ class CCTransactionController extends Controller
             Log::error('Stack trace: ' . $e->getTraceAsString());
             return null;
         }
+    }
+    
+    /**
+     * Extract summary section data from sheet rows
+     * Returns: total_payment, nominal_refund, biaya_transfer, iuran_tahunan, biaya_adm_bunga, refund_transactions
+     */
+    private function extractSummarySection($rows, $paymentCol = 8)
+    {
+        $result = [
+            'total_payment' => 0,
+            'nominal_refund' => 0,
+            'biaya_transfer' => 0,
+            'iuran_tahunan' => 0,
+            'biaya_adm_bunga' => 0,
+            'grand_total' => 0,
+            'refund_transactions' => [],
+        ];
+        
+        // Payment value is in column 8 (index 8)
+        $valueCol = 8;
+        $inRefundSection = false;
+        
+        for ($i = 0; $i < count($rows); $i++) {
+            $row = $rows[$i];
+            $rowStr = implode('|', array_map('strval', $row));
+            
+            // Check for TOTAL PAYMENT - marks start of refund section
+            if (stripos($rowStr, 'TOTAL PAYMENT') !== false) {
+                $result['total_payment'] = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                $inRefundSection = true;
+                continue;
+            }
+            
+            // Check for NOMINAL REFUND - marks end of refund section
+            if (stripos($rowStr, 'NOMINAL REFUND') !== false) {
+                $result['nominal_refund'] = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                $inRefundSection = false;
+                continue;
+            }
+            
+            // Capture refund transactions (between TOTAL PAYMENT and NOMINAL REFUND)
+            if ($inRefundSection) {
+                // Refund transaction format: Row number in col 1, Booking ID in col 2, Name in col 3, Amount in col 8
+                $rowNumStr = trim((string)($row[1] ?? ''));
+                $bookingId = trim((string)($row[2] ?? ''));
+                $name = trim((string)($row[3] ?? ''));
+                $amount = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                
+                // Valid refund: numeric row number, booking ID with digits, name present, amount > 0
+                if (is_numeric($rowNumStr) && !empty($bookingId) && preg_match('/\d/', $bookingId) && $amount > 0) {
+                    $result['refund_transactions'][] = [
+                        'booking_id' => $bookingId,
+                        'name' => $name,
+                        'amount' => $amount
+                    ];
+                }
+            }
+            
+            // Check for BIAYA PAYMENT VIA TRANSFER
+            if (stripos($rowStr, 'BIAYA PAYMENT') !== false || stripos($rowStr, 'VIA TRANSFER') !== false) {
+                $result['biaya_transfer'] = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                continue;
+            }
+            
+            // Check for IURAN TAHUNAN
+            if (stripos($rowStr, 'IURAN TAHUNAN') !== false) {
+                $result['iuran_tahunan'] = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                continue;
+            }
+            
+            // Check for BIAYA ADM & BUNGA
+            if (stripos($rowStr, 'BIAYA ADM') !== false) {
+                $result['biaya_adm_bunga'] = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                continue;
+            }
+            
+            // Check for GRAND TOTAL
+            if (stripos($rowStr, 'TOTAL (A-B') !== false || stripos($rowStr, 'TOTAL(A-B') !== false) {
+                $result['grand_total'] = $this->parseSummaryAmount($row[$valueCol] ?? '');
+                continue;
+            }
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Parse amount from summary section (handles formatted strings like '358,068,149')
+     */
+    private function parseSummaryAmount($val)
+    {
+        if (empty($val) || $val === '-' || trim((string)$val) === '-') {
+            return 0;
+        }
+        // Remove spaces, commas, and other non-numeric chars except dot
+        $cleaned = preg_replace('/[^\d]/', '', trim((string)$val));
+        return (float)$cleaned;
+    }
+    
+    /**
+     * Parse sheet name to standardized format
+     * Input: "Juli 25 - 5657" or "September 25 - 9386"
+     * Output: "Juli 2025 - CC 5657" or "September 2025 - CC 9386"
+     */
+    private function parseSheetName($sheetName)
+    {
+        // Extract month, year, and CC number from sheet name
+        $monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                       'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        $month = '';
+        $year = '';
+        $ccNumber = '';
+        
+        // Find month
+        foreach ($monthNames as $m) {
+            if (stripos($sheetName, $m) !== false) {
+                $month = $m;
+                break;
+            }
+        }
+        
+        // Find year (2 digit like "25" or 4 digit like "2025")
+        if (preg_match('/\b(\d{2})\b/', $sheetName, $matches)) {
+            $year = '20' . $matches[1]; // Convert 25 to 2025
+        } elseif (preg_match('/\b(20\d{2})\b/', $sheetName, $matches)) {
+            $year = $matches[1];
+        } else {
+            $year = date('Y');
+        }
+        
+        // Find CC number (4 digits at the end, usually 5657 or 9386)
+        if (preg_match('/(\d{4})\s*$/', $sheetName, $matches)) {
+            $ccNumber = $matches[1];
+        } elseif (preg_match('/[-–]\s*(\d{4})/', $sheetName, $matches)) {
+            $ccNumber = $matches[1];
+        } else {
+            $ccNumber = '5657'; // default
+        }
+        
+        // Build standardized sheet name
+        if ($month && $year) {
+            return "$month $year - CC $ccNumber";
+        }
+        
+        // Fallback: return original with CC prefix if needed
+        return $sheetName;
+    }
+    
+    /**
+     * Find column index by checking multiple possible column names
+     */
+    private function findColumnIndex($headerRow, $possibleNames)
+    {
+        foreach ($headerRow as $index => $value) {
+            $valueLower = strtolower(trim((string)$value));
+            foreach ($possibleNames as $name) {
+                if ($valueLower === strtolower($name)) {
+                    return $index;
+                }
+            }
+        }
+        return false;
     }
     
     private function cleanValueCC($value)

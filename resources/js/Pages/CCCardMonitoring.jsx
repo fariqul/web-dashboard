@@ -3,6 +3,7 @@ import MainLayout from '../Layouts/MainLayout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
 import { router } from '@inertiajs/react';
 import NewTransactionModal from '../Components/NewTransactionModal';
+import DeleteAllCCCardModal from '../Components/DeleteAllCCCardModal';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
@@ -88,6 +89,7 @@ export default function CCCardMonitoring({
     const [chartMode, setChartMode] = useState('monthly'); // 'monthly' or 'comparison'
     const [visibleDestinationsCount, setVisibleDestinationsCount] = useState(5);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteAllModalOpen, setIsDeleteAllModalOpen] = useState(false);
     const [transactionTypeFilter, setTransactionTypeFilter] = useState('payment'); // 'payment', 'refund', 'all'
     const [searchQuery, setSearchQuery] = useState('');
     const [searchTimeout, setSearchTimeout] = useState(null);
@@ -157,6 +159,9 @@ export default function CCCardMonitoring({
             preserveScroll: true
         });
     };
+    
+    // Calculate total transactions for delete modal
+    const totalTransactions = (destinations?.length || 0) + (refundList?.length || 0);
     
     // Get filtered destinations based on transaction type (search is handled by backend)
     const getFilteredDestinations = () => {
@@ -260,13 +265,22 @@ export default function CCCardMonitoring({
                             </div>
                         </div>
                         
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="px-5 py-3 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
-                        >
-                            <span className="text-2xl">➕</span>
-                            <span>New Transaction</span>
-                        </button>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="px-5 py-3 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
+                            >
+                                <span className="text-2xl">➕</span>
+                                <span>New Transaction</span>
+                            </button>
+                            <button
+                                onClick={() => setIsDeleteAllModalOpen(true)}
+                                className="px-5 py-3 bg-rose-500/80 backdrop-blur-md hover:bg-rose-600 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
+                            >
+                                <span className="text-2xl">🗑️</span>
+                                <span>Hapus Semua</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -935,6 +949,13 @@ export default function CCCardMonitoring({
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 availableSheets={availableFilters ? availableFilters.filter(f => f.type === 'sheet' && f.value !== 'all').map(f => f.value) : []}
+            />
+            
+            {/* Delete All Modal */}
+            <DeleteAllCCCardModal
+                isOpen={isDeleteAllModalOpen}
+                onClose={() => setIsDeleteAllModalOpen(false)}
+                totalRecords={totalTransactions}
             />
         </MainLayout>
     );

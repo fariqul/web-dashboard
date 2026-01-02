@@ -14,8 +14,8 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // Get fund source filter (54 or 52 or all)
-        $fundSource = $request->get('fund', 'all');
+        // Get fund source filter (54 or 52) - default to 54
+        $fundSource = $request->get('fund', '54');
         
         // Get BFKO summary (Fund 52)
         $bfkoTotal = BfkoData::sum('nilai_angsuran');

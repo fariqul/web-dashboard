@@ -4,7 +4,7 @@ import { Link, router } from '@inertiajs/react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
 
 export default function Dashboard({ summary, monthlyData, recentTransactions, fundSource = '54' }) {
-    const [selectedFund, setSelectedFund] = useState(fundSource);
+    const [selectedFund, setSelectedFund] = useState(fundSource || '54');
     
     // Handle fund source change
     const handleFundChange = (fund) => {

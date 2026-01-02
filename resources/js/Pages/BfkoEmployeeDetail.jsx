@@ -14,6 +14,24 @@ const formatRupiah = (value) => {
     }).format(value);
 };
 
+// Helper function to format date
+const formatDate = (dateString) => {
+    if (!dateString || dateString === '-') return '-';
+    
+    try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString;
+        
+        return new Intl.DateTimeFormat('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }).format(date);
+    } catch (e) {
+        return dateString;
+    }
+};
+
 // Custom Tooltip for Bar Chart
 const CustomBarTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -366,7 +384,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                         {payments.map((payment, index) => (
                                             <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                                                 <td className="py-4 px-4 text-gray-900">
-                                                    {payment.tanggal_bayar || '-'}
+                                                    {formatDate(payment.tanggal_bayar)}
                                                 </td>
                                                 <td className="py-4 px-4 text-gray-900">
                                                     Angsuran BFKO

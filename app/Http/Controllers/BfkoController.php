@@ -193,14 +193,24 @@ class BfkoController extends Controller
             $file = $request->file('file');
             $extension = strtolower($file->getClientOriginalExtension());
             $isExcel = in_array($extension, ['xlsx', 'xls']);
+            $fileName = $file->getClientOriginalName();
+            
+            Log::info('BFKO import started', [
+                'filename' => $fileName,
+                'extension' => $extension,
+                'is_excel' => $isExcel
+            ]);
             
             if ($isExcel) {
                 // Convert Excel to CSV format
                 $csvData = $this->convertExcelToBfkoCsv($file);
                 
                 if (!$csvData) {
-                    return back()->with('error', 'Format Excel tidak valid. Pastikan ada kolom NIP, Nama Pegawai, dll.');
+                    Log::error('BFKO Excel conversion failed');
+                    return back()->with('error', 'Format Excel tidak valid. Pastikan ada kolom NIP, Nama Pegawai, dan data bulan.');
                 }
+                
+                Log::info('BFKO Excel converted to CSV successfully');
                 
                 // Create temp file from CSV string
                 $tempFile = tmpfile();
@@ -213,17 +223,22 @@ class BfkoController extends Controller
             }
             
             // Skip header
-            fgetcsv($handle);
+            $header = fgetcsv($handle);
+            Log::info('BFKO CSV header', ['header' => $header]);
             
             $imported = 0;
             $updated = 0;
+            $skipped = 0;
             $errors = [];
             
             DB::beginTransaction();
             
+            $rowNum = 0;
             while (($data = fgetcsv($handle)) !== false) {
+                $rowNum++;
                 // Validate minimum required fields
                 if (empty($data[0]) || empty($data[1]) || empty($data[4]) || empty($data[5]) || empty($data[6])) {
+                    $skipped++;
                     continue;
                 }
                 
@@ -254,7 +269,8 @@ class BfkoController extends Controller
                         $imported++;
                     }
                 } catch (\Exception $e) {
-                    $errors[] = "Error on line: " . $e->getMessage();
+                    $errors[] = "Row $rowNum: " . $e->getMessage();
+                    Log::warning('BFKO import row error', ['row' => $rowNum, 'error' => $e->getMessage()]);
                 }
             }
             
@@ -264,9 +280,19 @@ class BfkoController extends Controller
             }
             DB::commit();
             
-            $message = "Import berhasil! {$imported} data baru";
+            Log::info('BFKO import completed', [
+                'imported' => $imported,
+                'updated' => $updated,
+                'skipped' => $skipped,
+                'errors' => count($errors)
+            ]);
+            
+            $message = "Import berhasil! {$imported} data baru ditambahkan";
             if ($updated > 0) {
                 $message .= ", {$updated} data diupdate";
+            }
+            if ($skipped > 0) {
+                $message .= ", {$skipped} baris dilewati (data tidak lengkap)";
             }
             if (!empty($errors)) {
                 $message .= " | " . count($errors) . " error";
@@ -569,120 +595,427 @@ class BfkoController extends Controller
     
     /**
      * Convert Excel file to BFKO CSV format
+     * Supports both simple format and original format with sections
      */
     private function convertExcelToBfkoCsv($file)
     {
         try {
             $spreadsheet = IOFactory::load($file->getRealPath());
+            $sheetNames = $spreadsheet->getSheetNames();
+            
+            Log::info('BFKO Excel loaded', [
+                'total_sheets' => count($sheetNames),
+                'sheet_names' => $sheetNames
+            ]);
+            
+            // Check if this is the original format with "Angsuran Bulanan BFKO" section
             $sheet = $spreadsheet->getActiveSheet();
-            $rows = $sheet->toArray();
+            $rows = $sheet->toArray(null, true, true, false);
             
-            // Find header row (usually row 2 or 3 in BFKO Excel)
-            $headerRow = null;
-            $headerRowIndex = -1;
-            
-            for ($i = 0; $i < min(5, count($rows)); $i++) {
-                $row = $rows[$i];
-                // Look for NIP column
-                if (in_array('NIP', $row) || in_array('No', $row)) {
-                    $headerRow = $row;
-                    $headerRowIndex = $i;
+            $hasAngsuranSection = false;
+            for ($i = 0; $i < min(30, count($rows)); $i++) {
+                $firstCol = trim((string)($rows[$i][0] ?? ''));
+                if (stripos($firstCol, 'Angsuran Bulanan') !== false) {
+                    $hasAngsuranSection = true;
                     break;
                 }
             }
             
-            if (!$headerRow) {
-                return null;
+            if ($hasAngsuranSection) {
+                Log::info('BFKO Original format detected - using multi-sheet converter');
+                return $this->convertOriginalBfkoExcel($spreadsheet);
             }
             
-            // Find column indices
-            $nipCol = array_search('NIP', $headerRow);
-            $namaCol = array_search('Nama Pegawai', $headerRow);
-            $jabatanCol = array_search('Jabatan', $headerRow);
-            $unitCol = array_search('Unit', $headerRow);
+            // Otherwise, use simple format converter
+            Log::info('BFKO Simple format detected');
+            return $this->convertSimpleBfkoExcel($spreadsheet);
             
-            if ($nipCol === false || $namaCol === false) {
-                return null;
+        } catch (\Exception $e) {
+            Log::error('BFKO Excel conversion error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            return null;
+        }
+    }
+    
+    /**
+     * Convert original BFKO Excel format with "Angsuran Bulanan BFKO" section
+     * Sheet names contain year info (e.g., "34 UID SULSELRABAR_2024")
+     */
+    private function convertOriginalBfkoExcel($spreadsheet)
+    {
+        $csvLines = [];
+        $csvLines[] = 'nip,nama,jabatan,unit,bulan,tahun,nilai_angsuran,tanggal_bayar,status_angsuran';
+        
+        $monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                       'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        $totalRecords = 0;
+        $sheetNames = $spreadsheet->getSheetNames();
+        
+        foreach ($sheetNames as $sheetIndex => $sheetName) {
+            Log::info("BFKO Processing sheet: $sheetName");
+            
+            // Extract year from sheet name (e.g., "34 UID SULSELRABAR_2024" -> 2024)
+            preg_match('/(\d{4})$/', $sheetName, $yearMatch);
+            $tahun = $yearMatch[1] ?? date('Y');
+            
+            // Extract unit from sheet name
+            preg_match('/UID\s+(\w+)/i', $sheetName, $unitMatch);
+            $defaultUnit = $unitMatch[0] ?? 'UID SULSELRABAR';
+            
+            $sheet = $spreadsheet->getSheet($sheetIndex);
+            $rows = $sheet->toArray(null, true, true, false);
+            
+            // Find the Angsuran section header row
+            $angsuranStartRow = -1;
+            for ($i = 0; $i < count($rows); $i++) {
+                $firstCol = trim((string)($rows[$i][0] ?? ''));
+                if (stripos($firstCol, 'Angsuran Bulanan') !== false) {
+                    $angsuranStartRow = $i;
+                    break;
+                }
             }
             
-            // Find month columns (Januari, Februari, etc.)
+            if ($angsuranStartRow === -1) {
+                Log::warning("BFKO 'Angsuran Bulanan' section not found in sheet: $sheetName");
+                continue;
+            }
+            
+            Log::info("BFKO Found 'Angsuran Bulanan BFKO' at row $angsuranStartRow");
+            
+            // Find the month header row (row with Januari, Februari, etc.)
+            $monthHeaderRow = $angsuranStartRow + 2;
+            
+            // Dynamically detect month columns
             $monthColumns = [];
-            $monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                          'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-            
-            foreach ($headerRow as $colIndex => $colName) {
-                foreach ($monthNames as $month) {
-                    if (stripos($colName, $month) !== false) {
-                        $monthColumns[$month] = $colIndex;
-                        break;
-                    }
-                }
-            }
-            
-            // Detect year from title or use current year
-            $year = date('Y');
-            if (isset($rows[0][0]) && preg_match('/(\d{4})/', $rows[0][0], $matches)) {
-                $year = $matches[1];
-            }
-            
-            // Build CSV
-            $csvLines = [];
-            $csvLines[] = 'nip,nama,jabatan,unit,bulan,tahun,nilai_angsuran,tanggal_bayar,status_angsuran';
-            
-            // Process data rows
-            for ($i = $headerRowIndex + 1; $i < count($rows); $i++) {
-                $row = $rows[$i];
-                
-                // Skip empty rows
-                if (empty($row[$nipCol])) {
-                    continue;
-                }
-                
-                $nip = $this->cleanValue($row[$nipCol]);
-                $nama = $this->cleanValue($row[$namaCol] ?? '');
-                $jabatan = $this->cleanValue($row[$jabatanCol] ?? '');
-                $unit = $this->cleanValue($row[$unitCol] ?? '');
-                
-                // Skip if NIP is not numeric
-                if (!is_numeric($nip)) {
-                    continue;
-                }
-                
-                // Create one row per month that has a payment
-                foreach ($monthColumns as $month => $colIndex) {
-                    if (isset($row[$colIndex]) && !empty($row[$colIndex])) {
-                        $nilai = $this->cleanAmountBfko($row[$colIndex]);
-                        
-                        if ($nilai > 0) {
-                            // Check if there's a date column next to amount
-                            $tanggalBayar = '';
-                            if (isset($row[$colIndex + 1])) {
-                                $tanggalBayar = $this->formatExcelDateBfko($row[$colIndex + 1]);
-                            }
-                            
-                            $csvLines[] = sprintf(
-                                '"%s","%s","%s","%s","%s","%s","%s","%s","%s"',
-                                $nip,
-                                $nama,
-                                $jabatan,
-                                $unit,
-                                $month,
-                                $year,
-                                $nilai,
-                                $tanggalBayar,
-                                'Lunas'
-                            );
+            if (isset($rows[$monthHeaderRow])) {
+                foreach ($rows[$monthHeaderRow] as $colIdx => $cell) {
+                    $cell = trim((string)$cell);
+                    foreach ($monthNames as $month) {
+                        if (strcasecmp($cell, $month) === 0) {
+                            $monthColumns[$month] = [
+                                'nilai' => $colIdx,
+                                'tanggal' => $colIdx + 1
+                            ];
+                            break;
                         }
                     }
                 }
             }
             
-            return implode("\n", $csvLines);
+            if (empty($monthColumns)) {
+                Log::warning("BFKO Could not detect month columns in sheet: $sheetName");
+                continue;
+            }
             
-        } catch (\Exception $e) {
-            Log::error('BFKO Excel conversion error: ' . $e->getMessage());
+            Log::info("BFKO Detected " . count($monthColumns) . " month columns");
+            
+            // Data starts 1 row after month header
+            $dataStartRow = $monthHeaderRow + 1;
+            
+            // Find next section or end of data
+            $dataEndRow = count($rows);
+            for ($i = $dataStartRow; $i < count($rows); $i++) {
+                $firstCol = trim((string)($rows[$i][0] ?? ''));
+                if (!empty($firstCol) && !is_numeric($firstCol) && strlen($firstCol) > 15) {
+                    $dataEndRow = $i;
+                    break;
+                }
+            }
+            
+            // Process data rows
+            for ($i = $dataStartRow; $i < $dataEndRow; $i++) {
+                $row = $rows[$i];
+                
+                $nip = trim((string)($row[1] ?? ''));
+                if (empty($nip) || !preg_match('/^\d/', $nip)) {
+                    continue;
+                }
+                
+                $nama = $this->cleanValue($row[2] ?? '');
+                $jabatan = $this->cleanValue($row[3] ?? '');
+                $unit = $this->cleanValue($row[5] ?? $defaultUnit);
+                
+                if (empty($nama)) continue;
+                
+                // Process each month column
+                foreach ($monthColumns as $bulan => $cols) {
+                    $nilaiAngsuran = $row[$cols['nilai']] ?? '';
+                    $tanggalBayar = $row[$cols['tanggal']] ?? '';
+                    
+                    $nilaiAngsuran = $this->cleanAmountBfko($nilaiAngsuran);
+                    
+                    if (empty($nilaiAngsuran) || $nilaiAngsuran <= 0) {
+                        continue;
+                    }
+                    
+                    $tanggalBayar = $this->parseOriginalBfkoDate($tanggalBayar);
+                    $statusAngsuran = empty($tanggalBayar) ? 'Belum Bayar' : 'Lunas';
+                    
+                    $csvLines[] = sprintf(
+                        '"%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                        $this->cleanValue($nip),
+                        $nama,
+                        $jabatan,
+                        $unit,
+                        $bulan,
+                        $tahun,
+                        $nilaiAngsuran,
+                        $tanggalBayar,
+                        $statusAngsuran
+                    );
+                    $totalRecords++;
+                }
+            }
+        }
+        
+        Log::info('BFKO Original format conversion complete', [
+            'total_records' => $totalRecords,
+            'sheets_processed' => count($sheetNames)
+        ]);
+        
+        if (count($csvLines) <= 1) {
+            Log::warning('BFKO conversion resulted in empty data');
             return null;
         }
+        
+        return implode("\n", $csvLines);
+    }
+    
+    /**
+     * Parse date from original BFKO Excel format
+     * Handles: Japanese-like format (1212122024年1月29日), dd/mm/yyyy, Excel serial, Indonesian date
+     */
+    private function parseOriginalBfkoDate($value)
+    {
+        if (empty($value)) return '';
+        
+        $value = trim((string)$value);
+        
+        // Handle Japanese-like format: 1212122024年1月29日 or 9992024年9月23日
+        if (preg_match('/(\d{4})年(\d{1,2})月(\d{1,2})日/', $value, $matches)) {
+            $year = $matches[1];
+            $month = str_pad($matches[2], 2, '0', STR_PAD_LEFT);
+            $day = str_pad($matches[3], 2, '0', STR_PAD_LEFT);
+            return "$year-$month-$day";
+        }
+        
+        // Handle dd/mm/yyyy format
+        if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $value, $matches)) {
+            $day = str_pad($matches[1], 2, '0', STR_PAD_LEFT);
+            $month = str_pad($matches[2], 2, '0', STR_PAD_LEFT);
+            $year = $matches[3];
+            return "$year-$month-$day";
+        }
+        
+        // Handle Excel serial date
+        if (is_numeric($value) && $value > 40000 && $value < 50000) {
+            try {
+                $baseDate = new \DateTime('1899-12-30');
+                $baseDate->modify('+' . (int)$value . ' days');
+                return $baseDate->format('Y-m-d');
+            } catch (\Exception $e) {
+                return '';
+            }
+        }
+        
+        // Handle Indonesian date: "29 Januari 2024"
+        $monthMap = [
+            'januari' => '01', 'februari' => '02', 'maret' => '03', 'april' => '04',
+            'mei' => '05', 'juni' => '06', 'juli' => '07', 'agustus' => '08',
+            'september' => '09', 'oktober' => '10', 'november' => '11', 'desember' => '12'
+        ];
+        
+        $valueLower = strtolower($value);
+        foreach ($monthMap as $monthName => $monthNum) {
+            if (strpos($valueLower, $monthName) !== false) {
+                if (preg_match('/(\d{1,2})\s*' . $monthName . '\s*(\d{4})/i', $value, $matches)) {
+                    $day = str_pad($matches[1], 2, '0', STR_PAD_LEFT);
+                    $year = $matches[2];
+                    return "$year-$monthNum-$day";
+                }
+            }
+        }
+        
+        // Handle yyyy-mm-dd format (already correct)
+        if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value)) {
+            return $value;
+        }
+        
+        return '';
+    }
+    
+    /**
+     * Convert simple BFKO Excel format (single header row with months)
+     */
+    private function convertSimpleBfkoExcel($spreadsheet)
+    {
+        $sheet = $spreadsheet->getActiveSheet();
+        $rows = $sheet->toArray();
+            
+        Log::info('BFKO Simple Excel loaded, total rows: ' . count($rows));
+        
+        // Find header row with NIP column
+        $headerRowIndex = -1;
+        $headerRow = null;
+        
+        for ($i = 0; $i < min(10, count($rows)); $i++) {
+            $row = $rows[$i];
+            foreach ($row as $cell) {
+                $cellClean = strtoupper(trim((string)$cell));
+                if ($cellClean === 'NIP') {
+                    $headerRow = $row;
+                    $headerRowIndex = $i;
+                    Log::info('BFKO header found at row: ' . $i);
+                    break 2;
+                }
+            }
+        }
+        
+        if (!$headerRow || $headerRowIndex < 0) {
+            Log::error('BFKO header row with NIP not found');
+            return null;
+        }
+        
+        // Find column indices from header row
+        $nipCol = null;
+        $namaCol = null;
+        $jabatanCol = null;
+        $unitCol = null;
+        
+        foreach ($headerRow as $colIndex => $colName) {
+            $cellClean = strtoupper(trim((string)$colName));
+            if ($cellClean === 'NIP') {
+                $nipCol = $colIndex;
+            } elseif (stripos($colName, 'Nama') !== false && $namaCol === null) {
+                $namaCol = $colIndex;
+            } elseif (stripos($colName, 'Jabatan') !== false && $jabatanCol === null) {
+                $jabatanCol = $colIndex;
+            } elseif (stripos($colName, 'Unit') !== false) {
+                $unitCol = $colIndex;
+            }
+        }
+        
+        if ($nipCol === null) {
+            Log::error('BFKO NIP column not found');
+            return null;
+        }
+        
+        // Find month columns
+        $monthColumns = [];
+        $monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        // Check header row and next row for month names
+        $rowsToCheck = [$headerRow];
+        if ($headerRowIndex + 1 < count($rows)) {
+            $rowsToCheck[] = $rows[$headerRowIndex + 1];
+        }
+        
+        foreach ($rowsToCheck as $rowToCheck) {
+            foreach ($rowToCheck as $colIndex => $colName) {
+                $cellClean = trim((string)$colName);
+                foreach ($monthNames as $month) {
+                    if (strcasecmp($cellClean, $month) === 0 && !isset($monthColumns[$month])) {
+                        $monthColumns[$month] = $colIndex;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Detect year from title row
+        $year = date('Y');
+        foreach ($rows as $idx => $row) {
+            if ($idx > 5) break;
+            foreach ($row as $cell) {
+                if (preg_match('/(\d{4})/', (string)$cell, $matches)) {
+                    $year = $matches[1];
+                    break 2;
+                }
+            }
+        }
+        
+        // Determine data start row
+        $dataStartRow = $headerRowIndex + 1;
+        if ($headerRowIndex + 1 < count($rows)) {
+            $possibleMonthRow = $rows[$headerRowIndex + 1];
+            $hasMonthName = false;
+            foreach ($possibleMonthRow as $cell) {
+                foreach ($monthNames as $month) {
+                    if (strcasecmp(trim((string)$cell), $month) === 0) {
+                        $hasMonthName = true;
+                        break 2;
+                    }
+                }
+            }
+            if ($hasMonthName) {
+                $dataStartRow = $headerRowIndex + 2;
+            }
+        }
+        
+        // Build CSV
+        $csvLines = [];
+        $csvLines[] = 'nip,nama,jabatan,unit,bulan,tahun,nilai_angsuran,tanggal_bayar,status_angsuran';
+        
+        $processedCount = 0;
+        
+        // Process data rows
+        for ($i = $dataStartRow; $i < count($rows); $i++) {
+            $row = $rows[$i];
+            
+            $nipValue = isset($row[$nipCol]) ? trim((string)$row[$nipCol]) : '';
+            if (empty($nipValue) || !preg_match('/[0-9]/', $nipValue)) {
+                continue;
+            }
+            
+            $nip = $this->cleanValue($nipValue);
+            $nama = $this->cleanValue($row[$namaCol] ?? '');
+            $jabatan = $this->cleanValue($row[$jabatanCol] ?? '');
+            $unit = $this->cleanValue($row[$unitCol] ?? '');
+            
+            if (empty($nama)) continue;
+            
+            // Process each month column
+            foreach ($monthColumns as $month => $colIndex) {
+                if (!isset($row[$colIndex])) continue;
+                
+                $nilai = $this->cleanAmountBfko($row[$colIndex]);
+                
+                if ($nilai > 0) {
+                    $tanggalBayar = '';
+                    if (isset($row[$colIndex + 1])) {
+                        $tanggalBayar = $this->formatExcelDateBfko($row[$colIndex + 1]);
+                    }
+                    
+                    $csvLines[] = sprintf(
+                        '"%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                        $nip,
+                        $nama,
+                        $jabatan,
+                        $unit,
+                        $month,
+                        $year,
+                        $nilai,
+                        $tanggalBayar,
+                        'Lunas'
+                    );
+                    $processedCount++;
+                }
+            }
+        }
+        
+        Log::info('BFKO Simple Excel converted', [
+            'total_csv_lines' => count($csvLines),
+            'processed_payments' => $processedCount
+        ]);
+        
+        if (count($csvLines) <= 1) {
+            Log::warning('BFKO conversion resulted in empty data');
+            return null;
+        }
+        
+        return implode("\n", $csvLines);
     }
     
     private function cleanValue($value)
@@ -695,8 +1028,16 @@ class BfkoController extends Controller
         if (is_numeric($value)) {
             return (int)$value;
         }
-        // Remove currency symbols, commas, dots (except last dot for decimal)
-        $cleaned = preg_replace('/[^\d]/', '', (string)$value);
+        
+        $value = trim((string)$value);
+        
+        // Handle Indonesian format with dots as thousand separator (3.734.355)
+        if (preg_match('/^\d{1,3}(\.\d{3})+$/', str_replace(' ', '', $value))) {
+            $value = str_replace('.', '', $value);
+        }
+        
+        // Remove commas and other non-numeric chars
+        $cleaned = preg_replace('/[^\d]/', '', $value);
         return (int)$cleaned;
     }
     

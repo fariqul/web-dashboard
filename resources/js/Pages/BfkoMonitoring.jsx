@@ -3,6 +3,7 @@ import { Head, router, Link } from '@inertiajs/react';
 import MainLayout from '../Layouts/MainLayout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import toast, { Toaster } from 'react-hot-toast';
+import DeleteAllBfkoModal from '../Components/DeleteAllBfkoModal';
 
 // Helper function to format Rupiah
 const formatRupiah = (value) => {
@@ -73,6 +74,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
     const [searchQuery, setSearchQuery] = useState('');
     const [showAllEmployees, setShowAllEmployees] = useState(false);
     const [showExportMenu, setShowExportMenu] = useState(false);
+    const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
     
     // Delete Employee Modal states
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -142,18 +144,9 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
         });
     };
 
-    const handleDeleteAll = () => {
-        if (confirm('Apakah Anda yakin ingin menghapus SEMUA data BFKO? Tindakan ini tidak dapat dibatalkan!')) {
-            router.delete('/bfko/delete-all', {
-                onSuccess: () => {
-                    toast.success('Semua data berhasil dihapus');
-                },
-                onError: () => {
-                    toast.error('Gagal menghapus data');
-                }
-            });
-        }
-    };
+    // Calculate totals for delete modal
+    const totalPayments = summary?.totalTransaksi || 0;
+    const totalEmployees = allEmployees?.length || 0;
 
     // CRUD Handlers
     const handleSubmit = (e) => {
@@ -288,7 +281,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 <span>Import Data</span>
                             </button>
                             <button
-                                onClick={handleDeleteAll}
+                                onClick={() => setShowDeleteAllModal(true)}
                                 className="px-5 py-3 bg-rose-500/80 backdrop-blur-md hover:bg-rose-600 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
                             >
                                 <span className="text-2xl">🗑️</span>
@@ -1004,6 +997,14 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         </div>
                     </div>
                 )}
+                
+                {/* Delete All Modal */}
+                <DeleteAllBfkoModal
+                    isOpen={showDeleteAllModal}
+                    onClose={() => setShowDeleteAllModal(false)}
+                    totalPayments={totalPayments}
+                    totalEmployees={totalEmployees}
+                />
             </div>
         </MainLayout>
     );
