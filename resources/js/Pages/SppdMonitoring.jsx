@@ -197,8 +197,8 @@ export default function SppdMonitoring({
     // Status distribution data for pie chart
     const statusDistributionData = [
         { name: 'Completed', value: statusCounts.completed, color: '#9ca3af' },
-        { name: 'Ongoing', value: statusCounts.ongoing, color: '#22c55e' },
-        { name: 'Upcoming', value: statusCounts.upcoming, color: '#3b82f6' },
+        { name: 'Ongoing', value: statusCounts.ongoing, color: '#34D399' },
+        { name: 'Upcoming', value: statusCounts.upcoming, color: '#4AADE8' },
     ].filter(item => item.value > 0);
     
     // Filter trips by reason based on local status filter
@@ -217,7 +217,7 @@ export default function SppdMonitoring({
             />
             
             {/* Hero Header with Gradient */}
-            <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-rose-500 text-white p-8 shadow-lg">
+            <div className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white p-8 shadow-lg">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -255,7 +255,7 @@ export default function SppdMonitoring({
                             </button>
                             <button
                                 onClick={() => setIsAddModalOpen(true)}
-                                className="px-5 py-3 bg-white text-purple-600 hover:bg-purple-50 rounded-xl font-semibold transition flex items-center gap-2 shadow-lg"
+                                className="px-5 py-3 bg-white text-[#4AADE8] hover:bg-sky-50 rounded-xl font-semibold transition flex items-center gap-2 shadow-lg"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -284,7 +284,7 @@ export default function SppdMonitoring({
                                         value={searchQuery}
                                         onChange={handleSearchChange}
                                         placeholder="Search trip number, customer, destination..."
-                                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all"
+                                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-[#4AADE8] focus:ring-4 focus:ring-sky-100 transition-all"
                                     />
                                     {searchQuery && (
                                         <button
@@ -371,7 +371,7 @@ export default function SppdMonitoring({
                             <div className="relative">
                                 <button 
                                     onClick={() => setIsReasonDropdownOpen(!isReasonDropdownOpen)}
-                                    className="px-6 py-3 bg-purple-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:bg-purple-600 transition-all cursor-pointer flex items-center gap-2"
+                                    className="px-6 py-3 bg-[#4AADE8] text-white border-0 rounded-xl font-semibold shadow-lg hover:bg-[#3B9DD6] transition-all cursor-pointer flex items-center gap-2"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -396,7 +396,7 @@ export default function SppdMonitoring({
                                                     }, { preserveState: true, preserveScroll: true });
                                                     setIsReasonDropdownOpen(false);
                                                 }}
-                                                className={`w-full text-left px-4 py-2 hover:bg-purple-50 transition ${selectedReason === 'all' ? 'bg-purple-100 font-semibold' : ''}`}
+                                                className={`w-full text-left px-4 py-2 hover:bg-sky-50 transition ${selectedReason === 'all' ? 'bg-sky-100 font-semibold' : ''}`}
                                             >
                                                 📊 All Reasons
                                             </button>
@@ -413,7 +413,7 @@ export default function SppdMonitoring({
                                                         }, { preserveState: true, preserveScroll: true });
                                                         setIsReasonDropdownOpen(false);
                                                     }}
-                                                    className={`w-full text-left px-4 py-2 hover:bg-purple-50 transition ${selectedReason === reason ? 'bg-purple-100 font-semibold' : ''}`}
+                                                    className={`w-full text-left px-4 py-2 hover:bg-sky-50 transition ${selectedReason === reason ? 'bg-sky-100 font-semibold' : ''}`}
                                                 >
                                                     🏷️ {reason}
                                                 </button>
@@ -484,7 +484,7 @@ export default function SppdMonitoring({
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         {/* Total Trips Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-500 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
                             <div className="relative p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
@@ -506,7 +506,7 @@ export default function SppdMonitoring({
                         </div>
 
                         {/* Total Paid Amount Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#E8636B] via-[#F07D84] to-[#D64F57] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
                             <div className="relative p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
@@ -540,7 +540,7 @@ export default function SppdMonitoring({
                                         onClick={() => setChartViewMode('monthly')}
                                         className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                                             chartViewMode === 'monthly'
-                                                ? 'bg-purple-600 text-white shadow-md'
+                                                ? 'bg-[#4AADE8] text-white shadow-md'
                                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                     >
@@ -550,7 +550,7 @@ export default function SppdMonitoring({
                                         onClick={() => setChartViewMode('status')}
                                         className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                                             chartViewMode === 'status'
-                                                ? 'bg-purple-600 text-white shadow-md'
+                                                ? 'bg-[#4AADE8] text-white shadow-md'
                                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                     >
@@ -583,7 +583,7 @@ export default function SppdMonitoring({
                                                                 <div className="space-y-2">
                                                                     <div>
                                                                         <div className="flex items-center gap-2">
-                                                                            <span className="w-3 h-3 rounded-full bg-blue-500"></span>
+                                                                            <span className="w-3 h-3 rounded-full bg-[#4AADE8]"></span>
                                                                             <span className="text-gray-700">Trip Begins: <strong>{data.begins}</strong></span>
                                                                         </div>
                                                                         {data.beginsDates && (
@@ -592,7 +592,7 @@ export default function SppdMonitoring({
                                                                     </div>
                                                                     <div>
                                                                         <div className="flex items-center gap-2">
-                                                                            <span className="w-3 h-3 rounded-full bg-purple-500"></span>
+                                                                            <span className="w-3 h-3 rounded-full bg-[#34D399]"></span>
                                                                             <span className="text-gray-700">Trip Ends: <strong>{data.ends}</strong></span>
                                                                         </div>
                                                                         {data.endsDates && (
@@ -607,8 +607,8 @@ export default function SppdMonitoring({
                                                 }}
                                             />
                                             <Legend />
-                                            <Bar dataKey="begins" fill="#3b82f6" name="Trip Begins" radius={[4, 4, 0, 0]} />
-                                            <Bar dataKey="ends" fill="#8b5cf6" name="Trip Ends" radius={[4, 4, 0, 0]} />
+                                            <Bar dataKey="begins" fill="#4AADE8" name="Trip Begins" radius={[4, 4, 0, 0]} />
+                                            <Bar dataKey="ends" fill="#34D399" name="Trip Ends" radius={[4, 4, 0, 0]} />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 ) : (
@@ -662,11 +662,11 @@ export default function SppdMonitoring({
                                         <span className="text-xs text-gray-600">Completed</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                                        <div className="w-3 h-3 bg-[#34D399] rounded-full"></div>
                                         <span className="text-xs text-gray-600">Ongoing</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                        <div className="w-3 h-3 bg-[#4AADE8] rounded-full"></div>
                                         <span className="text-xs text-gray-600">Upcoming</span>
                                     </div>
                                 </div>
@@ -684,10 +684,10 @@ export default function SppdMonitoring({
                                             onClick={() => setReasonsStatusFilter(status)}
                                             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                                                 reasonsStatusFilter === status
-                                                    ? status === 'upcoming' ? 'bg-blue-500 text-white' :
-                                                      status === 'ongoing' ? 'bg-green-500 text-white' :
+                                                    ? status === 'upcoming' ? 'bg-[#4AADE8] text-white' :
+                                                      status === 'ongoing' ? 'bg-[#34D399] text-white' :
                                                       status === 'completed' ? 'bg-gray-500 text-white' :
-                                                      'bg-purple-500 text-white'
+                                                      'bg-[#4AADE8] text-white'
                                                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                             }`}
                                         >
@@ -700,13 +700,13 @@ export default function SppdMonitoring({
                             <div className="space-y-2 max-h-[300px] overflow-y-auto">
                                 {filteredTripsByReason && filteredTripsByReason.length > 0 ? (
                                     filteredTripsByReason.slice(0, 8).map((item, index) => (
-                                        <div key={index} className="p-3 bg-gray-50 rounded-lg hover:bg-purple-50 transition">
+                                        <div key={index} className="p-3 bg-gray-50 rounded-lg hover:bg-sky-50 transition">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex-1 min-w-0">
                                                     <p className="font-medium text-gray-900 text-sm truncate" title={item.reason}>{item.reason}</p>
                                                     <p className="text-xs text-gray-500">{item.count} trips</p>
                                                 </div>
-                                                <span className="text-sm font-bold text-purple-600">{item.amount}</span>
+                                                <span className="text-sm font-bold text-[#4AADE8]">{item.amount}</span>
                                             </div>
                                             <button
                                                 onClick={() => {
@@ -718,7 +718,7 @@ export default function SppdMonitoring({
                                                     if (selectedBank !== 'all') params.append('bank', selectedBank);
                                                     router.visit(`/sppd/destination-detail?${params.toString()}`);
                                                 }}
-                                                className="w-full mt-2 px-3 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition font-medium text-xs"
+                                                className="w-full mt-2 px-3 py-1.5 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white rounded-lg hover:from-[#5BC0EB] hover:to-[#4AADE8] transition font-medium text-xs"
                                             >
                                                 Lihat Detail →
                                             </button>
@@ -822,13 +822,13 @@ export default function SppdMonitoring({
                                 <div className="flex gap-1">
                                     <button
                                         onClick={() => setCustomerViewMode('trips')}
-                                        className={`px-3 py-1 text-sm rounded-lg transition ${customerViewMode === 'trips' ? 'bg-purple-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                                        className={`px-3 py-1 text-sm rounded-lg transition ${customerViewMode === 'trips' ? 'bg-[#4AADE8] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                                     >
                                         Trips
                                     </button>
                                     <button
                                         onClick={() => setCustomerViewMode('amount')}
-                                        className={`px-3 py-1 text-sm rounded-lg transition ${customerViewMode === 'amount' ? 'bg-purple-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                                        className={`px-3 py-1 text-sm rounded-lg transition ${customerViewMode === 'amount' ? 'bg-[#4AADE8] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                                     >
                                         Amount
                                     </button>
@@ -851,7 +851,7 @@ export default function SppdMonitoring({
                                                     </div>
                                                     <p className="text-sm font-medium text-gray-900 truncate">{customer.name}</p>
                                                 </div>
-                                                <span className="text-sm font-bold text-purple-600">{customer.count} trips</span>
+                                                <span className="text-sm font-bold text-[#4AADE8]">{customer.count} trips</span>
                                             </div>
                                         ))
                                     ) : (

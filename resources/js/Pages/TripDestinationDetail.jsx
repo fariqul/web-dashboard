@@ -70,11 +70,11 @@ export default function TripDestinationDetail({
             );
         }
         return filters.direction === 'asc' ? (
-            <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-[#4AADE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
             </svg>
         ) : (
-            <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-[#4AADE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
         );
@@ -122,7 +122,7 @@ export default function TripDestinationDetail({
             <Toaster position="top-right" />
             
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 text-white p-8 shadow-lg">
+            <div className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white p-8 shadow-lg">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center gap-4 mb-4">
                         <button
@@ -142,22 +142,22 @@ export default function TripDestinationDetail({
                         </button>
                         <div className="flex-1">
                             <h1 className="text-3xl font-bold">{destination}</h1>
-                            <p className="text-purple-100 mt-1">Trip Destination Details</p>
+                            <p className="text-cyan-100 mt-1">Trip Destination Details</p>
                         </div>
                     </div>
                     
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                            <div className="text-purple-100 text-sm mb-1">Total Trips</div>
+                            <div className="text-cyan-100 text-sm mb-1">Total Trips</div>
                             <div className="text-2xl font-bold">{summary.totalTrips || 0}</div>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                            <div className="text-purple-100 text-sm mb-1">Total Amount</div>
+                            <div className="text-cyan-100 text-sm mb-1">Total Amount</div>
                             <div className="text-2xl font-bold">{formatRupiah(summary.totalAmount || 0)}</div>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                            <div className="text-purple-100 text-sm mb-1">Unique Travelers</div>
+                            <div className="text-cyan-100 text-sm mb-1">Unique Travelers</div>
                             <div className="text-2xl font-bold">{summary.uniqueCustomers || 0}</div>
                         </div>
                     </div>
@@ -181,7 +181,7 @@ export default function TripDestinationDetail({
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         placeholder="Search by trip number, customer name, reason..."
-                                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition"
+                                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#4AADE8] focus:ring-4 focus:ring-sky-100 transition"
                                     />
                                 </div>
                             </div>
@@ -195,12 +195,12 @@ export default function TripDestinationDetail({
                     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full">
-                                <thead className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                                <thead className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white">
                                     <tr>
                                         <th className="px-6 py-4 text-left text-sm font-semibold">
                                             <button 
                                                 onClick={() => handleSort('trip_number')}
-                                                className="flex items-center gap-2 hover:text-purple-100 transition"
+                                                className="flex items-center gap-2 hover:text-cyan-100 transition"
                                             >
                                                 Trip Number {getSortIcon('trip_number')}
                                             </button>
@@ -208,7 +208,7 @@ export default function TripDestinationDetail({
                                         <th className="px-6 py-4 text-left text-sm font-semibold">
                                             <button 
                                                 onClick={() => handleSort('customer_name')}
-                                                className="flex items-center gap-2 hover:text-purple-100 transition"
+                                                className="flex items-center gap-2 hover:text-cyan-100 transition"
                                             >
                                                 Traveler Name {getSortIcon('customer_name')}
                                             </button>
@@ -222,7 +222,7 @@ export default function TripDestinationDetail({
                                         <th className="px-6 py-4 text-left text-sm font-semibold">
                                             <button 
                                                 onClick={() => handleSort('trip_begins_on')}
-                                                className="flex items-center gap-2 hover:text-purple-100 transition"
+                                                className="flex items-center gap-2 hover:text-cyan-100 transition"
                                             >
                                                 Departure {getSortIcon('trip_begins_on')}
                                             </button>
@@ -230,7 +230,7 @@ export default function TripDestinationDetail({
                                         <th className="px-6 py-4 text-left text-sm font-semibold">
                                             <button 
                                                 onClick={() => handleSort('trip_ends_on')}
-                                                className="flex items-center gap-2 hover:text-purple-100 transition"
+                                                className="flex items-center gap-2 hover:text-cyan-100 transition"
                                             >
                                                 Return {getSortIcon('trip_ends_on')}
                                             </button>
@@ -241,7 +241,7 @@ export default function TripDestinationDetail({
                                         <th className="px-6 py-4 text-left text-sm font-semibold">
                                             <button 
                                                 onClick={() => handleSort('paid_amount')}
-                                                className="flex items-center gap-2 hover:text-purple-100 transition"
+                                                className="flex items-center gap-2 hover:text-cyan-100 transition"
                                             >
                                                 Amount {getSortIcon('paid_amount')}
                                             </button>
@@ -257,9 +257,9 @@ export default function TripDestinationDetail({
                                 <tbody className="divide-y divide-gray-200">
                                     {transactions.data && transactions.data.length > 0 ? (
                                         transactions.data.map((trip, index) => (
-                                            <tr key={trip.id} className="hover:bg-purple-50 transition">
+                                            <tr key={trip.id} className="hover:bg-sky-50 transition">
                                                 <td className="px-6 py-4">
-                                                    <span className="font-mono text-sm font-semibold text-purple-600">
+                                                    <span className="font-mono text-sm font-semibold text-[#4AADE8]">
                                                         {trip.trip_number}
                                                     </span>
                                                 </td>
@@ -287,7 +287,7 @@ export default function TripDestinationDetail({
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-sky-100 text-sky-800">
                                                         {trip.duration_days ? `${trip.duration_days} day${trip.duration_days > 1 ? 's' : ''}` : '-'}
                                                     </span>
                                                 </td>
@@ -357,8 +357,8 @@ export default function TripDestinationDetail({
                                                     onClick={() => handlePageChange(link.url)}
                                                     className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
                                                         link.active
-                                                            ? 'bg-purple-600 text-white'
-                                                            : 'bg-white text-gray-700 hover:bg-purple-50 border border-gray-300'
+                                                            ? 'bg-[#4AADE8] text-white'
+                                                            : 'bg-white text-gray-700 hover:bg-sky-50 border border-gray-300'
                                                     }`}
                                                     dangerouslySetInnerHTML={{ __html: link.label }}
                                                 />

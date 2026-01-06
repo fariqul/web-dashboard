@@ -120,7 +120,7 @@ export default function SheetSelector({ sheets = [], selectedSheet, onChange, cl
         setSearchQuery('');
     };
 
-    const displayValue = selectedSheet === 'all' ? 'All Months' : selectedSheet;
+    const displayValue = selectedSheet === 'all' ? 'All Sheet' : selectedSheet;
 
     return (
         <div className={`relative ${className}`} ref={dropdownRef}>
@@ -175,7 +175,7 @@ export default function SheetSelector({ sheets = [], selectedSheet, onChange, cl
                             <span className="flex items-center justify-between">
                                 <span className="flex items-center gap-2">
                                     <span className="text-lg">📊</span>
-                                    <span>All Months</span>
+                                    <span>All Sheet</span>
                                 </span>
                                 {selectedSheet === 'all' && (
                                     <span className="text-cyan-600">✓</span>

@@ -257,7 +257,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
             <Toaster position="top-right" />
 
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 text-white p-8 shadow-lg mb-8">
+            <div className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white p-8 shadow-lg mb-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -345,10 +345,10 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         setSelectedBulan(e.target.value);
                                         handleFilterChange(e.target.value, selectedTahun);
                                     }}
-                                    className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-cyan-200"
+                                    className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-sky-200/50"
                                     style={{ color: 'white' }}
                                 >
-                                    <option value="all" className="text-gray-900 bg-white">📅 Semua Bulan</option>
+                                    <option value="all" className="text-gray-900 bg-white">📅 All Months</option>
                                     {bulanList.map(bulan => (
                                         <option key={bulan} value={bulan} className="text-gray-900 bg-white">{bulan}</option>
                                     ))}
@@ -370,7 +370,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-purple-200"
                                     style={{ color: 'white' }}
                                 >
-                                    <option value="all" className="text-gray-900 bg-white">📆 Semua Tahun</option>
+                                    <option value="all" className="text-gray-900 bg-white">📆 All Years</option>
                                     {years.map(year => (
                                         <option key={year} value={year} className="text-gray-900 bg-white">{year}</option>
                                     ))}
@@ -387,7 +387,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                         {/* Total Pembayaran Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                             <div className="relative p-8 text-white">
                                 <div className="flex items-start justify-between mb-4">
@@ -397,7 +397,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         </svg>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-sm font-medium text-blue-100 mb-1">Total Pembayaran</div>
+                                        <div className="text-sm font-medium text-cyan-100 mb-1">Total Pembayaran</div>
                                         <div className="text-3xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(summary.totalPayments).value}{formatSummaryDisplay(summary.totalPayments).unit}
                                         </div>
@@ -410,7 +410,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         </div>
 
                         {/* Total Transaksi Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#F5C842] via-[#FBBF24] to-[#EAB308] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                             <div className="relative p-8 text-white">
                                 <div className="flex items-start justify-between mb-4">
@@ -420,7 +420,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         </svg>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-sm font-medium text-green-100 mb-1">Total Transaksi</div>
+                                        <div className="text-sm font-medium text-amber-100 mb-1">Total Transaksi</div>
                                         <div className="text-5xl font-black">
                                             {summary.totalRecords}
                                         </div>
@@ -433,7 +433,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         </div>
 
                         {/* Total Pegawai Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-purple-500 via-pink-600 to-rose-600 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#E8636B] via-[#F07D84] to-[#D64F57] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                             <div className="relative p-8 text-white">
                                 <div className="flex items-start justify-between mb-4">
@@ -443,7 +443,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         </svg>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-sm font-medium text-purple-100 mb-1">Total Pegawai</div>
+                                        <div className="text-sm font-medium text-rose-100 mb-1">Total Pegawai</div>
                                         <div className="text-5xl font-black">
                                             {summary.totalEmployees}
                                         </div>
@@ -471,8 +471,8 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 <BarChart data={sortedMonthlyData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                     <defs>
                                         <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.9}/>
-                                            <stop offset="95%" stopColor="#06b6d4" stopOpacity={0.7}/>
+                                            <stop offset="5%" stopColor="#4AADE8" stopOpacity={0.9}/>
+                                            <stop offset="95%" stopColor="#3B9DD6" stopOpacity={0.7}/>
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -530,7 +530,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         dataKey="value"
                                     >
                                         {topEmployees.slice(0, 5).map((entry, index) => {
-                                            const colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#ec4899', '#f59e0b'];
+                                            const colors = ['#4AADE8', '#34D399', '#F5C842', '#E8636B', '#818CF8'];
                                             return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />;
                                         })}
                                     </Pie>
@@ -615,7 +615,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     onClick={() => setShowAllEmployees(!showAllEmployees)}
                                     className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 ${
                                         showAllEmployees
-                                            ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-xl'
+                                            ? 'bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white hover:shadow-xl'
                                             : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-xl'
                                     }`}
                                 >
@@ -669,7 +669,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                                 <div className="flex items-center justify-center gap-2">
                                                     <Link
                                                         href={`/bfko/employee/${employee.nip}?tahun=${selectedTahun}`}
-                                                        className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 inline-block"
+                                                        className="px-3 py-1.5 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white text-xs font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 inline-block"
                                                     >
                                                         📋 Detail
                                                     </Link>
@@ -761,7 +761,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                 {isModalOpen && (
                     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                         <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                            <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-6 rounded-t-2xl">
+                            <div className="sticky top-0 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white p-6 rounded-t-2xl">
                                 <h3 className="text-2xl font-bold">
                                     {editingPayment ? '✏️ Edit Data BFKO' : '➕ Tambah Data BFKO'}
                                 </h3>
@@ -891,7 +891,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     </button>
                                     <button
                                         type="submit"
-                                        className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:shadow-lg font-semibold transition-all"
+                                        className="px-6 py-2.5 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white rounded-lg hover:shadow-lg font-semibold transition-all"
                                     >
                                         {editingPayment ? 'Update' : 'Simpan'}
                                     </button>

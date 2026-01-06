@@ -206,7 +206,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 }}
                                 className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-cyan-200"
                             >
-                                <option value="all">📅 Semua Bulan</option>
+                                <option value="all">📅 All Years</option>
                                 {bulanList.map(bulan => (
                                     <option key={bulan} value={bulan}>{bulan}</option>
                                 ))}

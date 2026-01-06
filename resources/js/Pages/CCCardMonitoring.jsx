@@ -250,7 +250,7 @@ export default function CCCardMonitoring({
         <MainLayout>
             <Toaster position="top-right" />
             {/* Hero Header with Gradient */}
-            <div className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 text-white p-8 shadow-lg mb-8">
+            <div className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white p-8 shadow-lg mb-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -407,7 +407,7 @@ export default function CCCardMonitoring({
                             <div className="relative">
                                 <button 
                                     onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
-                                    className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-cyan-200 flex items-center gap-2"
+                                    className="px-6 py-3 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-sky-200/50 flex items-center gap-2"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -480,7 +480,7 @@ export default function CCCardMonitoring({
                     {/* Summary Cards with Modern Design */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                         {/* Total Payment Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                             <div className="relative p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
@@ -490,7 +490,7 @@ export default function CCCardMonitoring({
                                         </svg>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-xs font-medium text-blue-100 mb-1">Total Payment</div>
+                                        <div className="text-xs font-medium text-cyan-100 mb-1">Total Payment</div>
                                         <div className="text-2xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(totalPayment).value}{formatSummaryDisplay(totalPayment).unit}
                                         </div>
@@ -503,7 +503,7 @@ export default function CCCardMonitoring({
                         </div>
 
                         {/* Total Biaya Adm & Bunga Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#F5C842] via-[#FBBF24] to-[#EAB308] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                             <div className="relative p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
@@ -513,7 +513,7 @@ export default function CCCardMonitoring({
                                         </svg>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-xs font-medium text-yellow-100 mb-1">Biaya Adm & Bunga</div>
+                                        <div className="text-xs font-medium text-amber-100 mb-1">Biaya Adm & Bunga</div>
                                         <div className="text-2xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(totalAdminInterest).value}{formatSummaryDisplay(totalAdminInterest).unit}
                                         </div>
@@ -526,7 +526,7 @@ export default function CCCardMonitoring({
                         </div>
 
                         {/* Total Refund Card */}
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-pink-500 via-rose-600 to-red-600 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
+                        <div className="group relative overflow-hidden bg-gradient-to-br from-[#E8636B] via-[#F07D84] to-[#D64F57] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
                             <div className="relative p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
@@ -536,7 +536,7 @@ export default function CCCardMonitoring({
                                         </svg>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-xs font-medium text-pink-100 mb-1">Total Refund</div>
+                                        <div className="text-xs font-medium text-rose-100 mb-1">Total Refund</div>
                                         <div className="text-2xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(totalRefund).value}{formatSummaryDisplay(totalRefund).unit}
                                         </div>
@@ -614,14 +614,14 @@ export default function CCCardMonitoring({
                                         />
                                         <Bar 
                                             dataKey="payment" 
-                                            fill="#22c55e" 
+                                            fill="#4AADE8" 
                                             radius={[8, 8, 0, 0]} 
                                             name="Payment"
                                             barSize={monthlyChartData.length === 1 ? 80 : undefined}
                                         />
                                         <Bar 
                                             dataKey="refund" 
-                                            fill="#ef4444" 
+                                            fill="#E8636B" 
                                             radius={[8, 8, 0, 0]} 
                                             name="Refund"
                                             barSize={filteredChartData.length === 1 ? 80 : undefined}
@@ -664,13 +664,13 @@ export default function CCCardMonitoring({
                                         />
                                         <Bar 
                                             dataKey="payment" 
-                                            fill="#22c55e" 
+                                            fill="#4AADE8" 
                                             radius={[8, 8, 0, 0]} 
                                             name="Payment"
                                         />
                                         <Bar 
                                             dataKey="refund" 
-                                            fill="#ef4444" 
+                                            fill="#E8636B" 
                                             radius={[8, 8, 0, 0]} 
                                             name="Refund"
                                         />
@@ -860,12 +860,12 @@ export default function CCCardMonitoring({
                                             labelLine={false}
                                             label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
                                             outerRadius={70}
-                                            fill="#8884d8"
+                                            fill="#4AADE8"
                                             dataKey="value"
                                             style={{ fontSize: '11px' }}
                                         >
-                                            <Cell fill="#10b981" />
-                                            <Cell fill="#ef4444" />
+                                            <Cell fill="#4AADE8" />
+                                            <Cell fill="#E8636B" />
                                         </Pie>
                                         <Tooltip 
                                             formatter={(value) => `Rp ${value}M`}

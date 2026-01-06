@@ -134,7 +134,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
             month,
             amount: data.amount / 1000000, // Convert to millions
             status: data.status,
-            fill: data.status === 'Lunas' ? '#22c55e' : '#fbbf24' // Green for Lunas, Yellow for Belum Bayar
+            fill: data.status === 'Lunas' ? '#4AADE8' : '#F5C842' // Blue for Lunas, Yellow for Belum Bayar
         }));
 
     const progressData = [
@@ -275,15 +275,15 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
 
                 {/* Employee Info Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-200">
+                    <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl p-6 border border-[#4AADE8]">
                         <div className="text-sm text-gray-600 mb-2">Jabatan</div>
                         <div className="text-xl font-bold text-gray-900">{employee.jabatan}</div>
                     </div>
-                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
+                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl p-6 border border-[#34D399]">
                         <div className="text-sm text-gray-600 mb-2">Unit</div>
                         <div className="text-xl font-bold text-gray-900">{employee.unit || '-'}</div>
                     </div>
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
+                    <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-6 border border-[#F5C842]">
                         <div className="text-sm text-gray-600 mb-2">Total Pembayaran</div>
                         <div className="text-xl font-bold text-gray-900">{formatRupiah(employee.total)}</div>
                     </div>
@@ -308,8 +308,8 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                             startAngle={90}
                                             endAngle={-270}
                                         >
-                                            <Cell fill="#22c55e" />
-                                            <Cell fill="#fbbf24" />
+                                            <Cell fill="#4AADE8" />
+                                            <Cell fill="#F5C842" />
                                         </Pie>
                                         <Tooltip content={<CustomPieTooltip />} />
                                     </PieChart>
@@ -320,11 +320,11 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                             </div>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                                    <div className="w-4 h-4 bg-[#4AADE8] rounded-full"></div>
                                     <span className="text-gray-700 font-medium">Complete ({completedPayments})</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-4 h-4 bg-yellow-400 rounded-full"></div>
+                                    <div className="w-4 h-4 bg-[#F5C842] rounded-full"></div>
                                     <span className="text-gray-700 font-medium">In Progress ({inProgressPayments})</span>
                                 </div>
                             </div>
@@ -379,7 +379,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                 <span className="text-sm text-gray-500">{payments.length} transaksi</span>
                                 <button
                                     onClick={handleAddNew}
-                                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+                                    className="px-4 py-2 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -590,7 +590,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                     </button>
                                     <button
                                         type="submit"
-                                        className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:shadow-lg font-semibold transition-all duration-300"
+                                        className="px-6 py-2 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white rounded-lg hover:shadow-lg font-semibold transition-all duration-300"
                                     >
                                         {editingPayment ? 'Update' : 'Simpan'}
                                     </button>

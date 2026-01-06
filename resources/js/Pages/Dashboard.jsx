@@ -24,7 +24,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
             categories.push({ 
                 name: 'BFKO', 
                 value: summary?.bfko?.total || 0,
-                color: '#fbbf24',
+                color: '#F5C842',  // Soft PLN Yellow
                 fund: '52'
             });
         }
@@ -35,19 +35,19 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                 { 
                     name: 'CC Card', 
                     value: summary?.ccCard?.total || 0,
-                    color: '#22d3ee',
+                    color: '#4AADE8',  // Soft PLN Blue
                     fund: '54'
                 },
                 { 
                     name: 'Service Fee', 
                     value: summary?.serviceFee?.total || 0,
-                    color: '#22c55e',
+                    color: '#34D399',  // Soft Green
                     fund: '54'
                 },
                 { 
                     name: 'SPPD', 
                     value: summary?.sppd?.total || 0,
-                    color: '#a855f7',
+                    color: '#E8636B',  // Soft PLN Red
                     fund: '54'
                 }
             );
@@ -77,7 +77,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
 
     return (
         <MainLayout>
-            <div className="p-8 bg-gradient-to-br from-gray-50 to-cyan-50/30 min-h-screen">
+            <div className="p-8 bg-gradient-to-br from-slate-50 via-blue-50/40 to-sky-50/30 min-h-screen">
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-4xl font-bold text-gray-800 mb-2">Dashboard Overview</h1>
@@ -88,7 +88,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                     {/* BFKO Card */}
                     <Link href="/bfko" className="group">
-                        <div className="bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-yellow-600">
+                        <div className="bg-gradient-to-br from-[#F5C842] via-[#F7D56B] to-[#E5B82E] rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-[#C9A128]">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="w-14 h-14 bg-white/30 backdrop-blur-md rounded-xl flex items-center justify-center">
                                     <span className="text-3xl">⚡</span>
@@ -105,7 +105,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
 
                     {/* CC Card */}
                     <Link href="/cc-card" className="group">
-                        <div className="bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-blue-600">
+                        <div className="bg-gradient-to-br from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-[#2D87BE]">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="w-14 h-14 bg-white/30 backdrop-blur-md rounded-xl flex items-center justify-center">
                                     <span className="text-3xl">💳</span>
@@ -122,7 +122,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
 
                     {/* Service Fee Card */}
                     <Link href="/service-fee" className="group">
-                        <div className="bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-green-600">
+                        <div className="bg-gradient-to-br from-[#34D399] via-[#4ADE80] to-[#22C55E] rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-[#16A34A]">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="w-14 h-14 bg-white/30 backdrop-blur-md rounded-xl flex items-center justify-center">
                                     <span className="text-3xl">🏨</span>
@@ -139,7 +139,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
 
                     {/* SPPD Card */}
                     <Link href="/sppd" className="group">
-                        <div className="bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-purple-700">
+                        <div className="bg-gradient-to-br from-[#E8636B] via-[#F07D84] to-[#D64F57] rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-l-4 border-[#BE3F47]">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="w-14 h-14 bg-white/30 backdrop-blur-md rounded-xl flex items-center justify-center">
                                     <span className="text-3xl">📋</span>
@@ -295,29 +295,29 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                                     }}
                                     contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb' }}
                                 />
-                                <Bar dataKey="bfko" fill="#fbbf24" radius={[4, 4, 0, 0]} name="BFKO" />
-                                <Bar dataKey="ccCard" fill="#22d3ee" radius={[4, 4, 0, 0]} name="CC Card" />
-                                <Bar dataKey="serviceFee" fill="#22c55e" radius={[4, 4, 0, 0]} name="Service Fee" />
-                                <Bar dataKey="sppd" fill="#a855f7" radius={[4, 4, 0, 0]} name="SPPD" />
+                                <Bar dataKey="bfko" fill="#F5C842" radius={[4, 4, 0, 0]} name="BFKO" />
+                                <Bar dataKey="ccCard" fill="#4AADE8" radius={[4, 4, 0, 0]} name="CC Card" />
+                                <Bar dataKey="serviceFee" fill="#34D399" radius={[4, 4, 0, 0]} name="Service Fee" />
+                                <Bar dataKey="sppd" fill="#E8636B" radius={[4, 4, 0, 0]} name="SPPD" />
                             </BarChart>
                         </ResponsiveContainer>
                         
                         {/* Legend */}
                         <div className="flex gap-4 justify-center mt-4">
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 bg-yellow-400 rounded"></div>
+                                <div className="w-3 h-3 bg-[#F5C842] rounded"></div>
                                 <span className="text-xs text-gray-600">BFKO</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 bg-cyan-400 rounded"></div>
+                                <div className="w-3 h-3 bg-[#4AADE8] rounded"></div>
                                 <span className="text-xs text-gray-600">CC Card</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-400 rounded"></div>
+                                <div className="w-3 h-3 bg-[#34D399] rounded"></div>
                                 <span className="text-xs text-gray-600">Service Fee</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 bg-purple-400 rounded"></div>
+                                <div className="w-3 h-3 bg-[#E8636B] rounded"></div>
                                 <span className="text-xs text-gray-600">SPPD</span>
                             </div>
                         </div>
@@ -373,7 +373,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                                                     <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
                                                         payment.category === 'BFKO' ? 'bg-yellow-100 text-yellow-800' :
                                                         payment.category === 'CC Card' ? 'bg-cyan-100 text-cyan-800' :
-                                                        payment.category === 'SPPD' ? 'bg-purple-100 text-purple-800' :
+                                                        payment.category === 'SPPD' ? 'bg-rose-100 text-rose-800' :
                                                         'bg-green-100 text-green-800'
                                                     }`}>
                                                         {payment.category === 'BFKO' && '⚡ '}
@@ -448,7 +448,7 @@ export default function Dashboard({ summary, monthlyData, recentTransactions, fu
                             <span className="text-gray-300">|</span>
                             <Link 
                                 href="/sppd"
-                                className="text-sm font-semibold text-purple-600 hover:text-purple-700 transition flex items-center gap-2"
+                                className="text-sm font-semibold text-[#E8636B] hover:text-rose-700 transition flex items-center gap-2"
                             >
                                 View All SPPD
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -220,7 +220,7 @@ export default function ServiceFeeMonitoring({
         }).format(amount);
     };
 
-    const COLORS = ['#3b82f6', '#22c55e'];
+    const COLORS = ['#4AADE8', '#34D399'];  // PLN Blue, Soft Green
 
     const pieChartData = [
         { name: 'Hotel', value: serviceTypeBreakdown?.hotel || 0 },
@@ -260,7 +260,7 @@ export default function ServiceFeeMonitoring({
             />
             
             {/* Hero Header with Gradient */}
-            <div className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 text-white p-8 shadow-lg mb-8">
+            <div className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white p-8 shadow-lg mb-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -365,7 +365,7 @@ export default function ServiceFeeMonitoring({
                             onClick={() => setActiveTab('overview')}
                             className={`pb-3 px-6 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-all ${
                                 activeTab === 'overview'
-                                    ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg'
+                                    ? 'bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white shadow-lg'
                                     : 'text-gray-600 hover:bg-gray-100'
                             }`}
                         >
@@ -375,7 +375,7 @@ export default function ServiceFeeMonitoring({
                             onClick={() => setActiveTab('hotel')}
                             className={`pb-3 px-6 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-all ${
                                 activeTab === 'hotel'
-                                    ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
+                                    ? 'bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white shadow-lg'
                                     : 'text-gray-600 hover:bg-gray-100'
                             }`}
                         >
@@ -385,7 +385,7 @@ export default function ServiceFeeMonitoring({
                             onClick={() => setActiveTab('flight')}
                             className={`pb-3 px-6 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-all ${
                                 activeTab === 'flight'
-                                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg'
+                                    ? 'bg-gradient-to-r from-[#34D399] to-[#22C55E] text-white shadow-lg'
                                     : 'text-gray-600 hover:bg-gray-100'
                             }`}
                         >
@@ -400,7 +400,7 @@ export default function ServiceFeeMonitoring({
                         {/* Summary Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Hotel Summary */}
-                            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 border-l-4 border-blue-500">
+                            <div className="bg-gradient-to-br from-sky-50 to-blue-100 rounded-lg p-6 border-l-4 border-[#4AADE8]">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-lg font-bold text-gray-900">🏨 Hotel Summary</h3>
                                 </div>
@@ -413,7 +413,7 @@ export default function ServiceFeeMonitoring({
                                         <span className="text-gray-600">Transaction Amount:</span>
                                         <span className="font-semibold">{formatCurrency(hotelSummary?.totalTransactionAmount || 0)}</span>
                                     </div>
-                                    <hr className="border-blue-200" />
+                                    <hr className="border-sky-200" />
                                     <div className="flex justify-between">
                                         <span className="text-gray-600">Subtotal Service Fee:</span>
                                         <span className="font-semibold">{formatCurrency(hotelSummary?.subtotalServiceFee || 0)}</span>
@@ -422,7 +422,7 @@ export default function ServiceFeeMonitoring({
                                         <span className="text-gray-600">VAT (11%):</span>
                                         <span className="font-semibold">{formatCurrency(hotelSummary?.vat || 0)}</span>
                                     </div>
-                                    <hr className="border-blue-300" />
+                                    <hr className="border-sky-300" />
                                     <div className="flex justify-between text-lg">
                                         <span className="font-bold text-gray-900">TOTAL TAGIHAN:</span>
                                         <span className="font-bold text-blue-600">{formatCurrency(hotelSummary?.totalTagihan || 0)}</span>
@@ -431,7 +431,7 @@ export default function ServiceFeeMonitoring({
                             </div>
 
                             {/* Flight Summary */}
-                            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border-l-4 border-green-500">
+                            <div className="bg-gradient-to-br from-emerald-50 to-green-100 rounded-lg p-6 border-l-4 border-[#34D399]">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-lg font-bold text-gray-900">✈️ Flight Summary</h3>
                                 </div>
@@ -444,7 +444,7 @@ export default function ServiceFeeMonitoring({
                                         <span className="text-gray-600">Transaction Amount:</span>
                                         <span className="font-semibold">{formatCurrency(flightSummary?.totalTransactionAmount || 0)}</span>
                                     </div>
-                                    <hr className="border-green-200" />
+                                    <hr className="border-emerald-200" />
                                     <div className="flex justify-between">
                                         <span className="text-gray-600">Subtotal Service Fee:</span>
                                         <span className="font-semibold">{formatCurrency(flightSummary?.subtotalServiceFee || 0)}</span>
@@ -453,7 +453,7 @@ export default function ServiceFeeMonitoring({
                                         <span className="text-gray-600">VAT (11%):</span>
                                         <span className="font-semibold">{formatCurrency(flightSummary?.vat || 0)}</span>
                                     </div>
-                                    <hr className="border-green-300" />
+                                    <hr className="border-emerald-300" />
                                     <div className="flex justify-between text-lg">
                                         <span className="font-bold text-gray-900">TOTAL TAGIHAN:</span>
                                         <span className="font-bold text-green-600">{formatCurrency(flightSummary?.totalTagihan || 0)}</span>
@@ -544,7 +544,7 @@ export default function ServiceFeeMonitoring({
                                                 <Legend wrapperStyle={{ fontSize: '13px' }} />
                                                 <Bar 
                                                     dataKey="fee" 
-                                                    fill="#3b82f6" 
+                                                    fill="#4AADE8" 
                                                     name="Total Tagihan (+ VAT)" 
                                                     radius={[6, 6, 0, 0]}
                                                     maxBarSize={70}
@@ -572,14 +572,14 @@ export default function ServiceFeeMonitoring({
                                                 <Legend wrapperStyle={{ fontSize: '13px' }} />
                                                 <Bar 
                                                     dataKey="hotel" 
-                                                    fill="#3b82f6" 
+                                                    fill="#4AADE8" 
                                                     name="Hotel (HL)" 
                                                     radius={[6, 6, 0, 0]}
                                                     maxBarSize={50}
                                                 />
                                                 <Bar 
                                                     dataKey="flight" 
-                                                    fill="#22c55e" 
+                                                    fill="#34D399" 
                                                     name="Flight (FL)" 
                                                     radius={[6, 6, 0, 0]}
                                                     maxBarSize={50}
@@ -621,19 +621,19 @@ export default function ServiceFeeMonitoring({
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                     {/* Top Hotels */}
                                     <div>
-                                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-blue-200">
+                                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-sky-200">
                                             <span className="text-xl">🏨</span>
-                                            <h4 className="font-semibold text-blue-900">Top Hotels</h4>
+                                            <h4 className="font-semibold text-sky-800">Top Hotels</h4>
                                         </div>
                                         <div className="space-y-2">
                                             {topDestinations?.filter(d => d.type === 'hotel').slice(0, 3).map((dest, index) => (
-                                                <div key={index} className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                                                <div key={index} className="flex items-center gap-3 p-2 bg-sky-50 rounded-lg hover:bg-sky-100 transition">
                                                     {/* Rank Badge */}
                                                     <div className={`flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full font-bold text-xs ${
-                                                        index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                        index === 0 ? 'bg-[#F5C842] text-amber-900' :
                                                         index === 1 ? 'bg-gray-300 text-gray-800' :
                                                         index === 2 ? 'bg-orange-300 text-orange-900' :
-                                                        'bg-blue-200 text-blue-700'
+                                                        'bg-sky-200 text-sky-700'
                                                     }`}>
                                                         {index + 1}
                                                     </div>
@@ -648,7 +648,7 @@ export default function ServiceFeeMonitoring({
                                                     
                                                     {/* Amount */}
                                                     <div className="flex-shrink-0 text-right">
-                                                        <p className="text-sm font-bold text-blue-600">{dest.amount}</p>
+                                                        <p className="text-sm font-bold text-[#4AADE8]">{dest.amount}</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -660,19 +660,19 @@ export default function ServiceFeeMonitoring({
 
                                     {/* Top Flights */}
                                     <div>
-                                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-green-200">
+                                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-emerald-200">
                                             <span className="text-xl">✈️</span>
-                                            <h4 className="font-semibold text-green-900">Top Flights</h4>
+                                            <h4 className="font-semibold text-emerald-800">Top Flights</h4>
                                         </div>
                                         <div className="space-y-2">
                                             {topDestinations?.filter(d => d.type === 'flight').slice(0, 3).map((dest, index) => (
-                                                <div key={index} className="flex items-center gap-3 p-2 bg-green-50 rounded-lg hover:bg-green-100 transition">
+                                                <div key={index} className="flex items-center gap-3 p-2 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition">
                                                     {/* Rank Badge */}
                                                     <div className={`flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full font-bold text-xs ${
-                                                        index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                        index === 0 ? 'bg-[#F5C842] text-amber-900' :
                                                         index === 1 ? 'bg-gray-300 text-gray-800' :
                                                         index === 2 ? 'bg-orange-300 text-orange-900' :
-                                                        'bg-green-200 text-green-700'
+                                                        'bg-emerald-200 text-emerald-700'
                                                     }`}>
                                                         {index + 1}
                                                     </div>
@@ -687,7 +687,7 @@ export default function ServiceFeeMonitoring({
                                                     
                                                     {/* Amount */}
                                                     <div className="flex-shrink-0 text-right">
-                                                        <p className="text-sm font-bold text-green-600">{dest.amount}</p>
+                                                        <p className="text-sm font-bold text-[#34D399]">{dest.amount}</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -789,7 +789,7 @@ function HotelTab({ bookings, summary, formatCurrency, onView, onEdit, onDelete,
     return (
         <div className="space-y-6">
             {/* Summary Card */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 border-l-4 border-blue-500">
+            <div className="bg-gradient-to-br from-sky-50 to-blue-100 rounded-lg p-6 border-l-4 border-[#4AADE8]">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-xl font-bold text-gray-900">🏨 Hotel Summary</h3>
                     <button

@@ -35,18 +35,18 @@ export default function MainLayout({ children }) {
     }, [url]);
 
     return (
-        <div className="flex h-screen bg-gradient-to-br from-gray-50 to-cyan-50/30">
-            {/* Sidebar */}
-            <div className="w-64 bg-gradient-to-br from-cyan-500 via-teal-600 to-cyan-700 text-white flex flex-col shadow-2xl relative overflow-hidden">
+        <div className="flex h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-sky-50/30">
+            {/* Sidebar - Soft PLN Blue */}
+            <div className="w-64 bg-gradient-to-b from-[#4AADE8] via-[#3B9DD6] to-[#2D87BE] text-white flex flex-col shadow-2xl relative overflow-hidden">
                 {/* Decorative Background Elements */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-teal-300/10 rounded-full blur-3xl -ml-24 -mb-24"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#F5C842]/15 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl -ml-24 -mb-24"></div>
                 
-                {/* Logo */}
+                {/* Logo - PLN Yellow accent */}
                 <div className="relative p-6 border-b border-white/20 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white/25 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg border border-white/30">
-                            <span className="text-2xl">⚡</span>
+                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
+                            <img src="/images/Logo_PLN.png" alt="PLN Logo" className="w-8 h-8 object-contain" />
                         </div>
                         <h1 className="text-xl font-bold text-white drop-shadow-lg">PLN Dashboard</h1>
                     </div>
@@ -56,16 +56,16 @@ export default function MainLayout({ children }) {
                 <div className="relative p-6 border-b border-white/20 backdrop-blur-sm">
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <div className="w-12 h-12 bg-white/25 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/30">
-                                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="w-12 h-12 bg-[#F5C842]/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/30">
+                                <svg className="w-7 h-7 text-[#2D87BE]" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                                 </svg>
                             </div>
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-teal-600 shadow-lg"></div>
+                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[#4AADE8] shadow-lg"></div>
                         </div>
                         <div className="flex-1">
                             <p className="text-sm font-semibold text-white drop-shadow">User</p>
-                            <p className="text-xs text-cyan-50/90">User@gmail.com</p>
+                            <p className="text-xs text-sky-100/90">User@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -87,19 +87,19 @@ export default function MainLayout({ children }) {
                                         onClick={() => setOpenDropdown(isOpen ? null : 'monitoring')}
                                         className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                                             isAnyChildActive
-                                                ? 'bg-white/25 backdrop-blur-md text-white shadow-lg shadow-black/10 border border-white/30'
-                                                : 'text-cyan-50/90 hover:bg-white/15 hover:text-white hover:scale-105'
+                                                ? 'bg-[#F5C842] text-[#2D87BE] shadow-lg shadow-amber-200/50 border border-[#F5C842]/30'
+                                                : 'text-sky-50/90 hover:bg-white/15 hover:text-white hover:scale-105'
                                         }`}
                                     >
                                         {/* Active Indicator */}
                                         {isAnyChildActive && (
-                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full shadow-lg"></div>
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[#F5C842] rounded-r-full shadow-lg"></div>
                                         )}
                                         
                                         {/* Icon Container */}
                                         <div className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ${
                                             isAnyChildActive 
-                                                ? 'bg-white/20' 
+                                                ? 'bg-white/30' 
                                                 : 'bg-white/10 group-hover:bg-white/15'
                                         }`}>
                                             <span className="text-xl">{item.emoji}</span>
@@ -107,7 +107,7 @@ export default function MainLayout({ children }) {
                                         
                                         <div className="flex-1 text-left">
                                             <span className="font-semibold block">{item.name}</span>
-                                            <span className="text-xs text-cyan-50/70">{item.description}</span>
+                                            <span className={`text-xs ${isAnyChildActive ? 'text-[#2D87BE]/70' : 'text-sky-50/70'}`}>{item.description}</span>
                                         </div>
                                         
                                         {/* Chevron */}
@@ -124,7 +124,7 @@ export default function MainLayout({ children }) {
                                     <div className={`overflow-hidden transition-all duration-300 ${
                                         isOpen ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'
                                     }`}>
-                                        <div className="space-y-1 ml-3 pl-4 border-l-2 border-white/20">
+                                        <div className="space-y-1 ml-3 pl-4 border-l-2 border-[#F5C842]/40">
                                             {item.items.map((child) => {
                                                 const isChildActive = url === child.href || (child.href !== '/' && url.startsWith(child.href));
                                                 return (
@@ -133,13 +133,13 @@ export default function MainLayout({ children }) {
                                                         href={child.href}
                                                         className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${
                                                             isChildActive
-                                                                ? 'bg-white/20 text-white shadow-md scale-105'
-                                                                : 'text-cyan-50/80 hover:bg-white/10 hover:text-white hover:scale-105'
+                                                                ? 'bg-[#F5C842] text-[#2D87BE] shadow-md scale-105'
+                                                                : 'text-sky-50/80 hover:bg-white/10 hover:text-white hover:scale-105'
                                                         }`}
                                                     >
                                                         <div className={`flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300 ${
                                                             isChildActive 
-                                                                ? 'bg-white/25' 
+                                                                ? 'bg-white/40' 
                                                                 : 'bg-white/5 group-hover:bg-white/10'
                                                         }`}>
                                                             <span className="text-base">{child.emoji}</span>
@@ -147,12 +147,12 @@ export default function MainLayout({ children }) {
                                                         
                                                         <div className="flex-1">
                                                             <span className="text-sm font-semibold block">{child.name}</span>
-                                                            <span className="text-xs text-cyan-50/60">{child.description}</span>
+                                                            <span className={`text-xs ${isChildActive ? 'text-[#2D87BE]/60' : 'text-sky-50/60'}`}>{child.description}</span>
                                                         </div>
                                                         
                                                         {/* Active Dot */}
                                                         {isChildActive && (
-                                                            <div className="w-2 h-2 bg-white rounded-full shadow-lg"></div>
+                                                            <div className="w-2 h-2 bg-[#2D87BE] rounded-full shadow-lg"></div>
                                                         )}
                                                     </Link>
                                                 );
@@ -170,19 +170,19 @@ export default function MainLayout({ children }) {
                                     href={item.href}
                                     className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                                         isActive
-                                            ? 'bg-white/25 backdrop-blur-md text-white shadow-lg shadow-black/10 scale-105 border border-white/30'
-                                            : 'text-cyan-50/90 hover:bg-white/15 hover:text-white hover:scale-105'
+                                            ? 'bg-[#F5C842] text-[#2D87BE] shadow-lg shadow-amber-200/50 scale-105 border border-[#F5C842]/30'
+                                            : 'text-sky-50/90 hover:bg-white/15 hover:text-white hover:scale-105'
                                     }`}
                                 >
                                     {/* Active Indicator */}
                                     {isActive && (
-                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full shadow-lg"></div>
+                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-[#F5C842] rounded-r-full shadow-lg"></div>
                                     )}
                                     
                                     {/* Icon Container */}
                                     <div className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ${
                                         isActive 
-                                            ? 'bg-white/20' 
+                                            ? 'bg-white/30' 
                                             : 'bg-white/10 group-hover:bg-white/15'
                                     }`}>
                                         <span className="text-xl">{item.emoji}</span>
@@ -190,7 +190,7 @@ export default function MainLayout({ children }) {
                                     
                                     <div className="flex-1">
                                         <span className="font-semibold block">{item.name}</span>
-                                        <span className="text-xs text-cyan-50/70">{item.description}</span>
+                                        <span className={`text-xs ${isActive ? 'text-[#2D87BE]/70' : 'text-sky-50/70'}`}>{item.description}</span>
                                     </div>
                                     
                                     {/* Hover Arrow */}
@@ -209,7 +209,7 @@ export default function MainLayout({ children }) {
                 <div className="relative p-4 space-y-2 border-t border-white/20 backdrop-blur-sm">
                     <Link
                         href="/settings"
-                        className="group flex items-center gap-3 px-4 py-3 rounded-xl text-cyan-50/90 hover:bg-white/15 hover:text-white transition-all duration-300 hover:scale-105"
+                        className="group flex items-center gap-3 px-4 py-3 rounded-xl text-sky-50/90 hover:bg-white/15 hover:text-white transition-all duration-300 hover:scale-105"
                     >
                         <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 group-hover:bg-white/15 transition-all">
                             <span className="text-xl">⚙️</span>
@@ -220,7 +220,7 @@ export default function MainLayout({ children }) {
                         href="/logout"
                         method="post"
                         as="button"
-                        className="group flex items-center gap-3 px-4 py-3 rounded-xl text-cyan-50/90 hover:bg-gradient-to-r hover:from-red-500 hover:to-rose-500 hover:text-white transition-all duration-300 hover:scale-105 w-full hover:shadow-lg hover:shadow-red-500/30"
+                        className="group flex items-center gap-3 px-4 py-3 rounded-xl text-sky-50/90 hover:bg-gradient-to-r hover:from-[#E8636B] hover:to-[#D64F57] hover:text-white transition-all duration-300 hover:scale-105 w-full hover:shadow-lg hover:shadow-red-300/30"
                     >
                         <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 group-hover:bg-white/20 transition-all">
                             <span className="text-xl">🚪</span>
