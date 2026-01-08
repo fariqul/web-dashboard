@@ -11,6 +11,7 @@ class SppdTransaction extends Model
     protected $fillable = [
         'transaction_number',
         'trip_number',
+        'document_number',
         'customer_name',
         'origin',
         'destination',
@@ -45,6 +46,7 @@ class SppdTransaction extends Model
         return $query->where(function($q) use ($search) {
             $q->where('customer_name', 'like', '%' . $search . '%')
               ->orWhere('trip_number', 'like', '%' . $search . '%')
+              ->orWhere('document_number', 'like', '%' . $search . '%')
               ->orWhere('trip_destination_full', 'like', '%' . $search . '%')
               ->orWhere('origin', 'like', '%' . $search . '%')
               ->orWhere('destination', 'like', '%' . $search . '%')

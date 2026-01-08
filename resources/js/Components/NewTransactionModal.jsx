@@ -31,6 +31,7 @@ export default function NewTransactionModal({ isOpen, onClose, availableSheets =
     const [updateExisting, setUpdateExisting] = useState(false);
     const [csvPreview, setCSVPreview] = useState(null);
     const [csvSheetName, setCSVSheetName] = useState('');
+    const [importYear, setImportYear] = useState(''); // Optional year for import
     
     // Fees State
     const [fees, setFees] = useState([]);
@@ -137,6 +138,9 @@ export default function NewTransactionModal({ isOpen, onClose, availableSheets =
         formData.append('csv_file', csvFile);
         formData.append('update_existing', updateExisting ? '1' : '0');
         formData.append('override_sheet_name', csvSheetName); // Override sheet name in CSV
+        if (importYear) {
+            formData.append('import_year', importYear); // Optional year to append to sheet name
+        }
         
         router.post('/cc-card/transaction/import', formData, {
             onSuccess: () => {
@@ -476,6 +480,26 @@ export default function NewTransactionModal({ isOpen, onClose, availableSheets =
                                 />
                                 <p className="text-sm text-gray-600 mt-1">
                                     Jika diisi, semua transaksi di CSV akan diimport ke sheet ini (mengabaikan kolom Sheet di CSV)
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <label className="block text-sm font-semibold mb-2">
+                                    Tahun Data (Opsional)
+                                    <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">Baru!</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    value={importYear}
+                                    onChange={(e) => setImportYear(e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500"
+                                    placeholder="Contoh: 2025"
+                                    min="2020"
+                                    max="2100"
+                                />
+                                <p className="text-sm text-gray-600 mt-1">
+                                    Gunakan ini jika nama sheet di file tidak memiliki tahun.<br/>
+                                    Contoh: Sheet "Agustus" akan menjadi "Agustus 2025"
                                 </p>
                             </div>
                             

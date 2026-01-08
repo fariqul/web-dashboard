@@ -63,6 +63,8 @@ export default function SppdMonitoring({
     tripsByReason = { all: [], upcoming: [], ongoing: [], completed: [] },
     statusCounts = { upcoming: 0, ongoing: 0, completed: 0 },
     statusAmounts = { upcoming: 0, ongoing: 0, completed: 0 },
+    individualTrips = [],
+    isMonthFiltered = false,
     flash = {}
 }) {
     const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
@@ -673,67 +675,145 @@ export default function SppdMonitoring({
                             )}
                         </div>
 
-                        {/* Trips by Reason */}
+                        {/* Trips by Reason OR Individual Trips (when month filtered) */}
                         <div className="bg-white rounded-2xl p-6 shadow-lg">
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-lg font-bold text-gray-800">Trips by Reason</h3>
-                                <div className="flex gap-1">
-                                    {['all', 'upcoming', 'ongoing', 'completed'].map((status) => (
-                                        <button
-                                            key={status}
-                                            onClick={() => setReasonsStatusFilter(status)}
-                                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                                                reasonsStatusFilter === status
-                                                    ? status === 'upcoming' ? 'bg-[#4AADE8] text-white' :
-                                                      status === 'ongoing' ? 'bg-[#34D399] text-white' :
-                                                      status === 'completed' ? 'bg-gray-500 text-white' :
-                                                      'bg-[#4AADE8] text-white'
-                                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                            }`}
-                                        >
-                                            {status.charAt(0).toUpperCase() + status.slice(1)}
-                                        </button>
-                                    ))}
-                                </div>
+                                <h3 className="text-lg font-bold text-gray-800">
+                                    {isMonthFiltered ? 'Daftar Perjalanan' : 'Trips by Reason'}
+                                </h3>
+                                {!isMonthFiltered && (
+                                    <div className="flex gap-1">
+                                        {['all', 'upcoming', 'ongoing', 'completed'].map((status) => (
+                                            <button
+                                                key={status}
+                                                onClick={() => setReasonsStatusFilter(status)}
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                                                    reasonsStatusFilter === status
+                                                        ? status === 'upcoming' ? 'bg-[#4AADE8] text-white' :
+                                                          status === 'ongoing' ? 'bg-[#34D399] text-white' :
+                                                          status === 'completed' ? 'bg-gray-500 text-white' :
+                                                          'bg-[#4AADE8] text-white'
+                                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                                }`}
+                                            >
+                                                {status.charAt(0).toUpperCase() + status.slice(1)}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                             
-                            <div className="space-y-2 max-h-[300px] overflow-y-auto">
-                                {filteredTripsByReason && filteredTripsByReason.length > 0 ? (
-                                    filteredTripsByReason.slice(0, 8).map((item, index) => (
-                                        <div key={index} className="p-3 bg-gray-50 rounded-lg hover:bg-sky-50 transition">
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-gray-900 text-sm truncate" title={item.reason}>{item.reason}</p>
-                                                    <p className="text-xs text-gray-500">{item.count} trips</p>
-                                                </div>
-                                                <span className="text-sm font-bold text-[#4AADE8]">{item.amount}</span>
-                                            </div>
-                                            <button
+                            <div className="space-y-2 max-h-[400px] overflow-y-auto">
+                                {isMonthFiltered ? (
+                                    /* Individual Trips List */
+                                    individualTrips && individualTrips.length > 0 ? (
+                                        individualTrips.map((trip, index) => (
+                                            <div 
+                                                key={trip.id || index} 
+                                                className="p-3 bg-gray-50 rounded-lg hover:bg-sky-50 transition border-l-4 border-[#4AADE8] cursor-pointer"
                                                 onClick={() => {
                                                     const params = new URLSearchParams();
-                                                    params.append('reason', item.reason);
+                                                    params.append('reason', trip.reason_for_trip);
                                                     params.append('sheet', selectedFilter);
                                                     if (selectedStatus !== 'all') params.append('status', selectedStatus);
-                                                    if (selectedReason !== 'all') params.append('filter_reason', selectedReason);
                                                     if (selectedBank !== 'all') params.append('bank', selectedBank);
                                                     router.visit(`/sppd/destination-detail?${params.toString()}`);
                                                 }}
-                                                className="w-full mt-2 px-3 py-1.5 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white rounded-lg hover:from-[#5BC0EB] hover:to-[#4AADE8] transition font-medium text-xs"
                                             >
-                                                Lihat Detail →
-                                            </button>
+                                                <div className="flex items-start justify-between">
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
+                                                                trip.status === 'upcoming' ? 'bg-[#4AADE8]/20 text-[#4AADE8]' :
+                                                                trip.status === 'ongoing' ? 'bg-[#34D399]/20 text-[#34D399]' :
+                                                                'bg-gray-200 text-gray-600'
+                                                            }`}>
+                                                                {trip.status?.toUpperCase() || 'N/A'}
+                                                            </span>
+                                                            <span className="text-[10px] text-gray-400">{trip.trip_number}</span>
+                                                        </div>
+                                                        <p className="font-semibold text-gray-900 text-sm">{trip.customer_name}</p>
+                                                        <p className="text-xs text-gray-600 mt-0.5">{trip.reason_for_trip}</p>
+                                                        <div className="flex items-center gap-3 mt-1 text-[11px] text-gray-500">
+                                                            <span className="flex items-center gap-1">
+                                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                                </svg>
+                                                                {trip.trip_destination}
+                                                            </span>
+                                                            <span className="flex items-center gap-1">
+                                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                </svg>
+                                                                {trip.trip_begins_on} - {trip.trip_ends_on}
+                                                            </span>
+                                                            {trip.duration_days && (
+                                                                <span className="text-[10px] text-gray-400">({trip.duration_days} hari)</span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col items-end gap-1">
+                                                        <span className="text-sm font-bold text-[#4AADE8] whitespace-nowrap">{trip.paid_amount}</span>
+                                                        <span className="text-[10px] text-gray-400 flex items-center gap-1">
+                                                            Lihat Detail
+                                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="h-[300px] flex items-center justify-center text-gray-500">
+                                            <div className="text-center">
+                                                <svg className="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                </svg>
+                                                <p className="font-semibold">Tidak ada perjalanan</p>
+                                                <p className="text-sm">Tidak ada data perjalanan untuk bulan ini</p>
+                                            </div>
                                         </div>
-                                    ))
+                                    )
                                 ) : (
-                                    <div className="h-[300px] flex items-center justify-center text-gray-500">
-                                        <div className="text-center">
-                                            <svg className="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            </svg>
-                                            <p className="font-semibold">No trips available</p>
-                                            <p className="text-sm">Add a new trip to get started</p>
+                                    /* Grouped by Reason */
+                                    filteredTripsByReason && filteredTripsByReason.length > 0 ? (
+                                        filteredTripsByReason.slice(0, 8).map((item, index) => (
+                                            <div key={index} className="p-3 bg-gray-50 rounded-lg hover:bg-sky-50 transition">
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="font-medium text-gray-900 text-sm truncate" title={item.reason}>{item.reason}</p>
+                                                        <p className="text-xs text-gray-500">{item.count} trips</p>
+                                                    </div>
+                                                    <span className="text-sm font-bold text-[#4AADE8]">{item.amount}</span>
+                                                </div>
+                                                <button
+                                                    onClick={() => {
+                                                        const params = new URLSearchParams();
+                                                        params.append('reason', item.reason);
+                                                        params.append('sheet', selectedFilter);
+                                                        if (selectedStatus !== 'all') params.append('status', selectedStatus);
+                                                        if (selectedReason !== 'all') params.append('filter_reason', selectedReason);
+                                                        if (selectedBank !== 'all') params.append('bank', selectedBank);
+                                                        router.visit(`/sppd/destination-detail?${params.toString()}`);
+                                                    }}
+                                                    className="w-full mt-2 px-3 py-1.5 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white rounded-lg hover:from-[#5BC0EB] hover:to-[#4AADE8] transition font-medium text-xs"
+                                                >
+                                                    Lihat Detail →
+                                                </button>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="h-[300px] flex items-center justify-center text-gray-500">
+                                            <div className="text-center">
+                                                <svg className="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                </svg>
+                                                <p className="font-semibold">No trips available</p>
+                                                <p className="text-sm">Add a new trip to get started</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )
                                 )}
                             </div>
                         </div>

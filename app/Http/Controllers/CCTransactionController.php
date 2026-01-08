@@ -128,6 +128,7 @@ class CCTransactionController extends Controller
             'csv_file' => 'required|file|mimes:csv,txt,xlsx,xls|max:10240', // 10MB max
             'update_existing' => 'boolean',
             'override_sheet_name' => 'nullable|string|max:255',
+            'import_year' => 'nullable|string|max:4', // Optional year for sheet name
         ]);
         
         if ($validator->fails()) {
@@ -175,6 +176,7 @@ class CCTransactionController extends Controller
         
         $updateExisting = $request->boolean('update_existing', false);
         $overrideSheetName = $request->input('override_sheet_name');
+        $importYear = $request->input('import_year'); // Optional year to append to sheet name
         
         $header = fgetcsv($handle); // Skip header
         
@@ -194,6 +196,7 @@ class CCTransactionController extends Controller
         Log::info('CC Card import started', [
             'has_override_sheet' => !empty($overrideSheetName),
             'override_sheet_name' => $overrideSheetName,
+            'import_year' => $importYear,
             'update_existing' => $updateExisting,
             'format' => $isRawFormat ? 'raw' : 'preprocessed'
         ]);
@@ -280,6 +283,11 @@ class CCTransactionController extends Controller
                     $payment = (float) trim($row[11]);
                     $transactionType = strtolower(trim($row[12]));
                     $sheetName = !empty($overrideSheetName) ? $overrideSheetName : trim($row[13]);
+                }
+                
+                // Append import_year to sheet name if provided and sheet doesn't already have a year
+                if (!empty($importYear) && !preg_match('/\b(20\d{2})\b/', $sheetName)) {
+                    $sheetName = trim($sheetName) . ' ' . $importYear;
                 }
                 
                 // For refunds, add suffix with payment amount to make it unique

@@ -146,13 +146,17 @@ class SppdTransactionController extends Controller
         
         $header = fgetcsv($handle); // Read header
         
-        // Validate header format
-        $expectedHeaders = ['trip_number', 'customer_name', 'trip_destination', 'reason_for_trip', 
+        // Validate header format - support both old (9 cols) and new (10 cols with document_number) format
+        $oldHeaders = ['trip_number', 'customer_name', 'trip_destination', 'reason_for_trip', 
+                          'trip_begins_on', 'trip_ends_on', 'planned_payment_date', 'paid_amount', 'beneficiary_bank_name'];
+        $newHeaders = ['document_number', 'trip_number', 'customer_name', 'trip_destination', 'reason_for_trip', 
                           'trip_begins_on', 'trip_ends_on', 'planned_payment_date', 'paid_amount', 'beneficiary_bank_name'];
         
-        if ($header !== $expectedHeaders) {
+        $hasDocumentNumber = ($header === $newHeaders);
+        
+        if ($header !== $oldHeaders && $header !== $newHeaders) {
             fclose($handle);
-            return back()->withErrors(['error' => 'Invalid CSV format. Expected headers: ' . implode(', ', $expectedHeaders)]);
+            return back()->withErrors(['error' => 'Invalid CSV format. Expected headers: ' . implode(', ', $newHeaders)]);
         }
         
         $imported = 0;
@@ -168,13 +172,18 @@ class SppdTransactionController extends Controller
             while (($row = fgetcsv($handle)) !== false) {
                 $lineNumber++;
                 
-                if (count($row) < 9) {
+                $minCols = $hasDocumentNumber ? 10 : 9;
+                if (count($row) < $minCols) {
                     $errors[] = "Line $lineNumber: Insufficient columns";
                     $skipped++;
                     continue;
                 }
                 
-                $tripNumber = trim($row[0]);
+                // Adjust column indices based on format
+                $colOffset = $hasDocumentNumber ? 1 : 0;
+                
+                $documentNumber = $hasDocumentNumber ? trim($row[0]) : null;
+                $tripNumber = trim($row[$colOffset]);
                 
                 if (empty($tripNumber)) {
                     $errors[] = "Line $lineNumber: Trip number is required";
@@ -182,7 +191,14 @@ class SppdTransactionController extends Controller
                     continue;
                 }
                 
-                $existing = SppdTransaction::where('trip_number', $tripNumber)->first();
+                // Check for existing record - use document_number + trip_number combination for uniqueness if document_number exists
+                if (!empty($documentNumber)) {
+                    $existing = SppdTransaction::where('document_number', $documentNumber)
+                        ->where('trip_number', $tripNumber)
+                        ->first();
+                } else {
+                    $existing = SppdTransaction::where('trip_number', $tripNumber)->first();
+                }
                 
                 if ($existing && !$updateExisting) {
                     $skipped++;
@@ -190,15 +206,15 @@ class SppdTransactionController extends Controller
                 }
                 
                 // Parse trip_destination to extract origin and destination
-                $tripDestination = trim($row[2]);
+                $tripDestination = trim($row[$colOffset + 2]);
                 $parts = explode(' - ', $tripDestination, 2);
                 $origin = $parts[0] ?? '';
                 $destination = $parts[1] ?? $tripDestination;
                 
-                // Parse dates
-                $tripBeginsOn = trim($row[4]);
-                $tripEndsOn = trim($row[5]);
-                $plannedPaymentDate = trim($row[6]);
+                // Parse dates with offset
+                $tripBeginsOn = trim($row[$colOffset + 4]);
+                $tripEndsOn = trim($row[$colOffset + 5]);
+                $plannedPaymentDate = trim($row[$colOffset + 6]);
                 
                 // Calculate duration
                 try {
@@ -212,7 +228,7 @@ class SppdTransactionController extends Controller
                 }
                 
                 // Parse amount (remove any non-numeric characters except decimal point)
-                $paidAmount = preg_replace('/[^0-9.]/', '', trim($row[7]));
+                $paidAmount = preg_replace('/[^0-9.]/', '', trim($row[$colOffset + 7]));
                 
                 // Determine sheet name
                 if (!empty($sheetMonth) && !empty($sheetYear)) {
@@ -235,18 +251,19 @@ class SppdTransactionController extends Controller
                 }
                 
                 $data = [
+                    'document_number' => $documentNumber,
                     'trip_number' => $tripNumber,
-                    'customer_name' => trim($row[1]),
+                    'customer_name' => trim($row[$colOffset + 1]),
                     'origin' => $origin,
                     'destination' => $destination,
                     'trip_destination_full' => $tripDestination,
-                    'reason_for_trip' => trim($row[3]),
+                    'reason_for_trip' => trim($row[$colOffset + 3]),
                     'trip_begins_on' => $tripBeginsOn,
                     'trip_ends_on' => $tripEndsOn,
                     'planned_payment_date' => !empty($plannedPaymentDate) ? $plannedPaymentDate : null,
                     'duration_days' => $duration,
                     'paid_amount' => (float) $paidAmount,
-                    'beneficiary_bank_name' => trim($row[8]),
+                    'beneficiary_bank_name' => trim($row[$colOffset + 8]),
                     'status' => 'Complete',
                     'sheet' => $sheetName,
                 ];
@@ -455,7 +472,9 @@ class SppdTransactionController extends Controller
                 return null;
             }
             
-            // Find column indices
+            // Find column indices - support both Sheet1 format (with Document Number) and Sheet1 (2) format
+            $groupIdCol = array_search('Group ID', $header);
+            $documentNumberCol = array_search('Document Number', $header); // Column G in Sheet1
             $tripNumberCol = array_search('Trip Number', $header);
             $customerNameCol = array_search('Customer Name', $header);
             $tripDestinationCol = array_search('Trip Destination', $header);
@@ -477,11 +496,11 @@ class SppdTransactionController extends Controller
                 return null;
             }
             
-            Log::info('Columns found - trip: ' . $tripNumberCol . ', planned_payment: ' . var_export($plannedPaymentCol, true));
+            Log::info('Columns found - documentNumber: ' . var_export($documentNumberCol, true) . ', groupId: ' . var_export($groupIdCol, true) . ', trip: ' . $tripNumberCol . ', planned_payment: ' . var_export($plannedPaymentCol, true) . ', paidAmount: ' . var_export($paidAmountCol, true));
             
-            // Build CSV
+            // Build CSV with document_number (Group ID)
             $csvLines = [];
-            $csvLines[] = 'trip_number,customer_name,trip_destination,reason_for_trip,trip_begins_on,trip_ends_on,planned_payment_date,paid_amount,beneficiary_bank_name';
+            $csvLines[] = 'document_number,trip_number,customer_name,trip_destination,reason_for_trip,trip_begins_on,trip_ends_on,planned_payment_date,paid_amount,beneficiary_bank_name';
             
             $processedCount = 0;
             for ($row = $headerRowIndex + 1; $row <= $highestRow; $row++) {
@@ -528,8 +547,17 @@ class SppdTransactionController extends Controller
                 $paidAmount = $this->cleanAmount($paidAmountCol !== false ? ($rowData[$paidAmountCol] ?? 0) : 0);
                 $bankName = $this->cleanValue($bankNameCol !== false ? ($rowData[$bankNameCol] ?? '') : '');
                 
+                // Get Document Number (prioritize Document Number column, fallback to Group ID)
+                $documentNumber = '';
+                if ($documentNumberCol !== false) {
+                    $documentNumber = $this->cleanValue($rowData[$documentNumberCol] ?? '');
+                } elseif ($groupIdCol !== false) {
+                    $documentNumber = $this->cleanValue($rowData[$groupIdCol] ?? '');
+                }
+                
                 $csvLines[] = sprintf(
-                    '"%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                    '"%s","%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                    $documentNumber,
                     $tripNumber,
                     $customerName,
                     $tripDestination,

@@ -8,10 +8,7 @@ use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\CellAlignment;
-use OpenSpout\Common\Entity\Style\Border;
-use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Row;
-use OpenSpout\Common\Entity\Cell;
 
 class BfkoExport
 {
@@ -25,7 +22,7 @@ class BfkoExport
     }
 
     /**
-     * Generate styled Excel file using OpenSpout - Corporate Dashboard Style
+     * Generate clean Excel file using OpenSpout
      */
     public function download()
     {
@@ -37,261 +34,143 @@ class BfkoExport
             $writer = new Writer();
             $writer->openToFile($tempPath);
             
-            // Group data by employee
-            $employees = $this->data->groupBy('nip')->map(function($payments) {
+            // Group data by employee AND year
+            $employees = $this->data->groupBy(function($item) {
+                return $item->nip . '_' . $item->tahun;
+            })->map(function($payments) {
                 $first = $payments->first();
                 return [
                     'nip' => $first->nip,
                     'nama' => $first->nama,
                     'jabatan' => $first->jabatan,
-                    'unit' => $first->unit,
+                    'tahun' => $first->tahun,
                     'payments' => $payments,
                     'total' => $payments->sum('nilai_angsuran')
                 ];
-            })->values();
+            })->sortBy([
+                ['tahun', 'desc'],
+                ['nama', 'asc']
+            ])->values();
             
             $totalAll = $this->data->sum('nilai_angsuran');
             $totalEmployees = $employees->count();
             $totalTransactions = $this->data->count();
 
-            $totalAll = $this->data->sum('nilai_angsuran');
-            $totalEmployees = $employees->count();
-            $totalTransactions = $this->data->count();
-
-            // ===== STYLES DEFINITION =====
+            // ===== SIMPLE STYLES =====
             
-            // Logo/Title Style (Navy Blue)
-            $logoStyle = (new Style())
-                ->setFontBold()
-                ->setFontSize(14)
-                ->setFontColor(Color::WHITE)
-                ->setBackgroundColor(Color::rgb(30, 58, 138)) // Navy #1e3a8a
-                ->setCellAlignment(CellAlignment::CENTER);
-            
-            // Title with Gold Border Style
+            // Title Style
             $titleStyle = (new Style())
                 ->setFontBold()
-                ->setFontSize(16)
-                ->setFontColor(Color::rgb(30, 58, 138))
-                ->setCellAlignment(CellAlignment::CENTER)
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID), // Gold
-                    new BorderPart(Border::TOP, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID)
-                ));
-            
-            // Subtitle Style
-            $subtitleStyle = (new Style())
-                ->setFontSize(10)
-                ->setFontColor(Color::rgb(100, 116, 139))
-                ->setCellAlignment(CellAlignment::CENTER);
-            
-            // Summary Card Label Style
-            $summaryLabelStyle = (new Style())
-                ->setFontSize(8)
-                ->setFontBold()
-                ->setFontColor(Color::rgb(100, 116, 139))
-                ->setBackgroundColor(Color::rgb(248, 250, 252))
-                ->setCellAlignment(CellAlignment::CENTER)
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
-            
-            // Summary Card Value Style
-            $summaryValueStyle = (new Style())
                 ->setFontSize(12)
-                ->setFontBold()
-                ->setFontColor(Color::rgb(30, 58, 138))
-                ->setBackgroundColor(Color::rgb(248, 250, 252))
-                ->setCellAlignment(CellAlignment::CENTER)
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
+                ->setFontColor(Color::rgb(30, 58, 138));
             
-            // Summary Highlight Style (Navy background)
-            $summaryHighlightStyle = (new Style())
-                ->setFontSize(12)
-                ->setFontBold()
-                ->setFontColor(Color::WHITE)
-                ->setBackgroundColor(Color::rgb(30, 58, 138))
-                ->setCellAlignment(CellAlignment::CENTER)
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
-            
-            // Table Header Style (Navy)
+            // Header Style (Navy)
             $headerStyle = (new Style())
                 ->setFontBold()
                 ->setFontSize(10)
                 ->setFontColor(Color::WHITE)
                 ->setBackgroundColor(Color::rgb(30, 58, 138))
-                ->setCellAlignment(CellAlignment::CENTER)
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
+                ->setCellAlignment(CellAlignment::CENTER);
             
-            // Employee Group Row Style (Light Blue)
+            // Employee Group Style (Light Blue)
             $employeeGroupStyle = (new Style())
                 ->setFontBold()
                 ->setFontSize(10)
                 ->setFontColor(Color::rgb(30, 58, 138))
-                ->setBackgroundColor(Color::rgb(219, 234, 254)) // Light blue
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(30, 58, 138), Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(30, 58, 138), Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(30, 58, 138), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
+                ->setBackgroundColor(Color::rgb(219, 234, 254));
             
-            // Data Row Style (White)
+            // Data Style
             $dataStyle = (new Style())
-                ->setFontSize(9)
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
+                ->setFontSize(9);
             
-            // Alternate Row Style (Light Gray)
+            // Alternate Row Style
             $altRowStyle = (new Style())
                 ->setFontSize(9)
-                ->setBackgroundColor(Color::rgb(248, 250, 252))
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
+                ->setBackgroundColor(Color::rgb(248, 250, 252));
             
-            // Subtotal Row Style (Yellow/Gold tint)
+            // Subtotal Style (Gold)
             $subtotalStyle = (new Style())
                 ->setFontBold()
                 ->setFontSize(9)
-                ->setBackgroundColor(Color::rgb(254, 243, 199)) // Light gold
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(245, 158, 11), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(245, 158, 11), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(226, 232, 240), Border::WIDTH_THIN, Border::STYLE_SOLID)
-                ));
+                ->setBackgroundColor(Color::rgb(254, 243, 199));
             
             // Grand Total Style (Navy)
             $grandTotalStyle = (new Style())
                 ->setFontBold()
-                ->setFontSize(11)
+                ->setFontSize(10)
                 ->setFontColor(Color::WHITE)
-                ->setBackgroundColor(Color::rgb(30, 58, 138))
-                ->setBorder(new Border(
-                    new BorderPart(Border::BOTTOM, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID),
-                    new BorderPart(Border::TOP, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID),
-                    new BorderPart(Border::LEFT, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID),
-                    new BorderPart(Border::RIGHT, Color::rgb(245, 158, 11), Border::WIDTH_THICK, Border::STYLE_SOLID)
-                ));
+                ->setBackgroundColor(Color::rgb(30, 58, 138));
 
             // ===== BUILD EXCEL CONTENT =====
             
-            // 1. Logo/Company Row (merged cells simulation with PLN)
-            $writer->addRow(Row::fromValues(['PLN', '', '', '', '', '', '', '', ''], $logoStyle));
+            // Header info
+            $writer->addRow(Row::fromValues(['LAPORAN REKAPITULASI PEMBAYARAN BFKO'], $titleStyle));
+            $writer->addRow(Row::fromValues(['PLN UID SULAWESI SELATAN, SULAWESI TENGGARA, DAN SULAWESI BARAT'], $titleStyle));
+            $writer->addRow(Row::fromValues(['Periode: ' . $yearText]));
+            $writer->addRow(Row::fromValues(['']));
             
-            // 2. Main Title with Gold Border
-            $writer->addRow(Row::fromValues(['LAPORAN REKAPITULASI PEMBAYARAN BFKO', '', '', '', '', '', '', '', ''], $titleStyle));
+            // Summary info
+            $writer->addRow(Row::fromValues(['Total Pegawai: ' . $totalEmployees . ' | Total Transaksi: ' . $totalTransactions . ' | Total Pembayaran: Rp ' . number_format($totalAll, 0, ',', '.')]));
+            $writer->addRow(Row::fromValues(['']));
             
-            // 3. Subtitle
-            $writer->addRow(Row::fromValues(['Bantuan Fasilitas Kendaraan Operasional - ' . $yearText, '', '', '', '', '', '', '', ''], $subtitleStyle));
-            
-            // 4. Empty row
-            $writer->addRow(Row::fromValues(['', '', '', '', '', '', '', '', '']));
-            
-            // 5. Summary Cards Row 1 - Labels
-            $writer->addRow(Row::fromValues([
-                'PERIODE LAPORAN', '',
-                'TOTAL PEGAWAI', '',
-                'TOTAL TRANSAKSI', '',
-                'TOTAL PEMBAYARAN', '', ''
-            ], $summaryLabelStyle));
-            
-            // 6. Summary Cards Row 2 - Values
-            $writer->addRow(Row::fromValues([
-                $yearText, '',
-                $totalEmployees . ' Orang', '',
-                $totalTransactions . ' Data', '',
-                'Rp ' . number_format($totalAll, 0, ',', '.'), '', ''
-            ], $summaryHighlightStyle));
-            
-            // 7. Empty row
-            $writer->addRow(Row::fromValues(['', '', '', '', '', '', '', '', '']));
-            
-            // 8. Table Headers
-            $headers = ['NO', 'NIP', 'NAMA', 'JABATAN', 'UNIT', 'BULAN', 'TAHUN', 'NILAI ANGSURAN', 'STATUS'];
+            // Table Headers
+            $headers = ['NO', 'NIP', 'NAMA', 'JABATAN', 'BULAN', 'TAHUN', 'NILAI ANGSURAN', 'TGL BAYAR', 'STATUS'];
             $writer->addRow(Row::fromValues($headers, $headerStyle));
             
-            // 9. Data Rows - Grouped by Employee
+            // Data Rows
             $rowNumber = 1;
+            
             foreach ($employees as $employee) {
                 // Employee Group Header
-                $groupHeader = sprintf(
-                    '%s (%s) - %s | %s | Total: Rp %s',
-                    $employee['nama'],
-                    $employee['nip'],
-                    $employee['jabatan'],
-                    $employee['unit'],
-                    number_format($employee['total'], 0, ',', '.')
-                );
-                $writer->addRow(Row::fromValues([$groupHeader, '', '', '', '', '', '', '', ''], $employeeGroupStyle));
+                $groupText = $employee['nama'] . ' (' . $employee['nip'] . ') - ' . $employee['jabatan'] . ' | Tahun: ' . $employee['tahun'] . ' | Total: Rp ' . number_format($employee['total'], 0, ',', '.');
+                $writer->addRow(Row::fromValues([$groupText, '', '', '', '', '', '', '', ''], $employeeGroupStyle));
                 
-                // Employee Payments
+                // Payments
                 foreach ($employee['payments'] as $idx => $payment) {
+                    $tanggalBayar = '-';
+                    if (!empty($payment->tanggal_bayar) && $payment->tanggal_bayar !== '-') {
+                        try {
+                            $tanggalBayar = \Carbon\Carbon::parse($payment->tanggal_bayar)->format('d M Y');
+                        } catch (\Exception $e) {
+                            $tanggalBayar = $payment->tanggal_bayar;
+                        }
+                    }
+                    
+                    $status = $payment->status_angsuran ?: ($tanggalBayar !== '-' ? 'Lunas' : 'Belum Bayar');
+                    
                     $rowData = [
                         $rowNumber++,
                         $payment->nip,
                         $payment->nama,
                         $payment->jabatan,
-                        $payment->unit,
                         $payment->bulan,
                         $payment->tahun,
                         'Rp ' . number_format($payment->nilai_angsuran, 0, ',', '.'),
-                        $payment->status_angsuran
+                        $tanggalBayar,
+                        $status
                     ];
                     
                     $rowStyle = ($idx % 2 == 0) ? $dataStyle : $altRowStyle;
                     $writer->addRow(Row::fromValues($rowData, $rowStyle));
                 }
                 
-                // Subtotal Row
+                // Subtotal
                 $writer->addRow(Row::fromValues([
-                    '', '', '', '', '', '', 'SUBTOTAL:',
-                    'Rp ' . number_format($employee['total'], 0, ',', '.'),
-                    ''
+                    '', '', '', '', '', '', 'Subtotal:', 'Rp ' . number_format($employee['total'], 0, ',', '.'), ''
                 ], $subtotalStyle));
             }
             
-            // 10. Grand Total Row
+            // Grand Total
             $writer->addRow(Row::fromValues([
-                '', '', '', '', '', '', 'TOTAL KESELURUHAN:',
-                'Rp ' . number_format($totalAll, 0, ',', '.'),
-                ''
+                '', '', '', '', '', '', 'TOTAL:', 'Rp ' . number_format($totalAll, 0, ',', '.'), ''
             ], $grandTotalStyle));
 
             $writer->close();
 
-            // Return response download and delete after send
             return response()->download($tempPath, $filename, [
                 'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             ])->deleteFileAfterSend(true);
+            
         } catch (\Throwable $e) {
             Log::error('BFKO Export Excel failed: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString()

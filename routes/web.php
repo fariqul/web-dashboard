@@ -334,7 +334,10 @@ Route::get('/sppd', function () {
     }
     
     // Statistics (based on filtered transactions)
+    // Calculate totalPaidAmount: sum all paid_amount from all trips 
+    // Each trip has its own paid_amount regardless of document_number
     $totalPaidAmount = $transactions->sum('paid_amount');
+    
     $totalTrips = $transactions->count();
     $averageAmount = $totalTrips > 0 ? $totalPaidAmount / $totalTrips : 0;
     $uniqueCustomers = $transactions->unique('customer_name')->count();
@@ -693,6 +696,29 @@ Route::get('/sppd', function () {
         ];
     })->sortByDesc('rawAmount')->values()->toArray();
     
+    // Individual trips list when filtered by specific month (not 'all' and not 'year:')
+    $individualTrips = [];
+    $isMonthFiltered = $selectedFilter !== 'all' && !str_starts_with($selectedFilter, 'year:');
+    
+    if ($isMonthFiltered) {
+        $individualTrips = $allTransactionsForStatus->map(function($t) use ($formatSummaryDisplay, $getTripStatus) {
+            return [
+                'id' => $t->id,
+                'trip_number' => $t->trip_number,
+                'customer_name' => $t->customer_name,
+                'trip_destination' => $t->trip_destination,
+                'reason_for_trip' => $t->reason_for_trip ?: 'Tidak Ada Alasan',
+                'trip_begins_on' => $t->trip_begins_on ? date('d M Y', strtotime($t->trip_begins_on)) : '-',
+                'trip_ends_on' => $t->trip_ends_on ? date('d M Y', strtotime($t->trip_ends_on)) : '-',
+                'duration_days' => $t->duration_days,
+                'paid_amount' => $formatSummaryDisplay($t->paid_amount),
+                'raw_amount' => $t->paid_amount,
+                'status' => $t->trip_status,
+                'beneficiary_bank_name' => $t->beneficiary_bank_name,
+            ];
+        })->sortBy('trip_begins_on')->values()->toArray();
+    }
+    
     return Inertia::render('SppdMonitoring', [
         'totalPaidAmount' => $totalPaidAmount,
         'totalTrips' => $totalTrips,
@@ -728,6 +754,8 @@ Route::get('/sppd', function () {
             'ongoing' => $ongoingAmount,
             'completed' => $completedAmount,
         ],
+        'individualTrips' => $individualTrips,
+        'isMonthFiltered' => $isMonthFiltered,
     ]);
 });
 
@@ -865,9 +893,23 @@ Route::get('/cc-card', function () {
             $selectedYear = substr($selectedFilter, 5);
             $yearForComparison = $selectedYear;
             // Match year for both formats: M/D/YYYY and YYYY-MM-DD
+            // Also match year from sheet name for records without departure_date (like refunds)
             $query->where(function($q) use ($selectedYear) {
-                $q->whereRaw("SUBSTR(departure_date, -4) = ?", [$selectedYear]) // M/D/YYYY format
-                  ->orWhereRaw("SUBSTR(departure_date, 1, 4) = ?", [$selectedYear]); // YYYY-MM-DD format
+                $q->where(function($q2) use ($selectedYear) {
+                    // Has departure_date - check both formats
+                    $q2->whereNotNull('departure_date')
+                       ->where('departure_date', '!=', '')
+                       ->where(function($q3) use ($selectedYear) {
+                           $q3->whereRaw("SUBSTR(departure_date, -4) = ?", [$selectedYear]) // M/D/YYYY format
+                              ->orWhereRaw("SUBSTR(departure_date, 1, 4) = ?", [$selectedYear]); // YYYY-MM-DD format
+                       });
+                })->orWhere(function($q2) use ($selectedYear) {
+                    // No departure_date (like refunds) - check year from sheet name
+                    $q2->where(function($q3) {
+                        $q3->whereNull('departure_date')
+                           ->orWhere('departure_date', '');
+                    })->whereRaw("sheet LIKE ?", ['%' . $selectedYear . '%']);
+                });
             });
         } else {
             // Sheet filter: specific sheet name (e.g., "Juli 2025")

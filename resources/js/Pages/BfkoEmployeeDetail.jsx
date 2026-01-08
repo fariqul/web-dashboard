@@ -72,6 +72,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
     const [showModal, setShowModal] = useState(false);
     const [editingPayment, setEditingPayment] = useState(null);
     const [selectedTahun, setSelectedTahun] = useState(selectedYear);
+    const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'lunas', 'belum'
     const [formData, setFormData] = useState({
         bulan: '',
         tahun: new Date().getFullYear(),
@@ -250,27 +251,51 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                         <p className="text-gray-600 mt-1">NIP: {employee.nip}</p>
                     </div>
                     
-                    {/* Year Filter */}
-                    {availableYears.length > 1 && (
-                        <div className="relative">
-                            <select
-                                value={selectedTahun}
-                                onChange={(e) => handleYearChange(e.target.value)}
-                                className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-purple-200"
-                                style={{ color: 'white' }}
+                    <div className="flex items-center gap-3">
+                        {/* Export Buttons */}
+                        <div className="flex gap-2">
+                            <a
+                                href={`/bfko/export/pdf?nip=${employee.nip}&tahun=${selectedTahun}`}
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors shadow-md"
                             >
-                                <option value="all" className="text-gray-900 bg-white">📆 Semua Tahun</option>
-                                {availableYears.map(year => (
-                                    <option key={year} value={year} className="text-gray-900 bg-white">{year}</option>
-                                ))}
-                            </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
-                                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                            </div>
+                                PDF
+                            </a>
+                            <a
+                                href={`/bfko/export/excel?nip=${employee.nip}&tahun=${selectedTahun}`}
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-md"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Excel
+                            </a>
                         </div>
-                    )}
+                        
+                        {/* Year Filter */}
+                        {availableYears.length > 1 && (
+                            <div className="relative">
+                                <select
+                                    value={selectedTahun}
+                                    onChange={(e) => handleYearChange(e.target.value)}
+                                    className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-purple-200"
+                                    style={{ color: 'white' }}
+                                >
+                                    <option value="all" className="text-gray-900 bg-white">📆 Semua Tahun</option>
+                                    {availableYears.map(year => (
+                                        <option key={year} value={year} className="text-gray-900 bg-white">{year}</option>
+                                    ))}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
+                                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 {/* Employee Info Cards */}
@@ -373,10 +398,46 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                 {/* Payment Details Table */}
                 <div className="bg-white rounded-xl shadow-lg border border-gray-200">
                     <div className="p-6">
-                        <div className="flex justify-between items-center mb-4">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
                             <h2 className="text-xl font-bold text-gray-900">Payment Details</h2>
-                            <div className="flex items-center gap-3">
-                                <span className="text-sm text-gray-500">{payments.length} transaksi</span>
+                            <div className="flex flex-wrap items-center gap-3">
+                                {/* Status Filter */}
+                                <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+                                    <button
+                                        onClick={() => setStatusFilter('all')}
+                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
+                                            statusFilter === 'all'
+                                                ? 'bg-[#4AADE8] text-white shadow'
+                                                : 'text-gray-600 hover:bg-gray-200'
+                                        }`}
+                                    >
+                                        Semua ({payments.length})
+                                    </button>
+                                    <button
+                                        onClick={() => setStatusFilter('lunas')}
+                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
+                                            statusFilter === 'lunas'
+                                                ? 'bg-green-500 text-white shadow'
+                                                : 'text-gray-600 hover:bg-gray-200'
+                                        }`}
+                                    >
+                                        Lunas ({completedPayments})
+                                    </button>
+                                    <button
+                                        onClick={() => setStatusFilter('belum')}
+                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
+                                            statusFilter === 'belum'
+                                                ? 'bg-[#F5C842] text-white shadow'
+                                                : 'text-gray-600 hover:bg-gray-200'
+                                        }`}
+                                    >
+                                        Belum Bayar ({inProgressPayments})
+                                    </button>
+                                </div>
+                                <span className="text-sm text-gray-500">
+                                    {statusFilter === 'all' ? payments.length : 
+                                     statusFilter === 'lunas' ? completedPayments : inProgressPayments} transaksi
+                                </span>
                                 <button
                                     onClick={handleAddNew}
                                     className="px-4 py-2 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2"
@@ -388,7 +449,18 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                 </button>
                             </div>
                         </div>
-                        {payments.length > 0 ? (
+                        {(() => {
+                            // Filter payments based on status
+                            const filteredPayments = payments.filter(p => {
+                                if (statusFilter === 'all') return true;
+                                const isPaid = p.status_angsuran === 'Lunas' || 
+                                              (p.tanggal_bayar && p.tanggal_bayar !== '-');
+                                if (statusFilter === 'lunas') return isPaid;
+                                if (statusFilter === 'belum') return !isPaid;
+                                return true;
+                            });
+                            
+                            return filteredPayments.length > 0 ? (
                             <div className="overflow-x-auto">
                                 <table className="w-full">
                                     <thead>
@@ -403,7 +475,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {payments.map((payment, index) => (
+                                        {filteredPayments.map((payment, index) => (
                                             <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                                                 <td className="py-4 px-4 text-gray-900">
                                                     {formatDate(payment.tanggal_bayar)}
@@ -474,9 +546,12 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                 <svg className="w-16 h-16 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <p>Tidak ada riwayat transaksi</p>
+                                <p>{statusFilter === 'all' ? 'Tidak ada riwayat transaksi' : 
+                                    statusFilter === 'lunas' ? 'Tidak ada transaksi yang sudah lunas' : 
+                                    'Tidak ada transaksi yang belum dibayar'}</p>
                             </div>
-                        )}
+                        );
+                        })()}
                     </div>
                 </div>
 

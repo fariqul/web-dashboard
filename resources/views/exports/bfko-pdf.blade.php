@@ -17,44 +17,57 @@
         
         /* Header Section */
         .header {
-            text-align: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 3px solid #1e3a8a;
         }
         
-        .header .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: #1e3a8a;
-            border-radius: 8px;
-            margin: 0 auto 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 24pt;
+        .header-top {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+        
+        .header .logo-container {
+            display: inline-block;
+        }
+        
+        .header .logo-container img {
+            width: 100px;
+            height: auto;
+        }
+        
+        .header .unit-name {
+            margin: 5px 0 0 0;
+            font-size: 9pt;
+            color: #1e3a8a;
+            font-weight: normal;
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .header-title {
+            text-align: center;
         }
         
         .header h1 {
             margin: 0;
-            font-size: 20pt;
+            font-size: 14pt;
             color: #1e3a8a;
             font-weight: bold;
             letter-spacing: 1px;
         }
         
         .header .gold-underline {
-            width: 100px;
+            width: 80px;
             height: 3px;
             background: #f59e0b;
-            margin: 8px auto;
+            margin: 6px auto;
         }
         
         .header .subtitle {
-            margin: 8px 0 0 0;
-            font-size: 10pt;
+            margin: 6px 0 0 0;
+            font-size: 9pt;
             color: #64748b;
             font-weight: normal;
         }
@@ -246,10 +259,17 @@
 <body>
     <!-- Header -->
     <div class="header">
-        <div class="logo-placeholder">PLN</div>
-        <h1>LAPORAN REKAPITULASI PEMBAYARAN BFKO</h1>
-        <div class="gold-underline"></div>
-        <p class="subtitle">Bantuan Fasilitas Kendaraan Operasional - {{ $yearText }}</p>
+        <div class="header-top">
+            <div class="logo-container">
+                <img src="{{ public_path('images/Logo_PLN_export.png') }}" alt="PLN Logo">
+            </div>
+            <p class="unit-name">UID SULSELRABAR</p>
+        </div>
+        <div class="header-title">
+            <h1>LAPORAN REKAPITULASI PEMBAYARAN BFKO</h1>
+            <div class="gold-underline"></div>
+            <p class="subtitle">Bantuan Fasilitas Kendaraan Operasional - {{ $yearText }}</p>
+        </div>
     </div>
 
     <!-- Summary Box -->
@@ -261,7 +281,7 @@
             </div>
             <div class="summary-cell">
                 <span class="label">Total Pegawai</span>
-                <span class="value">{{ $employees->count() }} Orang</span>
+                <span class="value">{{ $totalEmployees }} Orang</span>
             </div>
             <div class="summary-cell">
                 <span class="label">Total Transaksi</span>
@@ -280,41 +300,73 @@
             <tr>
                 <th width="4%" class="text-center">No</th>
                 <th width="10%">NIP</th>
-                <th width="18%">Nama Pegawai</th>
-                <th width="16%">Jabatan</th>
-                <th width="12%">Unit</th>
-                <th width="9%">Bulan</th>
+                <th width="16%">Nama Pegawai</th>
+                <th width="18%">Jabatan</th>
+                <th width="10%">Bulan</th>
                 <th width="6%">Tahun</th>
-                <th width="13%" class="text-right">Nilai Angsuran</th>
-                <th width="12%">Status</th>
+                <th width="14%" class="text-right">Nilai Angsuran</th>
+                <th width="12%">Tgl Bayar</th>
+                <th width="10%">Status</th>
             </tr>
         </thead>
         <tbody>
-            @php $rowNumber = 1; @endphp
+            @php 
+                $rowNumber = 1; 
+                $currentYear = null;
+            @endphp
             @foreach($employees as $employee)
+                @php
+                    // Check if year changed - show separator
+                    $employeeYear = $employee['tahun'] ?? ($employee['payments']->first()->tahun ?? null);
+                @endphp
+                
+                @if($currentYear !== null && $currentYear !== $employeeYear)
+                    <!-- Year Separator -->
+                    <tr>
+                        <td colspan="9" style="height: 20px; background: white; border: none;"></td>
+                    </tr>
+                @endif
+                
+                @php $currentYear = $employeeYear; @endphp
+                
                 <!-- Employee Group Header -->
                 <tr class="employee-row">
                     <td colspan="9">
                         <strong>{{ $employee['nama'] }}</strong> ({{ $employee['nip'] }}) - 
-                        {{ $employee['jabatan'] }} | {{ $employee['unit'] }} | 
+                        {{ $employee['jabatan'] }} | 
+                        Tahun: {{ $employeeYear }} |
                         <span class="gold-accent">Total: Rp {{ number_format($employee['total'], 0, ',', '.') }}</span>
                     </td>
                 </tr>
                 
                 <!-- Employee Payments -->
                 @foreach($employee['payments'] as $payment)
+                @php
+                    // Format tanggal bayar
+                    $tanggalBayar = '-';
+                    if (!empty($payment->tanggal_bayar) && $payment->tanggal_bayar !== '-') {
+                        try {
+                            $tanggalBayar = \Carbon\Carbon::parse($payment->tanggal_bayar)->format('d M Y');
+                        } catch (\Exception $e) {
+                            $tanggalBayar = $payment->tanggal_bayar;
+                        }
+                    }
+                    
+                    // Determine status
+                    $status = $payment->status_angsuran ?: ($tanggalBayar !== '-' ? 'LUNAS' : 'BELUM BAYAR');
+                @endphp
                 <tr>
                     <td class="text-center">{{ $rowNumber++ }}</td>
                     <td>{{ $employee['nip'] }}</td>
                     <td>{{ $employee['nama'] }}</td>
                     <td>{{ $employee['jabatan'] }}</td>
-                    <td>{{ $employee['unit'] }}</td>
                     <td>{{ $payment->bulan }}</td>
                     <td class="text-center">{{ $payment->tahun }}</td>
                     <td class="text-right">Rp {{ number_format($payment->nilai_angsuran, 0, ',', '.') }}</td>
+                    <td>{{ $tanggalBayar }}</td>
                     <td>
-                        <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $payment->status_angsuran)) }}">
-                            {{ $payment->status_angsuran }}
+                        <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $status)) }}">
+                            {{ $status }}
                         </span>
                     </td>
                 </tr>
@@ -326,8 +378,7 @@
                 <td colspan="7" class="text-right">
                     <span class="gold-accent">● </span>TOTAL KESELURUHAN PEMBAYARAN BFKO
                 </td>
-                <td class="text-right">Rp {{ number_format($totalAll, 0, ',', '.') }}</td>
-                <td></td>
+                <td class="text-right" colspan="2">Rp {{ number_format($totalAll, 0, ',', '.') }}</td>
             </tr>
         </tbody>
     </table>

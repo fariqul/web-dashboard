@@ -502,9 +502,19 @@ class BfkoController extends Controller
      */
     public function exportPdf(Request $request)
     {
+        // Increase limits for large exports
+        ini_set('memory_limit', '512M');
+        set_time_limit(300);
+        
         $tahun = $request->query('tahun', 'all');
+        $nip = $request->query('nip'); // Filter per employee
         
         $query = BfkoData::query();
+        
+        // Apply NIP filter (priority)
+        if ($nip) {
+            $query->where('nip', $nip);
+        }
         
         // Apply year filter
         if ($tahun !== 'all') {
@@ -521,33 +531,49 @@ class BfkoController extends Controller
             'September' => 9, 'Oktober' => 10, 'November' => 11, 'Desember' => 12
         ];
         
-        // Group by employee and sort payments by year DESC then month order
-        $employees = $data->groupBy('nip')->map(function($payments, $nip) use ($monthOrder) {
+        // Group by employee AND year (since employee can have different jabatan in different years)
+        $employees = $data->groupBy(function($item) {
+            return $item->nip . '_' . $item->tahun;
+        })->map(function($payments) use ($monthOrder) {
             $first = $payments->first();
-            $sortedPayments = $payments->sortBy([
-                ['tahun', 'desc'],
-                function($a) use ($monthOrder) {
-                    return $monthOrder[$a->bulan] ?? 99;
-                }
-            ])->values();
+            $sortedPayments = $payments->sortBy(function($a) use ($monthOrder) {
+                return $monthOrder[$a->bulan] ?? 99;
+            })->values();
             
             return [
-                'nip' => $nip,
+                'nip' => $first->nip,
                 'nama' => $first->nama,
                 'jabatan' => $first->jabatan,
                 'unit' => $first->unit,
+                'tahun' => $first->tahun,
                 'payments' => $sortedPayments,
                 'total' => $payments->sum('nilai_angsuran')
             ];
-        })->values();
+        })->sortBy([
+            ['tahun', 'desc'],
+            ['nama', 'asc']
+        ])->values();
         
         $totalAll = $data->sum('nilai_angsuran');
-        $yearText = $tahun === 'all' ? 'Semua Tahun' : 'Tahun ' . $tahun;
+        
+        // Count unique employees (by NIP, not by year groups)
+        $totalEmployees = $data->pluck('nip')->unique()->count();
+        
+        // Build year text and filename
+        if ($nip) {
+            $employeeName = $data->first() ? str_replace(' ', '_', $data->first()->nama) : $nip;
+            $yearText = $tahun === 'all' ? 'Semua Tahun' : 'Tahun ' . $tahun;
+            $filename = 'BFKO_' . $employeeName . '_' . ($tahun === 'all' ? 'All' : $tahun) . '_' . now()->format('Ymd_His') . '.pdf';
+        } else {
+            $yearText = $tahun === 'all' ? 'Semua Tahun' : 'Tahun ' . $tahun;
+            $filename = 'BFKO_Report_' . ($tahun === 'all' ? 'All_Years' : $tahun) . '_' . now()->format('Ymd_His') . '.pdf';
+        }
         
         // Generate PDF using simple HTML view
         $html = view('exports.bfko-pdf', [
             'employees' => $employees,
             'totalAll' => $totalAll,
+            'totalEmployees' => $totalEmployees,
             'yearText' => $yearText,
             'exportDate' => now()->format('d-m-Y H:i')
         ])->render();
@@ -555,8 +581,6 @@ class BfkoController extends Controller
         // Use DomPDF
         $pdf = \PDF::loadHTML($html);
         $pdf->setPaper('A4', 'landscape');
-        
-        $filename = 'BFKO_Report_' . ($tahun === 'all' ? 'All_Years' : $tahun) . '_' . now()->format('Ymd_His') . '.pdf';
         
         return $pdf->download($filename);
     }
@@ -566,9 +590,19 @@ class BfkoController extends Controller
      */
     public function exportExcel(Request $request)
     {
+        // Increase limits for large exports
+        ini_set('memory_limit', '512M');
+        set_time_limit(300);
+        
         $tahun = $request->query('tahun', 'all');
+        $nip = $request->query('nip'); // Filter per employee
         
         $query = BfkoData::query();
+        
+        // Apply NIP filter (priority)
+        if ($nip) {
+            $query->where('nip', $nip);
+        }
         
         // Apply year filter
         if ($tahun !== 'all') {
