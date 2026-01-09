@@ -874,6 +874,86 @@ Route::get('/sppd/destination-detail', function () {
     ]);
 });
 
+// API: Get SPPD trips by payment month/date
+Route::get('/api/sppd/payment-date-trips', function () {
+    $month = request('month'); // Format: Y-m (e.g., 2025-12)
+    $date = request('date'); // Optional specific date (e.g., 15)
+    $selectedSheet = request('sheet', 'all');
+    $selectedYear = request('year', 'all');
+    $selectedReason = request('reason', 'all');
+    $selectedBank = request('bank', 'all');
+    
+    if (!$month) {
+        return response()->json(['error' => 'Month parameter required'], 400);
+    }
+    
+    $query = \App\Models\SppdTransaction::query()
+        ->whereNotNull('planned_payment_date')
+        ->whereRaw("strftime('%Y-%m', planned_payment_date) = ?", [$month]);
+    
+    // If specific date is provided
+    if ($date) {
+        $query->whereRaw("strftime('%d', planned_payment_date) = ?", [str_pad($date, 2, '0', STR_PAD_LEFT)]);
+    }
+    
+    // Apply sheet filter
+    if ($selectedSheet !== 'all') {
+        $query->where('sheet', $selectedSheet);
+    }
+    
+    // Apply year filter (from trip_begins_on)
+    if ($selectedYear !== 'all') {
+        $query->whereRaw("strftime('%Y', trip_begins_on) = ?", [$selectedYear]);
+    }
+    
+    // Apply reason filter
+    if ($selectedReason !== 'all') {
+        $query->where('reason_for_trip', $selectedReason);
+    }
+    
+    // Apply bank filter
+    if ($selectedBank !== 'all') {
+        $query->where('beneficiary_bank_name', $selectedBank);
+    }
+    
+    $trips = $query->orderBy('planned_payment_date', 'asc')
+        ->get(['id', 'trip_number', 'customer_name', 'trip_destination', 'reason_for_trip', 
+               'trip_begins_on', 'trip_ends_on', 'planned_payment_date', 'paid_amount', 'beneficiary_bank_name']);
+    
+    // Group by specific date
+    $groupedByDate = $trips->groupBy(function($item) {
+        return date('j', strtotime($item->planned_payment_date)); // Day number
+    })->map(function($group, $dayNumber) {
+        return [
+            'date' => $dayNumber,
+            'trips' => $group->map(function($trip) {
+                return [
+                    'id' => $trip->id,
+                    'trip_number' => $trip->trip_number,
+                    'customer_name' => $trip->customer_name,
+                    'destination' => $trip->trip_destination,
+                    'reason' => $trip->reason_for_trip,
+                    'trip_begins_on' => $trip->trip_begins_on,
+                    'trip_ends_on' => $trip->trip_ends_on,
+                    'payment_date' => $trip->planned_payment_date,
+                    'paid_amount' => $trip->paid_amount,
+                    'bank' => $trip->beneficiary_bank_name,
+                ];
+            })->values()->toArray(),
+            'count' => $group->count(),
+            'total_amount' => $group->sum('paid_amount'),
+        ];
+    })->sortKeys()->values()->toArray();
+    
+    return response()->json([
+        'month' => $month,
+        'month_name' => date('F Y', strtotime($month . '-01')),
+        'total_trips' => $trips->count(),
+        'total_amount' => $trips->sum('paid_amount'),
+        'dates' => $groupedByDate,
+    ]);
+});
+
 Route::get('/cc-card', function () {
     // Support filter sheet via query parameter (format: "sheet" or "all" or "year:2025")
     $selectedFilter = request('sheet', 'all'); // Can be sheet name, 'all', or 'year:2025'

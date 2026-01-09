@@ -41,6 +41,21 @@ const formatRupiah = (value) => {
     }).format(value);
 };
 
+// Helper function to format numbers in Indonesian units
+const formatIndonesianNumber = (value) => {
+    if (value >= 1000000000) {
+        // Miliar
+        return `${(value / 1000000000).toFixed(1).replace('.', ',')} M`;
+    } else if (value >= 1000000) {
+        // Juta
+        return `${(value / 1000000).toFixed(1).replace('.', ',')} jt`;
+    } else if (value >= 1000) {
+        // Ribu
+        return `${(value / 1000).toFixed(1).replace('.', ',')} rb`;
+    }
+    return value.toString();
+};
+
 // Custom Tooltip Component
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -58,7 +73,7 @@ const CustomTooltip = ({ active, payload, label }) => {
                 <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>{fullName}</p>
                 {payload.map((entry, index) => (
                     <p key={index} style={{ color: entry.color, margin: '2px 0' }}>
-                        {entry.name}: Rp {entry.value}M
+                        {entry.name}: Rp {formatIndonesianNumber(entry.value * 1000000)}
                     </p>
                 ))}
             </div>
@@ -604,7 +619,7 @@ export default function CCCardMonitoring({
                                             height={filteredChartData.length > 1 ? 60 : 30}
                                         />
                                         <YAxis 
-                                            tickFormatter={(value) => `${value}M`}
+                                            tickFormatter={(value) => `${value.toFixed(0)} jt`}
                                             tick={{ fill: '#6b7280', fontSize: 10 }}
                                         />
                                         <Tooltip content={<CustomTooltip />} />
@@ -654,7 +669,7 @@ export default function CCCardMonitoring({
                                             height={60}
                                         />
                                         <YAxis 
-                                            tickFormatter={(value) => `${value}M`}
+                                            tickFormatter={(value) => `${value.toFixed(0)} jt`}
                                             tick={{ fill: '#6b7280', fontSize: 12 }}
                                         />
                                         <Tooltip content={<CustomTooltip />} />
@@ -868,7 +883,7 @@ export default function CCCardMonitoring({
                                             <Cell fill="#E8636B" />
                                         </Pie>
                                         <Tooltip 
-                                            formatter={(value) => `Rp ${value}M`}
+                                            formatter={(value) => `Rp ${formatIndonesianNumber(value * 1000000)}`}
                                             contentStyle={{ fontSize: '12px' }}
                                         />
                                     </PieChart>
@@ -879,7 +894,7 @@ export default function CCCardMonitoring({
                                             <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
                                             <p className="text-xs sm:text-sm font-medium text-gray-600">Payment</p>
                                         </div>
-                                        <p className="text-base sm:text-lg font-bold text-green-600">Rp {paymentRefundRatio.payment}M</p>
+                                        <p className="text-base sm:text-lg font-bold text-green-600">Rp {formatIndonesianNumber(paymentRefundRatio.payment * 1000000)}</p>
                                         <p className="text-[10px] sm:text-xs text-gray-500">{paymentRefundRatio.paymentPercentage}%</p>
                                     </div>
                                     <div className="text-center">
@@ -887,7 +902,7 @@ export default function CCCardMonitoring({
                                             <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
                                             <p className="text-xs sm:text-sm font-medium text-gray-600">Refund</p>
                                         </div>
-                                        <p className="text-base sm:text-lg font-bold text-red-600">Rp {paymentRefundRatio.refund}M</p>
+                                        <p className="text-base sm:text-lg font-bold text-red-600">Rp {formatIndonesianNumber(paymentRefundRatio.refund * 1000000)}</p>
                                         <p className="text-[10px] sm:text-xs text-gray-500">{paymentRefundRatio.refundPercentage}%</p>
                                     </div>
                                 </div>

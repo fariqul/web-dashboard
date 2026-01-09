@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Toolti
 import { router } from '@inertiajs/react';
 import ImportSppdModal from '../Components/ImportSppdModal';
 import AddSppdModal from '../Components/AddSppdModal';
+import PaymentDateDetailModal from '../Components/PaymentDateDetailModal';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
@@ -73,6 +74,8 @@ export default function SppdMonitoring({
     const [isBankDropdownOpen, setIsBankDropdownOpen] = useState(false);
     const [isImportModalOpen, setIsImportModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isPaymentDateModalOpen, setIsPaymentDateModalOpen] = useState(false);
+    const [selectedPaymentMonth, setSelectedPaymentMonth] = useState(null);
     const [chartViewMode, setChartViewMode] = useState('monthly'); // 'monthly' or 'status'
     const [customerViewMode, setCustomerViewMode] = useState('trips'); // 'trips' or 'amount'
     const [reasonsStatusFilter, setReasonsStatusFilter] = useState('all'); // For Trips by Reason section
@@ -829,18 +832,36 @@ export default function SppdMonitoring({
                                     </svg>
                                 </div>
                                 <h3 className="text-sm font-bold text-gray-800">Rencana Tanggal Bayar</h3>
+                                <span className="text-xs text-gray-400 ml-auto">Klik untuk lihat detail</span>
                             </div>
                             
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                                 {paymentChartData.map((item, index) => (
-                                    <div key={index} className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-2 border border-green-100">
+                                    <button 
+                                        key={index} 
+                                        onClick={() => {
+                                            setSelectedPaymentMonth({
+                                                month: item.rawDate || item.sheet,
+                                                fullName: item.fullName,
+                                                dates: item.dates
+                                            });
+                                            setIsPaymentDateModalOpen(true);
+                                        }}
+                                        className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-2 border border-green-100 hover:from-green-100 hover:to-emerald-100 hover:border-green-300 hover:shadow-md transition-all text-left group"
+                                    >
                                         <p className="text-xs text-green-700 font-medium truncate">{item.fullName}</p>
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-lg font-bold text-green-900">{item.transactionCount}</span>
                                             <span className="text-xs text-green-600">trips</span>
                                         </div>
                                         <p className="text-[10px] text-green-500 truncate" title={`Tgl: ${item.dates || '-'}`}>Tgl: {item.dates || '-'}</p>
-                                    </div>
+                                        <div className="mt-1 text-[10px] text-green-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                            <span>Lihat Detail</span>
+                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </button>
                                 ))}
                             </div>
                         </div>
@@ -992,6 +1013,22 @@ export default function SppdMonitoring({
                     </div>
                 </div>
             </div>
+
+            {/* Payment Date Detail Modal */}
+            <PaymentDateDetailModal
+                isOpen={isPaymentDateModalOpen}
+                onClose={() => {
+                    setIsPaymentDateModalOpen(false);
+                    setSelectedPaymentMonth(null);
+                }}
+                monthData={selectedPaymentMonth}
+                filters={{
+                    sheet: selectedFilter,
+                    year: availableFilters.find(f => typeof f === 'string' && f.includes('year:'))?.replace('year:', '') || 'all',
+                    reason: selectedReason,
+                    bank: selectedBank
+                }}
+            />
         </MainLayout>
     );
 }
