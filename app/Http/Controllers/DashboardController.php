@@ -72,34 +72,18 @@ class DashboardController extends Controller
         $monthlyData = collect($monthNames)->map(function($bulan) use ($monthOrder) {
             // BFKO data for this month
             $bfkoTotal = BfkoData::where('bulan', $bulan)->sum('nilai_angsuran');
-            
             // Get month number for matching with date fields
             $monthNum = $monthOrder[$bulan] ?? 0;
-            
-            // CC Card - format M/D/YYYY tidak bisa diparse SQLite, harus manual
-            $ccTotal = CCTransaction::whereNotNull('departure_date')
-                ->get()
-                ->filter(function($item) use ($monthNum) {
-                    try {
-                        // Parse format M/D/YYYY atau n/j/Y
-                        $date = \DateTime::createFromFormat('n/j/Y', $item->departure_date);
-                        if ($date && (int)$date->format('n') === $monthNum) {
-                            return true;
-                        }
-                    } catch (\Exception $e) {
-                    }
-                    return false;
-                })
+            // CC Card - hitung berdasarkan sheet name yang mengandung nama bulan (bukan departure_date)
+            $ccTotal = CCTransaction::whereNotNull('sheet')
+                ->where('sheet', 'like', "%$bulan%")
                 ->sum('payment_amount');
-            
             // Service Fee - extract from transaction_time (any year)
             $sfTotal = ServiceFee::whereRaw("CAST(strftime('%m', transaction_time) AS INTEGER) = ?", [$monthNum])
                 ->sum('transaction_amount');
-            
             // SPPD - extract from trip_begins_on (any year)
             $sppdTotal = SppdTransaction::whereRaw("CAST(strftime('%m', trip_begins_on) AS INTEGER) = ?", [$monthNum])
                 ->sum('paid_amount');
-            
             return [
                 'month' => substr($bulan, 0, 3),
                 'bfko' => (float)$bfkoTotal,
@@ -107,6 +91,9 @@ class DashboardController extends Controller
                 'serviceFee' => (float)$sfTotal,
                 'sppd' => (float)$sppdTotal,
             ];
+        })->filter(function($item) {
+            // Hanya kirim bulan yang ada data di salah satu kategori
+            return ($item['bfko'] > 0) || ($item['ccCard'] > 0) || ($item['serviceFee'] > 0) || ($item['sppd'] > 0);
         })->values();
         
         // Get recent transactions per category per month (like monthly comparison)
