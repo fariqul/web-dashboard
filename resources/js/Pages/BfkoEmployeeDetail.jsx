@@ -304,10 +304,6 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                         <div className="text-sm text-gray-600 mb-2">Jabatan</div>
                         <div className="text-xl font-bold text-gray-900">{employee.jabatan}</div>
                     </div>
-                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl p-6 border border-[#34D399]">
-                        <div className="text-sm text-gray-600 mb-2">Unit</div>
-                        <div className="text-xl font-bold text-gray-900">{employee.unit || '-'}</div>
-                    </div>
                     <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-6 border border-[#F5C842]">
                         <div className="text-sm text-gray-600 mb-2">Total Pembayaran</div>
                         <div className="text-xl font-bold text-gray-900">{formatRupiah(employee.total)}</div>
