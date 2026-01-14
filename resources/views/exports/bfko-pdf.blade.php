@@ -376,7 +376,7 @@
             <!-- Grand Total Row -->
             <tr class="grand-total-row">
                 <td colspan="7" class="text-right">
-                    <span class="gold-accent">● </span>TOTAL KESELURUHAN PEMBAYARAN BFKO
+                    TOTAL KESELURUHAN PEMBAYARAN BFKO
                 </td>
                 <td class="text-right" colspan="2">Rp {{ number_format($totalAll, 0, ',', '.') }}</td>
             </tr>
