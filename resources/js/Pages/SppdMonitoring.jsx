@@ -735,7 +735,7 @@ export default function SppdMonitoring({
                                                             </span>
                                                             <span className="text-[10px] text-gray-400">{trip.trip_number}</span>
                                                         </div>
-                                                        <p className="font-semibold text-gray-900 text-sm">{trip.customer_name}</p>
+                                                        <p className="font-semibold text-gray-900 text-sm">{trip.customer_name || 'Tanpa Nama'}</p>
                                                         <p className="text-xs text-gray-600 mt-0.5">{trip.reason_for_trip}</p>
                                                         <div className="flex items-center gap-3 mt-1 text-[11px] text-gray-500">
                                                             <span className="flex items-center gap-1">
@@ -950,7 +950,7 @@ export default function SppdMonitoring({
                                                     }`}>
                                                         {index + 1}
                                                     </div>
-                                                    <p className="text-sm font-medium text-gray-900 truncate">{customer.name}</p>
+                                                    <p className="text-sm font-medium text-gray-900 truncate">{customer.name || 'Tanpa Nama'}</p>
                                                 </div>
                                                 <span className="text-sm font-bold text-[#4AADE8]">{customer.count} trips</span>
                                             </div>
@@ -972,7 +972,7 @@ export default function SppdMonitoring({
                                                     }`}>
                                                         {index + 1}
                                                     </div>
-                                                    <p className="text-sm font-medium text-gray-900 truncate">{customer.name}</p>
+                                                    <p className="text-sm font-medium text-gray-900 truncate">{customer.name || 'Tanpa Nama'}</p>
                                                 </div>
                                                 <span className="text-sm font-bold text-green-600">{customer.total}</span>
                                             </div>
