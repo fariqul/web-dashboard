@@ -267,7 +267,7 @@ const AddSppdModal = ({ isOpen, onClose }) => {
                             onChange={handleChange}
                             placeholder="e.g., 650000"
                             min="0"
-                            step="1000"
+                            step="any"
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             required
                         />

@@ -293,6 +293,17 @@ class SppdTransactionController extends Controller
                 $message .= " | Error: " . implode('; ', $errors);
             }
             
+            // Return JSON if request expects it (axios/AJAX), otherwise redirect
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'message' => $message,
+                    'imported' => $imported,
+                    'updated' => $updated,
+                    'skipped' => $skipped,
+                    'errors' => $errors,
+                ]);
+            }
+            
             return redirect('/sppd')->with('success', $message);
             
         } catch (\Exception $e) {
@@ -304,6 +315,15 @@ class SppdTransactionController extends Controller
             
             Log::error('SPPD import error: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'message' => 'Import gagal: ' . $e->getMessage(),
+                    'imported' => 0,
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+            
             return back()->with('error', 'Import gagal: ' . $e->getMessage());
         }
     }
