@@ -54,10 +54,23 @@ export default function ImportSppdModal({ isOpen, onClose }) {
             const response = await axios.post('/sppd/transaction/import', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
                 },
             });
 
-            toast.success(`Successfully imported ${response.data.imported} SPPD trips!`);
+            const imported = response.data.imported || 0;
+            const updated = response.data.updated || 0;
+            const skipped = response.data.skipped || 0;
+            
+            if (imported > 0 || updated > 0) {
+                toast.success(`Import berhasil! Ditambahkan: ${imported}, Diupdate: ${updated}, Dilewati: ${skipped}`);
+            } else if (skipped > 0) {
+                toast.error(`Tidak ada data baru. Semua ${skipped} data sudah ada di database (duplikat trip number).`);
+            } else {
+                toast.success(response.data.message || 'Import selesai.');
+            }
+            
             setFile(null);
             onClose();
             

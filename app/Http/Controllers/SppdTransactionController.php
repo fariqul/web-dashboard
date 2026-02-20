@@ -76,11 +76,19 @@ class SppdTransactionController extends Controller
         $maxTransactionNumber = SppdTransaction::max('transaction_number');
         $nextTransactionNumber = $maxTransactionNumber ? $maxTransactionNumber + 1 : 1;
         
+        // Parse origin and destination from trip_destination
+        $tripDestination = $data['trip_destination'];
+        $parts = explode(' - ', $tripDestination, 2);
+        $origin = trim($parts[0] ?? '');
+        $destination = trim($parts[1] ?? $tripDestination);
+        
         $transaction = SppdTransaction::create([
             'transaction_number' => $nextTransactionNumber,
             'trip_number' => $data['trip_number'],
             'customer_name' => $data['customer_name'],
-            'trip_destination' => $data['trip_destination'],
+            'origin' => $origin,
+            'destination' => $destination,
+            'trip_destination_full' => $tripDestination,
             'reason_for_trip' => $data['reason_for_trip'] ?? null,
             'trip_begins_on' => $data['trip_begins_on'],
             'trip_ends_on' => $data['trip_ends_on'],
@@ -253,7 +261,7 @@ class SppdTransactionController extends Controller
                 $data = [
                     'document_number' => $documentNumber,
                     'trip_number' => $tripNumber,
-                    'customer_name' => trim($row[$colOffset + 1]),
+                    'customer_name' => trim($row[$colOffset + 1] ?? ''),
                     'origin' => $origin,
                     'destination' => $destination,
                     'trip_destination_full' => $tripDestination,
@@ -293,6 +301,17 @@ class SppdTransactionController extends Controller
                 $message .= " | Error: " . implode('; ', $errors);
             }
             
+            // Return JSON if request expects it (axios/AJAX), otherwise redirect
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'message' => $message,
+                    'imported' => $imported,
+                    'updated' => $updated,
+                    'skipped' => $skipped,
+                    'errors' => $errors,
+                ]);
+            }
+            
             return redirect('/sppd')->with('success', $message);
             
         } catch (\Exception $e) {
@@ -304,6 +323,15 @@ class SppdTransactionController extends Controller
             
             Log::error('SPPD import error: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'message' => 'Import gagal: ' . $e->getMessage(),
+                    'imported' => 0,
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+            
             return back()->with('error', 'Import gagal: ' . $e->getMessage());
         }
     }
