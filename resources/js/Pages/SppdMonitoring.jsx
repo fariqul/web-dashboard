@@ -717,7 +717,11 @@ export default function SppdMonitoring({
                                                 onClick={() => {
                                                     const params = new URLSearchParams();
                                                     params.append('reason', trip.reason_for_trip);
-                                                    params.append('sheet', selectedFilter);
+                                                    if (selectedFilter.startsWith('year:')) {
+                                                        params.append('year', selectedFilter.substring(5));
+                                                    } else if (selectedFilter !== 'all') {
+                                                        params.append('sheet', selectedFilter);
+                                                    }
                                                     if (selectedStatus !== 'all') params.append('status', selectedStatus);
                                                     if (selectedBank !== 'all') params.append('bank', selectedBank);
                                                     router.visit(`/sppd/destination-detail?${params.toString()}`);
@@ -794,7 +798,11 @@ export default function SppdMonitoring({
                                                     onClick={() => {
                                                         const params = new URLSearchParams();
                                                         params.append('reason', item.reason);
-                                                        params.append('sheet', selectedFilter);
+                                                        if (selectedFilter.startsWith('year:')) {
+                                                            params.append('year', selectedFilter.substring(5));
+                                                        } else if (selectedFilter !== 'all') {
+                                                            params.append('sheet', selectedFilter);
+                                                        }
                                                         if (selectedStatus !== 'all') params.append('status', selectedStatus);
                                                         if (selectedReason !== 'all') params.append('filter_reason', selectedReason);
                                                         if (selectedBank !== 'all') params.append('bank', selectedBank);

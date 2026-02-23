@@ -256,22 +256,7 @@ Route::get('/sppd', function () {
         return 'Rp' . number_format($value / 1000000, 1) . 'Jt';
     };
     
-    // Helper to determine trip status based on dates
-    $getTripStatus = function($tripBeginsOn, $tripEndsOn) {
-        $today = now()->startOfDay();
-        $beginDate = $tripBeginsOn ? \Carbon\Carbon::parse($tripBeginsOn)->startOfDay() : null;
-        $endDate = $tripEndsOn ? \Carbon\Carbon::parse($tripEndsOn)->startOfDay() : null;
-        
-        if (!$beginDate) return 'unknown';
-        
-        if ($beginDate->gt($today)) {
-            return 'upcoming';
-        } elseif ($endDate && $endDate->lt($today)) {
-            return 'completed';
-        } else {
-            return 'ongoing';
-        }
-    };
+
     
     $selectedFilter = request('sheet', 'all');
     $selectedReason = request('reason', 'all');
@@ -703,7 +688,7 @@ Route::get('/sppd', function () {
     $isMonthFiltered = $selectedFilter !== 'all' && !str_starts_with($selectedFilter, 'year:');
     
     if ($isMonthFiltered) {
-        $individualTrips = $allTransactionsForStatus->map(function($t) use ($formatSummaryDisplay, $getTripStatus) {
+        $individualTrips = $allTransactionsForStatus->map(function($t) use ($formatSummaryDisplay) {
             return [
                 'id' => $t->id,
                 'trip_number' => $t->trip_number,
