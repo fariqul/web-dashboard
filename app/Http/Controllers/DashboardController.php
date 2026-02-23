@@ -8,6 +8,7 @@ use App\Models\CCTransaction;
 use App\Models\SppdTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -68,22 +69,45 @@ class DashboardController extends Controller
         
         $monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         
-        // Build monthly data combining all 3 categories for all 12 months
-        $monthlyData = collect($monthNames)->map(function($bulan) use ($monthOrder) {
-            // BFKO data for this month
-            $bfkoTotal = BfkoData::where('bulan', $bulan)->sum('nilai_angsuran');
-            // Get month number for matching with date fields
+        // Build monthly data using batch queries instead of per-month queries
+        // BFKO: group by bulan
+        $bfkoByMonth = BfkoData::selectRaw("bulan, SUM(nilai_angsuran) as total")
+            ->groupBy('bulan')
+            ->pluck('total', 'bulan');
+        
+        // CC Card: group by sheet (sheet name contains month name)
+        $ccBySheet = CCTransaction::selectRaw("sheet, SUM(payment_amount) as total")
+            ->whereNotNull('sheet')
+            ->groupBy('sheet')
+            ->pluck('total', 'sheet');
+        
+        // Service Fee: group by month number
+        $sfByMonth = ServiceFee::selectRaw("CAST(strftime('%m', transaction_time) AS INTEGER) as month_num, SUM(transaction_amount) as total")
+            ->groupBy('month_num')
+            ->pluck('total', 'month_num');
+        
+        // SPPD: group by month number
+        $sppdByMonth = SppdTransaction::selectRaw("CAST(strftime('%m', trip_begins_on) AS INTEGER) as month_num, SUM(paid_amount) as total")
+            ->groupBy('month_num')
+            ->pluck('total', 'month_num');
+        
+        $monthlyData = collect($monthNames)->map(function($bulan) use ($monthOrder, $bfkoByMonth, $ccBySheet, $sfByMonth, $sppdByMonth) {
             $monthNum = $monthOrder[$bulan] ?? 0;
-            // CC Card - hitung berdasarkan sheet name yang mengandung nama bulan (bukan departure_date)
-            $ccTotal = CCTransaction::whereNotNull('sheet')
-                ->where('sheet', 'like', "%$bulan%")
-                ->sum('payment_amount');
-            // Service Fee - extract from transaction_time (any year)
-            $sfTotal = ServiceFee::whereRaw("CAST(strftime('%m', transaction_time) AS INTEGER) = ?", [$monthNum])
-                ->sum('transaction_amount');
-            // SPPD - extract from trip_begins_on (any year)
-            $sppdTotal = SppdTransaction::whereRaw("CAST(strftime('%m', trip_begins_on) AS INTEGER) = ?", [$monthNum])
-                ->sum('paid_amount');
+            
+            // BFKO
+            $bfkoTotal = $bfkoByMonth->get($bulan, 0);
+            
+            // CC Card - match sheet names containing the month name
+            $ccTotal = $ccBySheet->filter(function($val, $sheet) use ($bulan) {
+                return str_contains($sheet, $bulan);
+            })->sum();
+            
+            // Service Fee
+            $sfTotal = $sfByMonth->get($monthNum, 0);
+            
+            // SPPD
+            $sppdTotal = $sppdByMonth->get($monthNum, 0);
+            
             return [
                 'month' => substr($bulan, 0, 3),
                 'bfko' => (float)$bfkoTotal,
@@ -92,7 +116,6 @@ class DashboardController extends Controller
                 'sppd' => (float)$sppdTotal,
             ];
         })->filter(function($item) {
-            // Hanya kirim bulan yang ada data di salah satu kategori
             return ($item['bfko'] > 0) || ($item['ccCard'] > 0) || ($item['serviceFee'] > 0) || ($item['sppd'] > 0);
         })->values();
         
@@ -100,11 +123,35 @@ class DashboardController extends Controller
         $recentTransactions = collect();
         
         try {
-            // Get last 3 months with data for each category
+            // Get last 12 months data - use batch queries
             $currentMonth = now()->month;
             $currentYear = now()->year;
             
-            // Generate last 12 months data for all categories
+            // Batch: BFKO by bulan (already has month names)
+            $bfkoRecent = BfkoData::selectRaw("bulan, SUM(nilai_angsuran) as total, COUNT(*) as cnt")
+                ->groupBy('bulan')
+                ->get()
+                ->keyBy('bulan');
+            
+            // Batch: Service Fee by year-month
+            $sfRecent = ServiceFee::selectRaw("CAST(strftime('%Y', transaction_time) AS INTEGER) as yr, CAST(strftime('%m', transaction_time) AS INTEGER) as mn, SUM(transaction_amount) as total, COUNT(*) as cnt")
+                ->groupBy('yr', 'mn')
+                ->get()
+                ->keyBy(function($item) { return $item->yr . '-' . $item->mn; });
+            
+            // Batch: CC Card by sheet name (contains month + year)
+            $ccRecent = CCTransaction::selectRaw("sheet, SUM(payment_amount) as total, COUNT(*) as cnt")
+                ->whereNotNull('sheet')
+                ->groupBy('sheet')
+                ->get()
+                ->keyBy('sheet');
+            
+            // Batch: SPPD by year-month
+            $sppdRecent = SppdTransaction::selectRaw("CAST(strftime('%Y', trip_begins_on) AS INTEGER) as yr, CAST(strftime('%m', trip_begins_on) AS INTEGER) as mn, SUM(paid_amount) as total, COUNT(*) as cnt")
+                ->groupBy('yr', 'mn')
+                ->get()
+                ->keyBy(function($item) { return $item->yr . '-' . $item->mn; });
+            
             for ($i = 0; $i < 12; $i++) {
             $month = $currentMonth - $i;
             $year = $currentYear;
@@ -116,67 +163,48 @@ class DashboardController extends Controller
             
             $monthName = $monthNames[$month - 1];
             
-            // BFKO for this month
-            $monthBfkoAmount = BfkoData::where('bulan', $monthName)->sum('nilai_angsuran');
-            $monthBfkoCount = BfkoData::where('bulan', $monthName)->count();
-            if ($monthBfkoAmount > 0) {
+            // BFKO
+            $bfkoRow = $bfkoRecent->get($monthName);
+            if ($bfkoRow && $bfkoRow->total > 0) {
                 $recentTransactions->push([
                     'category' => 'BFKO',
                     'month' => $monthName,
                     'year' => $year,
                     'date' => $monthName . ' ' . $year,
                     'description' => "Angsuran BFKO - $monthName $year",
-                    'total' => 'Rp ' . number_format($monthBfkoAmount, 0, ',', '.'),
-                    'count' => $monthBfkoCount,
-                    'status' => $monthBfkoCount > 0 ? 'Complete' : 'Lunas',
+                    'total' => 'Rp ' . number_format($bfkoRow->total, 0, ',', '.'),
+                    'count' => $bfkoRow->cnt,
+                    'status' => $bfkoRow->cnt > 0 ? 'Complete' : 'Lunas',
                     'sort_date' => strtotime("$year-$month-01"),
                 ]);
             }
             
-            // Service Fee for this month
-            $monthSfAmount = ServiceFee::whereRaw("CAST(strftime('%m', transaction_time) AS INTEGER) = ?", [$month])
-                ->whereRaw("CAST(strftime('%Y', transaction_time) AS INTEGER) = ?", [$year])
-                ->sum('transaction_amount');
-            $monthSfCount = ServiceFee::whereRaw("CAST(strftime('%m', transaction_time) AS INTEGER) = ?", [$month])
-                ->whereRaw("CAST(strftime('%Y', transaction_time) AS INTEGER) = ?", [$year])
-                ->count();
-            if ($monthSfAmount > 0) {
+            // Service Fee
+            $sfRow = $sfRecent->get("$year-$month");
+            if ($sfRow && $sfRow->total > 0) {
                 $recentTransactions->push([
                     'category' => 'Service Fee',
                     'month' => $monthName,
                     'year' => $year,
                     'date' => $monthName . ' ' . $year,
                     'description' => "Service Fee - $monthName $year",
-                    'total' => 'Rp ' . number_format($monthSfAmount, 0, ',', '.'),
-                    'count' => $monthSfCount,
+                    'total' => 'Rp ' . number_format($sfRow->total, 0, ',', '.'),
+                    'count' => $sfRow->cnt,
                     'status' => 'Issued',
                     'sort_date' => strtotime("$year-$month-01"),
                 ]);
             }
             
-            // CC Card for this month
-            $monthCcAmount = CCTransaction::whereNotNull('departure_date')
-                ->get()
-                ->filter(function($item) use ($month, $year) {
-                    try {
-                        $date = \DateTime::createFromFormat('n/j/Y', $item->departure_date);
-                        return $date && (int)$date->format('n') === $month && (int)$date->format('Y') === $year;
-                    } catch (\Exception $e) {
-                        return false;
-                    }
-                })
-                ->sum('payment_amount');
-            $monthCcCount = CCTransaction::whereNotNull('departure_date')
-                ->get()
-                ->filter(function($item) use ($month, $year) {
-                    try {
-                        $date = \DateTime::createFromFormat('n/j/Y', $item->departure_date);
-                        return $date && (int)$date->format('n') === $month && (int)$date->format('Y') === $year;
-                    } catch (\Exception $e) {
-                        return false;
-                    }
-                })
-                ->count();
+            // CC Card - match sheet containing month name and year
+            $ccSheetName = "$monthName $year";
+            $monthCcAmount = 0;
+            $monthCcCount = 0;
+            foreach ($ccRecent as $sheet => $row) {
+                if (str_contains($sheet, $monthName) && str_contains($sheet, (string)$year)) {
+                    $monthCcAmount += $row->total;
+                    $monthCcCount += $row->cnt;
+                }
+            }
             if ($monthCcAmount > 0) {
                 $recentTransactions->push([
                     'category' => 'CC Card',
@@ -191,22 +219,17 @@ class DashboardController extends Controller
                 ]);
             }
             
-            // SPPD for this month
-            $monthSppdAmount = SppdTransaction::whereRaw("CAST(strftime('%m', trip_begins_on) AS INTEGER) = ?", [$month])
-                ->whereRaw("CAST(strftime('%Y', trip_begins_on) AS INTEGER) = ?", [$year])
-                ->sum('paid_amount');
-            $monthSppdCount = SppdTransaction::whereRaw("CAST(strftime('%m', trip_begins_on) AS INTEGER) = ?", [$month])
-                ->whereRaw("CAST(strftime('%Y', trip_begins_on) AS INTEGER) = ?", [$year])
-                ->count();
-            if ($monthSppdAmount > 0) {
+            // SPPD
+            $sppdRow = $sppdRecent->get("$year-$month");
+            if ($sppdRow && $sppdRow->total > 0) {
                 $recentTransactions->push([
                     'category' => 'SPPD',
                     'month' => $monthName,
                     'year' => $year,
                     'date' => $monthName . ' ' . $year,
                     'description' => "SPPD Transactions - $monthName $year",
-                    'total' => 'Rp ' . number_format($monthSppdAmount, 0, ',', '.'),
-                    'count' => $monthSppdCount,
+                    'total' => 'Rp ' . number_format($sppdRow->total, 0, ',', '.'),
+                    'count' => $sppdRow->cnt,
                     'status' => 'Complete',
                     'sort_date' => strtotime("$year-$month-01"),
                 ]);
@@ -219,7 +242,7 @@ class DashboardController extends Controller
                 ->take(8)
                 ->values();
         } catch (\Exception $e) {
-            \Log::error('Recent transactions error: ' . $e->getMessage());
+            Log::error('Recent transactions error: ' . $e->getMessage());
             $recentTransactions = collect();
         }
         

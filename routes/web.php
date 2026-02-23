@@ -256,22 +256,7 @@ Route::get('/sppd', function () {
         return 'Rp' . number_format($value / 1000000, 1) . 'Jt';
     };
     
-    // Helper to determine trip status based on dates
-    $getTripStatus = function($tripBeginsOn, $tripEndsOn) {
-        $today = now()->startOfDay();
-        $beginDate = $tripBeginsOn ? \Carbon\Carbon::parse($tripBeginsOn)->startOfDay() : null;
-        $endDate = $tripEndsOn ? \Carbon\Carbon::parse($tripEndsOn)->startOfDay() : null;
-        
-        if (!$beginDate) return 'unknown';
-        
-        if ($beginDate->gt($today)) {
-            return 'upcoming';
-        } elseif ($endDate && $endDate->lt($today)) {
-            return 'completed';
-        } else {
-            return 'ongoing';
-        }
-    };
+
     
     $selectedFilter = request('sheet', 'all');
     $selectedReason = request('reason', 'all');
@@ -306,13 +291,16 @@ Route::get('/sppd', function () {
         $query->search($searchQuery);
     }
     
-    $allTransactionsForStatus = $query->clone()->orderBy('trip_begins_on', 'desc')->get();
-    
-    // Add status to each transaction
-    $allTransactionsForStatus = $allTransactionsForStatus->map(function($t) use ($getTripStatus) {
-        $t->trip_status = $getTripStatus($t->trip_begins_on, $t->trip_ends_on);
-        return $t;
-    });
+    $today = now()->format('Y-m-d');
+    $allTransactionsForStatus = $query->clone()
+        ->selectRaw("*, CASE 
+            WHEN trip_begins_on IS NULL THEN 'unknown'
+            WHEN date(trip_begins_on) > ? THEN 'upcoming'
+            WHEN trip_ends_on IS NOT NULL AND date(trip_ends_on) < ? THEN 'completed'
+            ELSE 'ongoing'
+        END as trip_status", [$today, $today])
+        ->orderBy('trip_begins_on', 'desc')
+        ->get();
     
     // Calculate status counts BEFORE filtering by status
     $upcomingCount = $allTransactionsForStatus->where('trip_status', 'upcoming')->count();
@@ -503,9 +491,8 @@ Route::get('/sppd', function () {
         $tripChartData = $tripData;
         
     } else {
-        // All Periods - Chart 1: Payment Date
-        $allTransactions = \App\Models\SppdTransaction::query()->orderBy('trip_begins_on')->get();
-        $paymentData = $allTransactions->filter(function($item) {
+        // All Periods - Chart 1: Payment Date (reuse already-loaded data)
+        $paymentData = $allTransactionsForStatus->filter(function($item) {
             return !empty($item->planned_payment_date);
         })->groupBy(function($item) {
             return date('Y-m', strtotime($item->planned_payment_date));
@@ -528,7 +515,7 @@ Route::get('/sppd', function () {
         $paymentChartData = $paymentData;
         
         // Chart 2: Trip Date
-        $tripData = $allTransactions->groupBy(function($item) {
+        $tripData = $allTransactionsForStatus->groupBy(function($item) {
             return date('Y-m', strtotime($item->trip_begins_on));
         })->map(function($group, $month) {
             // Format: "November 2025" (full month name and year)
@@ -701,7 +688,7 @@ Route::get('/sppd', function () {
     $isMonthFiltered = $selectedFilter !== 'all' && !str_starts_with($selectedFilter, 'year:');
     
     if ($isMonthFiltered) {
-        $individualTrips = $allTransactionsForStatus->map(function($t) use ($formatSummaryDisplay, $getTripStatus) {
+        $individualTrips = $allTransactionsForStatus->map(function($t) use ($formatSummaryDisplay) {
             return [
                 'id' => $t->id,
                 'trip_number' => $t->trip_number,
@@ -1275,18 +1262,8 @@ Route::get('/cc-card', function () {
         ]];
     } else {
         // All sheets - return multiple bars (satu per sheet)
-        $allTxForChart = \App\Models\CCTransaction::query();
-        if ($selectedYear !== 'all') {
-            $allTxForChart->where(function($q) use ($selectedYear) {
-                $q->whereRaw("SUBSTR(departure_date, -4) = ?", [$selectedYear]) // M/D/YYYY format
-                  ->orWhereRaw("SUBSTR(departure_date, 1, 4) = ?", [$selectedYear]); // YYYY-MM-DD format
-            });
-        }
-        // Apply CC card filter to chart
-        if ($selectedCard !== 'all') {
-            $allTxForChart->where('sheet', 'like', "%CC {$selectedCard}%");
-        }
-        $allTransactionsGrouped = $allTxForChart->get()->groupBy('sheet');
+        // Reuse $allTransactions from sheet comparison (same year+card filter, avoid duplicate query)
+        $allTransactionsGrouped = $allTransactions->groupBy('sheet');
         
         // Month ordering map (Indonesian month names)
         $monthOrder = [

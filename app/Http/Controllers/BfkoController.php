@@ -88,46 +88,23 @@ class BfkoController extends Controller
             'September' => 9, 'Oktober' => 10, 'November' => 11, 'Desember' => 12
         ];
 
-        // Get top employees by payment
-        $topEmployees = BfkoData::select('nip', 'nama', 'jabatan', 'unit', DB::raw('SUM(nilai_angsuran) as total'))
+        // Pre-fetch ALL payment details in ONE query (avoid N+1 sub-queries per employee)
+        $allPayments = BfkoData::query()
             ->when($selectedBulan !== 'all', function ($q) use ($selectedBulan) {
                 return $q->where('bulan', $selectedBulan);
             })
             ->when($selectedTahun !== 'all', function ($q) use ($selectedTahun) {
                 return $q->where('tahun', $selectedTahun);
             })
-            ->groupBy('nip', 'nama', 'jabatan', 'unit')
-            ->orderByDesc('total')
-            ->limit(10)
+            ->orderBy('tahun', 'desc')
             ->get()
-            ->map(function ($item) use ($selectedBulan, $selectedTahun, $bulanOrder) {
-                // Get payment details for this employee
-                $payments = BfkoData::where('nip', $item->nip)
-                    ->when($selectedBulan !== 'all', function ($q) use ($selectedBulan) {
-                        return $q->where('bulan', $selectedBulan);
-                    })
-                    ->when($selectedTahun !== 'all', function ($q) use ($selectedTahun) {
-                        return $q->where('tahun', $selectedTahun);
-                    })
-                    ->orderBy('tahun', 'desc')
-                    ->get()
-                    ->sortBy(function($payment) use ($bulanOrder) {
-                        return $bulanOrder[$payment->bulan] ?? 99;
-                    })
-                    ->values();
-                
-                return [
-                    'nip' => $item->nip,
-                    'nama' => $item->nama,
-                    'jabatan' => $item->jabatan,
-                    'unit' => $item->unit,
-                    'total' => (float) $item->total,
-                    'payments' => $payments
-                ];
-            });
+            ->sortBy(function($payment) use ($bulanOrder) {
+                return $bulanOrder[$payment->bulan] ?? 99;
+            })
+            ->groupBy('nip'); // Group by NIP for quick lookup
 
-        // Get all employees by payment (not limited to top 10)
-        $allEmployees = BfkoData::select('nip', 'nama', 'jabatan', 'unit', DB::raw('SUM(nilai_angsuran) as total'))
+        // Get all employees by payment (single GROUP BY query)
+        $allEmployeesSummary = BfkoData::select('nip', 'nama', 'jabatan', 'unit', DB::raw('SUM(nilai_angsuran) as total'))
             ->when($selectedBulan !== 'all', function ($q) use ($selectedBulan) {
                 return $q->where('bulan', $selectedBulan);
             })
@@ -136,32 +113,25 @@ class BfkoController extends Controller
             })
             ->groupBy('nip', 'nama', 'jabatan', 'unit')
             ->orderByDesc('total')
-            ->get()
-            ->map(function ($item) use ($selectedBulan, $selectedTahun, $bulanOrder) {
-                // Get payment details for this employee
-                $payments = BfkoData::where('nip', $item->nip)
-                    ->when($selectedBulan !== 'all', function ($q) use ($selectedBulan) {
-                        return $q->where('bulan', $selectedBulan);
-                    })
-                    ->when($selectedTahun !== 'all', function ($q) use ($selectedTahun) {
-                        return $q->where('tahun', $selectedTahun);
-                    })
-                    ->orderBy('tahun', 'desc')
-                    ->get()
-                    ->sortBy(function($payment) use ($bulanOrder) {
-                        return $bulanOrder[$payment->bulan] ?? 99;
-                    })
-                    ->values();
-                
-                return [
-                    'nip' => $item->nip,
-                    'nama' => $item->nama,
-                    'jabatan' => $item->jabatan,
-                    'unit' => $item->unit,
-                    'total' => (float) $item->total,
-                    'payments' => $payments
-                ];
-            });
+            ->get();
+
+        // Map function to attach pre-fetched payments (no extra queries)
+        $mapWithPayments = function ($item) use ($allPayments) {
+            return [
+                'nip' => $item->nip,
+                'nama' => $item->nama,
+                'jabatan' => $item->jabatan,
+                'unit' => $item->unit,
+                'total' => (float) $item->total,
+                'payments' => ($allPayments[$item->nip] ?? collect())->values()
+            ];
+        };
+
+        // Top 10 employees (slice from already-sorted list)
+        $topEmployees = $allEmployeesSummary->take(10)->map($mapWithPayments);
+
+        // All employees (same data, full list)
+        $allEmployees = $allEmployeesSummary->map($mapWithPayments);
         
         return Inertia::render('BfkoMonitoring', [
             'filters' => [
@@ -579,7 +549,7 @@ class BfkoController extends Controller
         ])->render();
         
         // Use DomPDF
-        $pdf = \PDF::loadHTML($html);
+        $pdf = Pdf::loadHTML($html);
         $pdf->setPaper('A4', 'landscape');
         
         return $pdf->download($filename);
