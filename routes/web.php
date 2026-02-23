@@ -1262,18 +1262,8 @@ Route::get('/cc-card', function () {
         ]];
     } else {
         // All sheets - return multiple bars (satu per sheet)
-        $allTxForChart = \App\Models\CCTransaction::query();
-        if ($selectedYear !== 'all') {
-            $allTxForChart->where(function($q) use ($selectedYear) {
-                $q->whereRaw("SUBSTR(departure_date, -4) = ?", [$selectedYear]) // M/D/YYYY format
-                  ->orWhereRaw("SUBSTR(departure_date, 1, 4) = ?", [$selectedYear]); // YYYY-MM-DD format
-            });
-        }
-        // Apply CC card filter to chart
-        if ($selectedCard !== 'all') {
-            $allTxForChart->where('sheet', 'like', "%CC {$selectedCard}%");
-        }
-        $allTransactionsGrouped = $allTxForChart->get()->groupBy('sheet');
+        // Reuse $allTransactions from sheet comparison (same year+card filter, avoid duplicate query)
+        $allTransactionsGrouped = $allTransactions->groupBy('sheet');
         
         // Month ordering map (Indonesian month names)
         $monthOrder = [

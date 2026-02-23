@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -97,8 +97,8 @@ class ServiceFeeController extends Controller
         $flightSummary = $this->calculateSummary('flight', $selectedSheet, $selectedYear);
 
         // Debug logging
-        \Log::info('Hotel Summary for ' . $selectedSheet, $hotelSummary);
-        \Log::info('Flight Summary for ' . $selectedSheet, $flightSummary);
+        Log::info('Hotel Summary for ' . $selectedSheet, $hotelSummary);
+        Log::info('Flight Summary for ' . $selectedSheet, $flightSummary);
 
         return Inertia::render('ServiceFeeMonitoring', [
             'totalFee' => 'Rp ' . number_format($totalFeeInMillions, 1, ',', '.') . 'M',
@@ -667,7 +667,7 @@ class ServiceFeeController extends Controller
                 || in_array('Trip Type', $header)
                 || in_array('Passenger Name (Employee)', $header);
             
-            \Log::info('CSV Import - Format detected:', ['isPreprocessed' => $isPreprocessed]);
+            Log::info('CSV Import - Format detected:', ['isPreprocessed' => $isPreprocessed]);
             
             while (($row = fgetcsv($handle)) !== false) {
                 // Skip empty rows
@@ -796,14 +796,14 @@ class ServiceFeeController extends Controller
                     // Also extract if room_type is 'N/A', empty string, or null (placeholder values)
                     $roomType = $recordData['room_type'] ?? '';
                     $roomTypeEmpty = empty(trim($roomType)) || strtoupper(trim($roomType)) === 'N/A';
-                    \Log::debug("Room type check for {$bookingId}", [
+                    Log::debug("Room type check for {$bookingId}", [
                         'original_room_type' => $roomType,
                         'is_empty' => $roomTypeEmpty,
                         'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
                     ]);
                     if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
                         $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
-                        \Log::debug("Extraction result for {$bookingId}", $extracted);
+                        Log::debug("Extraction result for {$bookingId}", $extracted);
                         if (!empty($extracted['hotel_name'])) {
                             $recordData['hotel_name'] = $extracted['hotel_name'];
                         }
@@ -816,7 +816,7 @@ class ServiceFeeController extends Controller
                         }
                     }
                     
-                    \Log::info("Processing row (preprocessed): {$bookingId}", [
+                    Log::info("Processing row (preprocessed): {$bookingId}", [
                         'service_type' => $serviceType,
                         'route' => $data['Route'] ?? 'N/A',
                         'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
@@ -834,7 +834,7 @@ class ServiceFeeController extends Controller
                     } catch (\Exception $e) {
                         $errors[] = "Error importing {$bookingId}: {$e->getMessage()}";
                         $skipped++;
-                        \Log::error("Import error for {$bookingId}: " . $e->getMessage(), [
+                        Log::error("Import error for {$bookingId}: " . $e->getMessage(), [
                             'data' => $recordData
                         ]);
                     }
@@ -919,7 +919,7 @@ class ServiceFeeController extends Controller
 
                 fclose($handle);
 
-                \Log::info('CSV Import completed for file: ' . $file->getClientOriginalName(), [
+                Log::info('CSV Import completed for file: ' . $file->getClientOriginalName(), [
                     'imported' => $imported,
                     'updated' => $updated,
                     'skipped' => $skipped,
@@ -933,7 +933,7 @@ class ServiceFeeController extends Controller
                 $allErrors = array_merge($allErrors, $errors);
 
             } catch (\Exception $e) {
-                \Log::error('CSV Import failed for file: ' . $file->getClientOriginalName(), [
+                Log::error('CSV Import failed for file: ' . $file->getClientOriginalName(), [
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
                     'line' => $e->getLine()
@@ -1717,7 +1717,7 @@ class ServiceFeeController extends Controller
         $typeLabel = $serviceType === 'all' ? 'all records' : ($serviceType === 'hotel' ? 'hotel records' : 'flight records');
         $message = "Successfully deleted {$count} {$typeLabel} from sheet '{$sheet}'.";
 
-        \Log::info("Sheet deletion: {$count} records deleted", [
+        Log::info("Sheet deletion: {$count} records deleted", [
             'sheet' => $sheet,
             'service_type' => $serviceType
         ]);
@@ -1756,7 +1756,7 @@ class ServiceFeeController extends Controller
         $typeLabel = $serviceType === 'all' ? 'all Service Fee records' : ($serviceType === 'hotel' ? 'all Hotel records' : 'all Flight records');
         $message = "Successfully deleted {$count} {$typeLabel}.";
 
-        \Log::info("Bulk deletion: {$count} Service Fee records deleted", [
+        Log::info("Bulk deletion: {$count} Service Fee records deleted", [
             'service_type' => $serviceType
         ]);
 
