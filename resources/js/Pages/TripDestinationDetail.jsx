@@ -6,6 +6,9 @@ import axios from 'axios';
 
 export default function TripDestinationDetail({ 
     destination, 
+    reason,
+    pageTitle,
+    filterType = 'destination',
     selectedSheet,
     selectedYear,
     selectedReason = 'all',
@@ -22,14 +25,18 @@ export default function TripDestinationDetail({
         const timeoutId = setTimeout(() => {
             if (searchTerm !== filters.search) {
                 const params = {
-                    destination,
                     sheet: selectedSheet,
                     year: selectedYear,
                     search: searchTerm,
                     sort: filters.sort,
                     direction: filters.direction,
                 };
-                if (selectedReason !== 'all') params.reason = selectedReason;
+                if (filterType === 'reason' && reason) {
+                    params.reason = reason;
+                } else if (destination) {
+                    params.destination = destination;
+                }
+                if (selectedReason !== 'all') params.filter_reason = selectedReason;
                 if (selectedBank !== 'all') params.bank = selectedBank;
                 
                 router.get('/sppd/destination-detail', params, { 
@@ -45,14 +52,18 @@ export default function TripDestinationDetail({
     const handleSort = (field) => {
         const newDirection = filters.sort === field && filters.direction === 'asc' ? 'desc' : 'asc';
         const params = {
-            destination,
             sheet: selectedSheet,
             year: selectedYear,
             search: searchTerm,
             sort: field,
             direction: newDirection,
         };
-        if (selectedReason !== 'all') params.reason = selectedReason;
+        if (filterType === 'reason' && reason) {
+            params.reason = reason;
+        } else if (destination) {
+            params.destination = destination;
+        }
+        if (selectedReason !== 'all') params.filter_reason = selectedReason;
         if (selectedBank !== 'all') params.bank = selectedBank;
         
         router.get('/sppd/destination-detail', params, { 
@@ -141,8 +152,8 @@ export default function TripDestinationDetail({
                             </svg>
                         </button>
                         <div className="flex-1">
-                            <h1 className="text-3xl font-bold">{destination}</h1>
-                            <p className="text-cyan-100 mt-1">Trip Destination Details</p>
+                            <h1 className="text-3xl font-bold">{pageTitle || destination || reason}</h1>
+                            <p className="text-cyan-100 mt-1">{filterType === 'reason' ? 'Trip by Reason Details' : 'Trip Destination Details'}</p>
                         </div>
                     </div>
                     

@@ -1023,8 +1023,8 @@ export default function SppdMonitoring({
                 }}
                 monthData={selectedPaymentMonth}
                 filters={{
-                    sheet: selectedFilter,
-                    year: availableFilters.find(f => typeof f === 'string' && f.includes('year:'))?.replace('year:', '') || 'all',
+                    sheet: selectedFilter.startsWith('year:') ? 'all' : selectedFilter,
+                    year: selectedFilter.startsWith('year:') ? selectedFilter.substring(5) : 'all',
                     reason: selectedReason,
                     bank: selectedBank
                 }}
