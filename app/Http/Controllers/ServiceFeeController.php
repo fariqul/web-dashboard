@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -12,11 +12,13 @@ class ServiceFeeController extends Controller
 {
     public function index(Request $request)
     {
+        set_time_limit(120);
+
         $selectedSheet = $request->get('sheet', 'all');
         $search = $request->get('search', '');
         $serviceType = $request->get('type', 'all'); // all, hotel, flight
         $selectedYear = $request->get('year', 'all'); // Year filter for charts
-        
+
         // Pagination and sorting parameters
         $perPage = $request->get('per_page', 10);
         $sortBy = $request->get('sort_by', 'transaction_time');
@@ -27,9 +29,9 @@ class ServiceFeeController extends Controller
             ->distinct()
             ->pluck('sheet')
             ->toArray();
-        
+
         // Sort sheets chronologically
-        usort($availableSheets, function($a, $b) {
+        usort($availableSheets, function ($a, $b) {
             return $this->parseSheetDate($a) <=> $this->parseSheetDate($b);
         });
 
@@ -60,10 +62,10 @@ class ServiceFeeController extends Controller
         $totalTransactionAmount = $query->sum('transaction_amount');
         $totalBaseAmount = $query->sum('base_amount');
         $totalBookings = $query->count();
-        
+
         // Calculate average fee percentage
-        $avgFeePercentage = $totalTransactionAmount > 0 
-            ? ($totalBaseAmount / $totalTransactionAmount) * 100 
+        $avgFeePercentage = $totalTransactionAmount > 0
+            ? ($totalBaseAmount / $totalTransactionAmount) * 100
             : 0;
 
         // Format amounts in millions
@@ -76,7 +78,7 @@ class ServiceFeeController extends Controller
 
         // Get monthly chart data (with year filter)
         $monthlyChartData = $this->getMonthlyChartData($selectedSheet, $serviceType, $selectedYear);
-        
+
         // Get separated chart data (hotel and flight as separate bars, with year filter)
         $monthlySeparatedData = $this->getMonthlySeparatedChartData($selectedSheet, $selectedYear);
 
@@ -159,7 +161,7 @@ class ServiceFeeController extends Controller
             ->orderByDesc('total_amount')
             ->limit($limit)
             ->get()
-            ->map(function($dest) {
+            ->map(function ($dest) {
                 return [
                     'name' => $dest->name ?? 'Unknown',
                     'type' => $dest->service_type,
@@ -182,7 +184,7 @@ class ServiceFeeController extends Controller
             ->orderByDesc('total_amount')
             ->limit($limit)
             ->get()
-            ->map(function($dest) {
+            ->map(function ($dest) {
                 return [
                     'name' => $dest->name ?? 'Unknown',
                     'type' => $dest->service_type,
@@ -220,12 +222,12 @@ class ServiceFeeController extends Controller
             ->selectRaw('SUM(transaction_amount) as total_amount')
             ->groupBy('sheet')
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 // Calculate Total Tagihan (Service Fee + VAT 11%)
                 $subtotalFee = $item->subtotal_fee;
                 $vat = floor($subtotalFee * 11 / 100);
                 $totalTagihan = floor($subtotalFee + $vat);
-                
+
                 return [
                     'sheet' => $item->sheet,
                     'fee' => $totalTagihan, // Total Tagihan with VAT (full number)
@@ -235,7 +237,7 @@ class ServiceFeeController extends Controller
             ->toArray();
 
         // Sort by date chronologically
-        usort($data, function($a, $b) {
+        usort($data, function ($a, $b) {
             return $this->parseSheetDate($a['sheet']) <=> $this->parseSheetDate($b['sheet']);
         });
 
@@ -260,7 +262,7 @@ class ServiceFeeController extends Controller
             ->selectRaw('SUM(CASE WHEN service_type = "flight" THEN base_amount ELSE 0 END) as flight_fee')
             ->groupBy('sheet')
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 // Calculate Total Tagihan with VAT for each type
                 $hotelSubtotal = $item->hotel_fee;
                 $hotelVat = floor($hotelSubtotal * 11 / 100);
@@ -269,7 +271,7 @@ class ServiceFeeController extends Controller
                 $flightSubtotal = $item->flight_fee;
                 $flightVat = floor($flightSubtotal * 11 / 100);
                 $flightTotal = floor($flightSubtotal + $flightVat);
-                
+
                 return [
                     'sheet' => $item->sheet,
                     'hotel' => $hotelTotal,
@@ -279,7 +281,7 @@ class ServiceFeeController extends Controller
             ->toArray();
 
         // Sort by date chronologically
-        usort($data, function($a, $b) {
+        usort($data, function ($a, $b) {
             return $this->parseSheetDate($a['sheet']) <=> $this->parseSheetDate($b['sheet']);
         });
 
@@ -299,7 +301,7 @@ class ServiceFeeController extends Controller
             ->selectRaw('SUM(CASE WHEN service_type = "flight" THEN base_amount ELSE 0 END) as flight_fee')
             ->groupBy('sheet')
             ->get()
-            ->map(function($item) {
+            ->map(function ($item) {
                 return [
                     'sheet' => $item->sheet,
                     'hotel' => $item->hotel_fee,
@@ -309,7 +311,7 @@ class ServiceFeeController extends Controller
             ->toArray();
 
         // Sort by date chronologically
-        usort($data, function($a, $b) {
+        usort($data, function ($a, $b) {
             return $this->parseSheetDate($a['sheet']) <=> $this->parseSheetDate($b['sheet']);
         });
 
@@ -335,7 +337,7 @@ class ServiceFeeController extends Controller
             ->orderByDesc('count')
             ->limit($limit)
             ->get()
-            ->map(function($emp) {
+            ->map(function ($emp) {
                 return [
                     'name' => $emp->employee_name,
                     'count' => $emp->count,
@@ -364,7 +366,7 @@ class ServiceFeeController extends Controller
             ->orderByDesc('total')
             ->limit($limit)
             ->get()
-            ->map(function($emp) {
+            ->map(function ($emp) {
                 return [
                     'name' => $emp->employee_name,
                     'total' => $emp->total,
@@ -485,13 +487,13 @@ class ServiceFeeController extends Controller
 
         $totalBookings = $query->count();
         $totalTransactionAmount = $query->sum('transaction_amount');
-        
+
         // Use service_fee column (the actual service fee amount from CSV)
         $subtotalServiceFee = $query->sum('service_fee');
-        
+
         // VAT calculation: ROUNDDOWN(11/100 * subtotal, 0)
         $vat = floor($subtotalServiceFee * 11 / 100);
-        
+
         // Total tagihan: ROUNDDOWN(subtotal + vat, 0)
         $totalTagihan = floor($subtotalServiceFee + $vat);
 
@@ -508,22 +510,31 @@ class ServiceFeeController extends Controller
     {
         // Parse "Juli 2025", "Agustus 2025", etc to timestamp for sorting
         $months = [
-            'januari' => 1, 'februari' => 2, 'maret' => 3, 'april' => 4,
-            'mei' => 5, 'juni' => 6, 'juli' => 7, 'agustus' => 8,
-            'september' => 9, 'oktober' => 10, 'november' => 11, 'desember' => 12
+            'januari' => 1,
+            'februari' => 2,
+            'maret' => 3,
+            'april' => 4,
+            'mei' => 5,
+            'juni' => 6,
+            'juli' => 7,
+            'agustus' => 8,
+            'september' => 9,
+            'oktober' => 10,
+            'november' => 11,
+            'desember' => 12
         ];
-        
+
         $parts = explode(' ', strtolower(trim($sheet)));
         if (count($parts) >= 2) {
             $monthName = $parts[0];
             $year = intval($parts[1]);
-            
+
             if (isset($months[$monthName])) {
                 $month = $months[$monthName];
                 return strtotime("$year-$month-01");
             }
         }
-        
+
         return 0;
     }
 
@@ -558,7 +569,7 @@ class ServiceFeeController extends Controller
         // Calculate service fee and VAT
         $serviceFeeAmount = floor($validated['transaction_amount'] * 0.01); // 1%
         $vat = floor($serviceFeeAmount * 0.11); // 11%
-        
+
         // Create service fee record
         $serviceFeeRecord = ServiceFee::create([
             'booking_id' => $validated['booking_id'],
@@ -630,20 +641,20 @@ class ServiceFeeController extends Controller
             try {
                 $extension = strtolower($file->getClientOriginalExtension());
                 $isExcel = in_array($extension, ['xlsx', 'xls']);
-                
+
                 if ($isExcel) {
                     // Convert Excel to CSV format
                     Log::info('Service Fee Excel file detected: ' . $file->getClientOriginalName());
-                    
+
                     $csvData = $this->convertExcelToServiceFeeCsv($file);
-                    
+
                     if (!$csvData) {
                         $allErrors[] = "Gagal mengkonversi Excel: " . $file->getClientOriginalName();
                         continue;
                     }
-                    
+
                     Log::info('Service Fee Excel converted, lines: ' . substr_count($csvData, "\n"));
-                    
+
                     // Create temp file from CSV string
                     $tempFile = tmpfile();
                     fwrite($tempFile, $csvData);
@@ -653,269 +664,271 @@ class ServiceFeeController extends Controller
                     $handle = fopen($file->getPathname(), 'r');
                     $tempFile = null;
                 }
-            
-            // Read header
-            $header = fgetcsv($handle);
-            
-            // Log header for debugging
-            Log::info('CSV Import - Header:', ['header' => $header]);
-            
-            // Detect CSV format (raw Traveloka vs preprocessed)
-            // Preprocessed has separated columns like "Hotel Name", "Route", "Trip Type", etc.
-            $isPreprocessed = in_array('Hotel Name', $header) 
-                || in_array('Route', $header) 
-                || in_array('Trip Type', $header)
-                || in_array('Passenger Name (Employee)', $header);
-            
-            Log::info('CSV Import - Format detected:', ['isPreprocessed' => $isPreprocessed]);
-            
-            while (($row = fgetcsv($handle)) !== false) {
-                // Skip empty rows
-                if (empty(array_filter($row))) {
-                    continue;
-                }
 
-                // Map CSV columns
-                $data = array_combine($header, $row);
-                
-                // Skip summary rows
-                if ($skipSummary && isset($data['Description'])) {
-                    if (stripos($data['Description'], 'SUBTOTAL') !== false ||
-                        stripos($data['Description'], 'VAT') !== false ||
-                        stripos($data['Description'], 'TOTAL') !== false) {
+                // Read header
+                $header = fgetcsv($handle);
+
+                // Log header for debugging
+                Log::info('CSV Import - Header:', ['header' => $header]);
+
+                // Detect CSV format (raw Traveloka vs preprocessed)
+                // Preprocessed has separated columns like "Hotel Name", "Route", "Trip Type", etc.
+                $isPreprocessed = in_array('Hotel Name', $header)
+                    || in_array('Route', $header)
+                    || in_array('Trip Type', $header)
+                    || in_array('Passenger Name (Employee)', $header);
+
+                Log::info('CSV Import - Format detected:', ['isPreprocessed' => $isPreprocessed]);
+
+                while (($row = fgetcsv($handle)) !== false) {
+                    // Skip empty rows
+                    if (empty(array_filter($row))) {
+                        continue;
+                    }
+
+                    // Map CSV columns
+                    $data = array_combine($header, $row);
+
+                    // Skip summary rows
+                    if ($skipSummary && isset($data['Description'])) {
+                        if (
+                            stripos($data['Description'], 'SUBTOTAL') !== false ||
+                            stripos($data['Description'], 'VAT') !== false ||
+                            stripos($data['Description'], 'TOTAL') !== false
+                        ) {
+                            $skipped++;
+                            continue;
+                        }
+                    }
+
+                    // Get booking ID (different column names in different formats)
+                    $bookingId = $data['Booking ID'] ?? $data['booking_id'] ?? null;
+
+                    if (!$bookingId) {
+                        $errors[] = "Missing Booking ID in row";
                         $skipped++;
                         continue;
                     }
-                }
 
-                // Get booking ID (different column names in different formats)
-                $bookingId = $data['Booking ID'] ?? $data['booking_id'] ?? null;
-                
-                if (!$bookingId) {
-                    $errors[] = "Missing Booking ID in row";
-                    $skipped++;
-                    continue;
-                }
-
-                // Check for duplicate booking_id
-                $existingRecord = ServiceFee::where('booking_id', $bookingId)->first();
-                if ($existingRecord && !$forceUpdate) {
-                    $errors[] = "Duplicate booking ID: {$bookingId}";
-                    $skipped++;
-                    continue;
-                }
-
-                // Handle different CSV formats
-                if ($isPreprocessed) {
-                    // Preprocessed format (has Hotel Name, Employee Name, etc already separated)
-                    
-                    // Parse transaction amount - handle quoted values
-                    $rawAmount = $data['Transaction Amount (Rp)'] ?? $data['Transaction Amount'] ?? '0';
-                    $transactionAmount = $this->parseAmount($rawAmount);
-                    
-                    // Get service fee from CSV column (NOT calculated!)
-                    // Support multiple column name variations
-                    $rawServiceFee = $data['Service Fee (Rp)'] ?? $data['Service Fee'] ?? $data['Base Amount'] ?? '0';
-                    $serviceFee = $this->parseAmount($rawServiceFee);
-                    
-                    // If service fee is missing or zero, calculate as fallback
-                    if ($serviceFee == 0) {
-                        $serviceFee = round($transactionAmount * 0.01);
-                    }
-                    
-                    $vat = round($serviceFee * 0.11);
-                    
-                    // Determine service type from data
-                    // Check if has actual non-empty hotel data first (more reliable indicator)
-                    $hasHotelData = !empty(trim($data['Hotel Name'] ?? '')) || !empty(trim($data['Room Type'] ?? ''));
-                    $hasFlightData = !empty(trim($data['Route'] ?? '')) || !empty(trim($data['Airline ID'] ?? '')) || 
-                                     !empty(trim($data['Trip Type'] ?? '')) || !empty(trim($data['Pax'] ?? ''));
-                    
-                    if ($hasHotelData && !$hasFlightData) {
-                        $serviceType = 'hotel';
-                    } elseif ($hasFlightData && !$hasHotelData) {
-                        $serviceType = 'flight';
-                    } else {
-                        // Fallback: detect from booking ID (FL for flight, HL for hotel)
-                        $serviceType = (stripos($bookingId, 'FL') !== false) ? 'flight' : 'hotel';
-                    }
-                    
-                    // Parse transaction time - handle both formats
-                    $transactionTimeRaw = $data['Transaction Time'] ?? '';
-                    try {
-                        // Try parsing as "01 Aug 2025 10:58:04"
-                        if (preg_match('/^\d{2}\s+\w+\s+\d{4}/', $transactionTimeRaw)) {
-                            $transactionDate = $this->parseIndonesianDate($transactionTimeRaw);
-                        } else {
-                            $transactionDate = \Carbon\Carbon::parse($transactionTimeRaw);
-                        }
-                    } catch (\Exception $e) {
-                        $transactionDate = \Carbon\Carbon::now();
-                    }
-                    
-                    // Auto-generate sheet name from transaction time if not provided
-                    $sheetName = !empty($data['Sheet']) && strtolower($data['Sheet']) !== 'unknown' 
-                        ? $data['Sheet'] 
-                        : $this->generateSheetName($transactionDate);
-                    
-                    // Get employee name - try multiple column name variations
-                    $employeeName = $data['Employee Name'] 
-                        ?? $data['Passenger Name (Employee)'] 
-                        ?? $data['Passenger Name'] 
-                        ?? null;
-                    
-                    // Clean quoted values (remove extra quotes from CSV)
-                    if ($employeeName && is_string($employeeName)) {
-                        $employeeName = trim($employeeName, '"');
-                    }
-                    
-                    $recordData = [
-                        'booking_id' => $bookingId,
-                        'merchant' => $serviceType === 'hotel' ? 'Traveloka Hotel' : 'Traveloka Flight',
-                        'transaction_time' => $transactionDate,
-                        'status' => strtolower($data['Status'] ?? 'settlement'),
-                        'transaction_amount' => $transactionAmount,
-                        'base_amount' => $serviceFee,
-                        'service_fee' => $serviceFee,
-                        'vat' => $vat,
-                        'total_tagihan' => $serviceFee + $vat,
-                        'service_type' => $serviceType,
-                        'sheet' => $sheetName,
-                        'description' => '', // No description in preprocessed format
-                        'hotel_name' => $data['Hotel Name'] ?? null,
-                        'room_type' => $data['Room Type'] ?? null,
-                        'route' => $data['Route'] ?? null,
-                        'trip_type' => $data['Trip Type'] ?? null,
-                        'pax' => $data['Pax'] ?? null,
-                        'airline_id' => $data['Airline ID'] ?? null,
-                        'booker_email' => $data['Booker Email'] ?? null,
-                        'employee_name' => $employeeName,
-                    ];
-                    
-                    // Auto-extract room type and employee name from hotel name if not already set
-                    // Also extract if room_type is 'N/A', empty string, or null (placeholder values)
-                    $roomType = $recordData['room_type'] ?? '';
-                    $roomTypeEmpty = empty(trim($roomType)) || strtoupper(trim($roomType)) === 'N/A';
-                    Log::debug("Room type check for {$bookingId}", [
-                        'original_room_type' => $roomType,
-                        'is_empty' => $roomTypeEmpty,
-                        'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
-                    ]);
-                    if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
-                        $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
-                        Log::debug("Extraction result for {$bookingId}", $extracted);
-                        if (!empty($extracted['hotel_name'])) {
-                            $recordData['hotel_name'] = $extracted['hotel_name'];
-                        }
-                        if (!empty($extracted['room_type'])) {
-                            $recordData['room_type'] = $extracted['room_type'];
-                        }
-                        // Also fill employee name if extracted and currently empty
-                        if (empty($recordData['employee_name']) && !empty($extracted['employee_name'])) {
-                            $recordData['employee_name'] = $extracted['employee_name'];
-                        }
-                    }
-                    
-                    Log::info("Processing row (preprocessed): {$bookingId}", [
-                        'service_type' => $serviceType,
-                        'route' => $data['Route'] ?? 'N/A',
-                        'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
-                        'room_type' => $recordData['room_type'] ?? 'N/A',
-                    ]);
-                    
-                    try {
-                        if ($existingRecord && $forceUpdate) {
-                            $existingRecord->update($recordData);
-                            $updated++;
-                        } else {
-                            ServiceFee::create($recordData);
-                            $imported++;
-                        }
-                    } catch (\Exception $e) {
-                        $errors[] = "Error importing {$bookingId}: {$e->getMessage()}";
+                    // Check for duplicate booking_id
+                    $existingRecord = ServiceFee::where('booking_id', $bookingId)->first();
+                    if ($existingRecord && !$forceUpdate) {
+                        $errors[] = "Duplicate booking ID: {$bookingId}";
                         $skipped++;
-                        Log::error("Import error for {$bookingId}: " . $e->getMessage(), [
-                            'data' => $recordData
+                        continue;
+                    }
+
+                    // Handle different CSV formats
+                    if ($isPreprocessed) {
+                        // Preprocessed format (has Hotel Name, Employee Name, etc already separated)
+
+                        // Parse transaction amount - handle quoted values
+                        $rawAmount = $data['Transaction Amount (Rp)'] ?? $data['Transaction Amount'] ?? '0';
+                        $transactionAmount = $this->parseAmount($rawAmount);
+
+                        // Get service fee from CSV column (NOT calculated!)
+                        // Support multiple column name variations
+                        $rawServiceFee = $data['Service Fee (Rp)'] ?? $data['Service Fee'] ?? $data['Base Amount'] ?? '0';
+                        $serviceFee = $this->parseAmount($rawServiceFee);
+
+                        // If service fee is missing or zero, calculate as fallback
+                        if ($serviceFee == 0) {
+                            $serviceFee = round($transactionAmount * 0.01);
+                        }
+
+                        $vat = round($serviceFee * 0.11);
+
+                        // Determine service type from data
+                        // Check if has actual non-empty hotel data first (more reliable indicator)
+                        $hasHotelData = !empty(trim($data['Hotel Name'] ?? '')) || !empty(trim($data['Room Type'] ?? ''));
+                        $hasFlightData = !empty(trim($data['Route'] ?? '')) || !empty(trim($data['Airline ID'] ?? '')) ||
+                            !empty(trim($data['Trip Type'] ?? '')) || !empty(trim($data['Pax'] ?? ''));
+
+                        if ($hasHotelData && !$hasFlightData) {
+                            $serviceType = 'hotel';
+                        } elseif ($hasFlightData && !$hasHotelData) {
+                            $serviceType = 'flight';
+                        } else {
+                            // Fallback: detect from booking ID (FL for flight, HL for hotel)
+                            $serviceType = (stripos($bookingId, 'FL') !== false) ? 'flight' : 'hotel';
+                        }
+
+                        // Parse transaction time - handle both formats
+                        $transactionTimeRaw = $data['Transaction Time'] ?? '';
+                        try {
+                            // Try parsing as "01 Aug 2025 10:58:04"
+                            if (preg_match('/^\d{2}\s+\w+\s+\d{4}/', $transactionTimeRaw)) {
+                                $transactionDate = $this->parseIndonesianDate($transactionTimeRaw);
+                            } else {
+                                $transactionDate = \Carbon\Carbon::parse($transactionTimeRaw);
+                            }
+                        } catch (\Exception $e) {
+                            $transactionDate = \Carbon\Carbon::now();
+                        }
+
+                        // Auto-generate sheet name from transaction time if not provided
+                        $sheetName = !empty($data['Sheet']) && strtolower($data['Sheet']) !== 'unknown'
+                            ? $data['Sheet']
+                            : $this->generateSheetName($transactionDate);
+
+                        // Get employee name - try multiple column name variations
+                        $employeeName = $data['Employee Name']
+                            ?? $data['Passenger Name (Employee)']
+                            ?? $data['Passenger Name']
+                            ?? null;
+
+                        // Clean quoted values (remove extra quotes from CSV)
+                        if ($employeeName && is_string($employeeName)) {
+                            $employeeName = trim($employeeName, '"');
+                        }
+
+                        $recordData = [
+                            'booking_id' => $bookingId,
+                            'merchant' => $serviceType === 'hotel' ? 'Traveloka Hotel' : 'Traveloka Flight',
+                            'transaction_time' => $transactionDate,
+                            'status' => strtolower($data['Status'] ?? 'settlement'),
+                            'transaction_amount' => $transactionAmount,
+                            'base_amount' => $serviceFee,
+                            'service_fee' => $serviceFee,
+                            'vat' => $vat,
+                            'total_tagihan' => $serviceFee + $vat,
+                            'service_type' => $serviceType,
+                            'sheet' => $sheetName,
+                            'description' => '', // No description in preprocessed format
+                            'hotel_name' => $data['Hotel Name'] ?? null,
+                            'room_type' => $data['Room Type'] ?? null,
+                            'route' => $data['Route'] ?? null,
+                            'trip_type' => $data['Trip Type'] ?? null,
+                            'pax' => $data['Pax'] ?? null,
+                            'airline_id' => $data['Airline ID'] ?? null,
+                            'booker_email' => $data['Booker Email'] ?? null,
+                            'employee_name' => $employeeName,
+                        ];
+
+                        // Auto-extract room type and employee name from hotel name if not already set
+                        // Also extract if room_type is 'N/A', empty string, or null (placeholder values)
+                        $roomType = $recordData['room_type'] ?? '';
+                        $roomTypeEmpty = empty(trim($roomType)) || strtoupper(trim($roomType)) === 'N/A';
+                        Log::debug("Room type check for {$bookingId}", [
+                            'original_room_type' => $roomType,
+                            'is_empty' => $roomTypeEmpty,
+                            'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
                         ]);
-                    }
-                } else {
-                    // Raw Traveloka format (needs parsing)
-                    $serviceType = stripos($data['Merchant'], 'hotel') !== false ? 'hotel' : 'flight';
-
-                    // Parse description if auto_preprocess is enabled
-                    $parsedData = [];
-                    if ($autoPreprocess && isset($data['Description'])) {
-                        $parsedData = $serviceType === 'hotel' 
-                            ? $this->parseHotelDescription($data['Description'])
-                            : $this->parseFlightDescription($data['Description']);
-                    }
-
-                    // Calculate service fee
-                    $transactionAmount = $this->parseAmount($data['Transaction Amount'] ?? '0');
-                    $serviceFee = round($transactionAmount * 0.01);
-                    $vat = round($serviceFee * 0.11);
-
-                    // Auto-generate sheet name from transaction time if not provided
-                    $transactionDate = \Carbon\Carbon::parse($data['Transaction Time']);
-                    $sheetName = !empty($data['Sheet']) && strtolower($data['Sheet']) !== 'unknown' 
-                        ? $data['Sheet'] 
-                        : $this->generateSheetName($transactionDate);
-
-                    $recordData = [
-                        'booking_id' => $bookingId,
-                        'merchant' => $data['Merchant'],
-                        'transaction_time' => $transactionDate,
-                        'status' => $data['Status'] ?? 'settlement',
-                        'transaction_amount' => $transactionAmount,
-                        'base_amount' => $serviceFee,
-                        'service_fee' => $serviceFee,
-                        'vat' => $vat,
-                        'total_tagihan' => $serviceFee + $vat,
-                        'service_type' => $serviceType,
-                        'sheet' => $sheetName,
-                        'description' => $data['Description'] ?? '',
-                        'hotel_name' => $parsedData['hotel_name'] ?? null,
-                        'room_type' => $parsedData['room_type'] ?? null,
-                        'route' => $parsedData['route'] ?? null,
-                        'trip_type' => $parsedData['trip_type'] ?? null,
-                        'pax' => $parsedData['pax'] ?? null,
-                        'airline_id' => $parsedData['airline_id'] ?? null,
-                        'booker_email' => $parsedData['booker_email'] ?? null,
-                        'employee_name' => $parsedData['employee_name'] ?? null,
-                    ];
-
-                    // Auto-extract room type and employee name from hotel name if not already set
-                    // Also extract if room_type is 'N/A' (placeholder value)
-                    $roomTypeEmpty = empty($recordData['room_type']) || strtoupper(trim($recordData['room_type'])) === 'N/A';
-                    if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
-                        $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
-                        if (!empty($extracted['hotel_name'])) {
-                            $recordData['hotel_name'] = $extracted['hotel_name'];
+                        if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
+                            $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
+                            Log::debug("Extraction result for {$bookingId}", $extracted);
+                            if (!empty($extracted['hotel_name'])) {
+                                $recordData['hotel_name'] = $extracted['hotel_name'];
+                            }
+                            if (!empty($extracted['room_type'])) {
+                                $recordData['room_type'] = $extracted['room_type'];
+                            }
+                            // Also fill employee name if extracted and currently empty
+                            if (empty($recordData['employee_name']) && !empty($extracted['employee_name'])) {
+                                $recordData['employee_name'] = $extracted['employee_name'];
+                            }
                         }
-                        if (!empty($extracted['room_type'])) {
-                            $recordData['room_type'] = $extracted['room_type'];
-                        }
-                        // Also fill employee name if extracted and currently empty
-                        if (empty($recordData['employee_name']) && !empty($extracted['employee_name'])) {
-                            $recordData['employee_name'] = $extracted['employee_name'];
-                        }
-                    }
 
-                    // Create or update record
-                    try {
-                        if ($existingRecord && $forceUpdate) {
-                            $existingRecord->update($recordData);
-                            $updated++;
-                        } else {
-                            ServiceFee::create($recordData);
-                            $imported++;
+                        Log::info("Processing row (preprocessed): {$bookingId}", [
+                            'service_type' => $serviceType,
+                            'route' => $data['Route'] ?? 'N/A',
+                            'hotel_name' => $recordData['hotel_name'] ?? 'N/A',
+                            'room_type' => $recordData['room_type'] ?? 'N/A',
+                        ]);
+
+                        try {
+                            if ($existingRecord && $forceUpdate) {
+                                $existingRecord->update($recordData);
+                                $updated++;
+                            } else {
+                                ServiceFee::create($recordData);
+                                $imported++;
+                            }
+                        } catch (\Exception $e) {
+                            $errors[] = "Error importing {$bookingId}: {$e->getMessage()}";
+                            $skipped++;
+                            Log::error("Import error for {$bookingId}: " . $e->getMessage(), [
+                                'data' => $recordData
+                            ]);
                         }
-                    } catch (\Exception $e) {
-                        $errors[] = "Error importing {$bookingId}: {$e->getMessage()}";
-                        $skipped++;
+                    } else {
+                        // Raw Traveloka format (needs parsing)
+                        $serviceType = stripos($data['Merchant'], 'hotel') !== false ? 'hotel' : 'flight';
+
+                        // Parse description if auto_preprocess is enabled
+                        $parsedData = [];
+                        if ($autoPreprocess && isset($data['Description'])) {
+                            $parsedData = $serviceType === 'hotel'
+                                ? $this->parseHotelDescription($data['Description'])
+                                : $this->parseFlightDescription($data['Description']);
+                        }
+
+                        // Calculate service fee
+                        $transactionAmount = $this->parseAmount($data['Transaction Amount'] ?? '0');
+                        $serviceFee = round($transactionAmount * 0.01);
+                        $vat = round($serviceFee * 0.11);
+
+                        // Auto-generate sheet name from transaction time if not provided
+                        $transactionDate = \Carbon\Carbon::parse($data['Transaction Time']);
+                        $sheetName = !empty($data['Sheet']) && strtolower($data['Sheet']) !== 'unknown'
+                            ? $data['Sheet']
+                            : $this->generateSheetName($transactionDate);
+
+                        $recordData = [
+                            'booking_id' => $bookingId,
+                            'merchant' => $data['Merchant'],
+                            'transaction_time' => $transactionDate,
+                            'status' => $data['Status'] ?? 'settlement',
+                            'transaction_amount' => $transactionAmount,
+                            'base_amount' => $serviceFee,
+                            'service_fee' => $serviceFee,
+                            'vat' => $vat,
+                            'total_tagihan' => $serviceFee + $vat,
+                            'service_type' => $serviceType,
+                            'sheet' => $sheetName,
+                            'description' => $data['Description'] ?? '',
+                            'hotel_name' => $parsedData['hotel_name'] ?? null,
+                            'room_type' => $parsedData['room_type'] ?? null,
+                            'route' => $parsedData['route'] ?? null,
+                            'trip_type' => $parsedData['trip_type'] ?? null,
+                            'pax' => $parsedData['pax'] ?? null,
+                            'airline_id' => $parsedData['airline_id'] ?? null,
+                            'booker_email' => $parsedData['booker_email'] ?? null,
+                            'employee_name' => $parsedData['employee_name'] ?? null,
+                        ];
+
+                        // Auto-extract room type and employee name from hotel name if not already set
+                        // Also extract if room_type is 'N/A' (placeholder value)
+                        $roomTypeEmpty = empty($recordData['room_type']) || strtoupper(trim($recordData['room_type'])) === 'N/A';
+                        if (!empty($recordData['hotel_name']) && $roomTypeEmpty) {
+                            $extracted = $this->extractRoomTypeFromHotelName($recordData['hotel_name']);
+                            if (!empty($extracted['hotel_name'])) {
+                                $recordData['hotel_name'] = $extracted['hotel_name'];
+                            }
+                            if (!empty($extracted['room_type'])) {
+                                $recordData['room_type'] = $extracted['room_type'];
+                            }
+                            // Also fill employee name if extracted and currently empty
+                            if (empty($recordData['employee_name']) && !empty($extracted['employee_name'])) {
+                                $recordData['employee_name'] = $extracted['employee_name'];
+                            }
+                        }
+
+                        // Create or update record
+                        try {
+                            if ($existingRecord && $forceUpdate) {
+                                $existingRecord->update($recordData);
+                                $updated++;
+                            } else {
+                                ServiceFee::create($recordData);
+                                $imported++;
+                            }
+                        } catch (\Exception $e) {
+                            $errors[] = "Error importing {$bookingId}: {$e->getMessage()}";
+                            $skipped++;
+                        }
                     }
                 }
-            }
 
                 fclose($handle);
 
@@ -938,7 +951,7 @@ class ServiceFeeController extends Controller
                     'file' => $e->getFile(),
                     'line' => $e->getLine()
                 ]);
-                
+
                 $allErrors[] = "File '{$file->getClientOriginalName()}': {$e->getMessage()}";
             }
         }
@@ -965,10 +978,10 @@ class ServiceFeeController extends Controller
     public function fixEmptyRooms()
     {
         $unfixed = ServiceFee::where('service_type', 'hotel')
-            ->where(function($q) {
+            ->where(function ($q) {
                 $q->whereNull('room_type')
-                  ->orWhere('room_type', '')
-                  ->orWhere('room_type', 'N/A');
+                    ->orWhere('room_type', '')
+                    ->orWhere('room_type', 'N/A');
             })
             ->get();
 
@@ -977,7 +990,7 @@ class ServiceFeeController extends Controller
 
         foreach ($unfixed as $hotel) {
             $result = $this->extractRoomTypeFromHotelName($hotel->hotel_name);
-            
+
             if ($result['room_type']) {
                 $hotel->room_type = $result['room_type'];
                 if ($result['hotel_name'] && $result['hotel_name'] !== $hotel->hotel_name) {
@@ -1006,10 +1019,10 @@ class ServiceFeeController extends Controller
         }
 
         $remaining = ServiceFee::where('service_type', 'hotel')
-            ->where(function($q) {
+            ->where(function ($q) {
                 $q->whereNull('room_type')
-                  ->orWhere('room_type', '')
-                  ->orWhere('room_type', 'N/A');
+                    ->orWhere('room_type', '')
+                    ->orWhere('room_type', 'N/A');
             })
             ->count();
 
@@ -1036,7 +1049,7 @@ class ServiceFeeController extends Controller
             // "Hotel Name 2BR Room" pattern
             '/\b(2BR|3BR|1BR|Studio)\s+Room\b/i' => 1,
         ];
-        
+
         foreach ($middlePatterns as $pattern => $group) {
             if (preg_match($pattern, $hotelName, $m)) {
                 $roomType = strtoupper(trim($m[$group]));
@@ -1052,15 +1065,31 @@ class ServiceFeeController extends Controller
                 ];
             }
         }
-        
+
         // Pattern 2: Simple room types at end of hotel name
         $simplePatterns = [
-            'Deluxe', 'Superior', 'Standard', 'Executive', 'Premium', 'Club', 
-            'Suite', 'Family', 'Twin', 'Double', 'Single', 'King', 'Queen',
-            'Grand Deluxe', 'Deluxe Superior', 'Happiness Double Superior',
-            '2BR', '3BR', '1BR', 'Studio',
+            'Deluxe',
+            'Superior',
+            'Standard',
+            'Executive',
+            'Premium',
+            'Club',
+            'Suite',
+            'Family',
+            'Twin',
+            'Double',
+            'Single',
+            'King',
+            'Queen',
+            'Grand Deluxe',
+            'Deluxe Superior',
+            'Happiness Double Superior',
+            '2BR',
+            '3BR',
+            '1BR',
+            'Studio',
         ];
-        
+
         foreach ($simplePatterns as $pattern) {
             if (preg_match('/\s+(' . preg_quote($pattern, '/') . ')\s*$/i', $hotelName, $m)) {
                 return [
@@ -1069,7 +1098,7 @@ class ServiceFeeController extends Controller
                 ];
             }
         }
-        
+
         return null;
     }
 
@@ -1082,7 +1111,7 @@ class ServiceFeeController extends Controller
         // CRITICAL: Strip trailing single digit (like "1", "2") that comes from CSV 
         // These are often guest count or room numbers appended to description
         $hotelName = preg_replace('/\s+\d\s*$/', '', trim($hotelName));
-        
+
         // If room type already exists and not empty, just check for employee name
         if (!empty($existingRoomType) && $existingRoomType !== 'N/A') {
             $extractedEmployee = null;
@@ -1118,7 +1147,7 @@ class ServiceFeeController extends Controller
         $extractedRoom = null;
 
         // Step 1: Extract employee name
-        
+
         // Pattern: lowercase name at end "mohamad sulthan", duplicated "Yusdi Yusdi"
         // BUT NOT "2 People", "- 2 People" etc
         if (preg_match('/\s+([a-z]+\s+[a-z]+)$/i', $hotelName, $m)) {
@@ -1131,12 +1160,12 @@ class ServiceFeeController extends Controller
                 }
             }
         }
-        
+
         // Pattern: Single letter at end like "2 A", "1 I" - remove it
         if (preg_match('/\s+(\d+)\s+([A-Z])$/u', $hotelName, $m)) {
             $hotelName = trim(substr($hotelName, 0, -strlen($m[0]))) . ' ' . $m[1];
         }
-        
+
         // Pattern: number followed by single name "2 Ibrahim", "1 Fauzan"
         if (!$extractedEmployee && preg_match('/\s+(\d+)\s+([A-Z][a-z]{2,})$/u', $hotelName, $matches)) {
             $potentialName = trim($matches[2]);
@@ -1153,7 +1182,7 @@ class ServiceFeeController extends Controller
                 $hotelName = trim(substr($hotelName, 0, -strlen($matches[0]))) . ' ' . $matches[1];
             }
         }
-        
+
         // Pattern: number followed by mixed case name "4 Arie Pratama"
         if (!$extractedEmployee && preg_match('/\s+(\d+)\s+([A-Z][a-z]+(?:\s+[A-Za-z][a-z]*){1,3})$/u', $hotelName, $matches)) {
             $potentialName = trim($matches[2]);
@@ -1170,7 +1199,7 @@ class ServiceFeeController extends Controller
                 $hotelName = trim(substr($hotelName, 0, -strlen($matches[0]))) . ' ' . $matches[1];
             }
         }
-        
+
         // Pattern: ALL CAPS name at end
         if (!$extractedEmployee && preg_match('/\s+([A-Z]{2,}(?:\s+[A-Z]{1,}){1,4})$/u', $hotelName, $empMatches)) {
             $potentialName = trim($empMatches[1]);
@@ -1213,7 +1242,7 @@ class ServiceFeeController extends Controller
             '/\b(Sorowako|Soroako)\s+(Twin|Double)\s+Superior\s+(?:Non[- ]?Smoking)?\s*$/i',
             // "Privilege With 1 King - Size Bed"
             '/\b(Privilege)\s+With\s+\d+\s+\w+(?:\s*-\s*Size)?\s+Bed\s*$/i',
-            
+
             // "Superior 1 Double Bed", "Deluxe 1 King Bed"
             '/\b(Superior|Deluxe|Standard|Executive|Privilege|Premium|Premier)\s+(\d+\s+(?:Double|King|Queen|Twin|Single)\s+Beds?)\s*$/i',
             // "Superior With 1 Double Bed", "Deluxe With 2 Single Beds"
@@ -1307,7 +1336,7 @@ class ServiceFeeController extends Controller
             // "Deluxe Kingbed" - MaxOne format
             '/\b(Deluxe|Superior)\s+(Kingbed|Queenbed|Doublebed|Twinbed)\s*$/i',
         ];
-        
+
         foreach ($roomPatterns as $pattern) {
             if (preg_match($pattern, $hotelName, $m)) {
                 // Special case for Family Ro -> Family Room
@@ -1331,7 +1360,7 @@ class ServiceFeeController extends Controller
         $hotelName = preg_replace('/\s+/', ' ', $hotelName);
 
         return [
-            'hotel_name' => trim($hotelName) ?: $originalHotel, 
+            'hotel_name' => trim($hotelName) ?: $originalHotel,
             'room_type' => $extractedRoom,
             'employee_name' => $extractedEmployee
         ];
@@ -1347,20 +1376,20 @@ class ServiceFeeController extends Controller
 
         // Remove "SERVICE FEE BID: xxxxx | " prefix if exists
         $description = preg_replace('/^SERVICE FEE BID:\s*\d+\s*\|\s*/i', '', $description);
-        
+
         // Pattern: Hotel name, Room type (with possible numbers for nights), Employee name (usually all caps at the end)
         // Examples: 
         // "Amaris Hotel Hertasning Makassar Smart Queen 2 ANDI FADLI"
         // "CLARO Kendari Superior King 1 MUHAMMAD SUSGANDINATA"
         // "The Naripan Hotel Deluxe King Bed 3 DHANI JULIANTO PUTRA"
-        
+
         // Try to extract employee name first (usually 2-4 words in caps at the end)
         if (preg_match('/\s+([A-Z]{2,}(?:\s+[A-Z]{2,}){1,3})$/u', $description, $matches)) {
             $result['employee_name'] = trim($matches[1]);
             // Remove employee name from description
             $description = trim(str_replace($matches[1], '', $description));
         }
-        
+
         // Try to extract room type (common patterns with optional "Bed" and number at the end)
         // Order matters: more specific patterns first (e.g., "Deluxe King Bed" before "King Bed")
         $roomTypePatterns = [
@@ -1381,7 +1410,7 @@ class ServiceFeeController extends Controller
             'Smart Twin Bed',
             'Smart King Bed',
             'Queen Bed',
-            'King Bed', 
+            'King Bed',
             'Twin Bed',
             'Single Bed',
             'Double Bed',
@@ -1417,16 +1446,16 @@ class ServiceFeeController extends Controller
             'Double',
             'Triple'
         ];
-        
+
         $roomTypePattern = implode('|', array_map('preg_quote', $roomTypePatterns));
-        
+
         // Match room type with optional number after it
         if (preg_match('/\b(' . $roomTypePattern . ')(?:\s+\d+)?\s*$/iu', $description, $matches)) {
             $result['room_type'] = trim($matches[1]);
             // Remove room type and trailing number from description
             $description = trim(preg_replace('/\s+' . preg_quote($matches[0], '/') . '\s*$/', '', $description));
         }
-        
+
         // Whatever remains is the hotel name
         if (!empty($description)) {
             $result['hotel_name'] = trim($description);
@@ -1447,37 +1476,37 @@ class ServiceFeeController extends Controller
         ];
 
         $lines = explode("\n", $description);
-        
+
         foreach ($lines as $line) {
             $line = trim($line);
-            
+
             // Route
             if (preg_match('/([A-Z]{3})_([A-Z]{3})/', $line, $matches)) {
                 $result['route'] = $matches[0];
             }
-            
+
             // Trip type
             if (stripos($line, 'One Way') !== false) {
                 $result['trip_type'] = 'One Way';
             } elseif (stripos($line, 'Return') !== false) {
                 $result['trip_type'] = 'Return';
             }
-            
+
             // Pax
             if (preg_match('/(\d+)\s*pax/i', $line, $matches)) {
-                $result['pax'] = (int)$matches[1];
+                $result['pax'] = (int) $matches[1];
             }
-            
+
             // Airline ID
             if (preg_match('/Airline\s+ID:\s*([A-Z0-9]+)/i', $line, $matches)) {
                 $result['airline_id'] = $matches[1];
             }
-            
+
             // Booker email
             if (preg_match('/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/', $line, $matches)) {
                 $result['booker_email'] = $matches[1];
             }
-            
+
             // Employee name (usually last line, all caps)
             if (preg_match('/^([A-Z\s]{3,})$/', $line, $matches)) {
                 $result['employee_name'] = trim($matches[1]);
@@ -1494,8 +1523,8 @@ class ServiceFeeController extends Controller
         //  - "1.234.567" -> 1234567
         //  - "1.234,00" -> 1234 (ignore decimals)
         //  - "Rp 2.500.000" -> 2500000
-        $cleaned = preg_replace('/[^0-9]/', '', (string)$amountString);
-        return (float)($cleaned === '' ? 0 : $cleaned);
+        $cleaned = preg_replace('/[^0-9]/', '', (string) $amountString);
+        return (float) ($cleaned === '' ? 0 : $cleaned);
     }
 
     private function buildDescription($data)
@@ -1523,12 +1552,22 @@ class ServiceFeeController extends Controller
     {
         // Indonesian to English month mapping
         $monthMap = [
-            'Jan' => 'Jan', 'Feb' => 'Feb', 'Mar' => 'Mar', 'Apr' => 'Apr',
-            'Mei' => 'May', 'Jun' => 'Jun', 'Jul' => 'Jul', 
-            'Agt' => 'Aug', 'Agust' => 'Aug', 'Agustus' => 'Aug',
-            'Sep' => 'Sep', 'Okt' => 'Oct', 'Nov' => 'Nov', 'Des' => 'Dec'
+            'Jan' => 'Jan',
+            'Feb' => 'Feb',
+            'Mar' => 'Mar',
+            'Apr' => 'Apr',
+            'Mei' => 'May',
+            'Jun' => 'Jun',
+            'Jul' => 'Jul',
+            'Agt' => 'Aug',
+            'Agust' => 'Aug',
+            'Agustus' => 'Aug',
+            'Sep' => 'Sep',
+            'Okt' => 'Oct',
+            'Nov' => 'Nov',
+            'Des' => 'Dec'
         ];
-        
+
         // Convert Indonesian months to English for Carbon parsing
         foreach ($monthMap as $indo => $eng) {
             if (stripos($dateString, $indo) !== false) {
@@ -1536,7 +1575,7 @@ class ServiceFeeController extends Controller
                 break;
             }
         }
-        
+
         // Parse with Carbon (handles both "01 Aug 2025 10:58:04" and "01 Oct 2025, 05:17:16")
         return \Carbon\Carbon::parse($dateString);
     }
@@ -1548,9 +1587,18 @@ class ServiceFeeController extends Controller
     private function generateSheetName($transactionDate)
     {
         $monthNames = [
-            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
-            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
-            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
         ];
 
         $month = $transactionDate->month;
@@ -1568,9 +1616,9 @@ class ServiceFeeController extends Controller
             ->distinct()
             ->pluck('sheet')
             ->toArray();
-        
+
         // Sort chronologically
-        usort($sheets, function($a, $b) {
+        usort($sheets, function ($a, $b) {
             return $this->parseSheetDate($a) <=> $this->parseSheetDate($b);
         });
 
@@ -1586,21 +1634,21 @@ class ServiceFeeController extends Controller
     public function show($id)
     {
         $serviceFee = ServiceFee::findOrFail($id);
-        
+
         // Ensure numeric values are properly set
         $serviceFee->transaction_amount = floatval($serviceFee->transaction_amount ?? 0);
         $serviceFee->base_amount = floatval($serviceFee->base_amount ?? 0);
         $serviceFee->service_fee = floatval($serviceFee->service_fee ?? 0);
         $serviceFee->vat = floatval($serviceFee->vat ?? 0);
         $serviceFee->total_tagihan = floatval($serviceFee->total_tagihan ?? 0);
-        
+
         // If vat or total_tagihan are 0 or null, recalculate
         if ($serviceFee->vat == 0 || $serviceFee->total_tagihan == 0) {
             $serviceFeeAmount = $serviceFee->service_fee ?: ($serviceFee->base_amount ?: floor($serviceFee->transaction_amount * 0.01));
             $serviceFee->vat = floor($serviceFeeAmount * 0.11);
             $serviceFee->total_tagihan = $serviceFeeAmount + $serviceFee->vat;
         }
-        
+
         return response()->json($serviceFee);
     }
 
@@ -1610,7 +1658,7 @@ class ServiceFeeController extends Controller
     public function update(Request $request, $id)
     {
         $serviceFee = ServiceFee::findOrFail($id);
-        
+
         $validated = $request->validate([
             'booking_id' => 'required|string|unique:service_fees,booking_id,' . $id,
             'transaction_time' => 'required|date',
@@ -1678,7 +1726,7 @@ class ServiceFeeController extends Controller
         $serviceFee = ServiceFee::findOrFail($id);
         $bookingId = $serviceFee->booking_id;
         $sheet = $serviceFee->sheet; // Store sheet before deleting
-        
+
         $serviceFee->delete();
 
         // Redirect back to the same sheet
@@ -1706,7 +1754,7 @@ class ServiceFeeController extends Controller
         }
 
         $count = $query->count();
-        
+
         if ($count === 0) {
             return redirect()->route('service-fee.index')
                 ->with('error', 'No records found for deletion.');
@@ -1725,7 +1773,7 @@ class ServiceFeeController extends Controller
         return redirect()->route('service-fee.index')
             ->with('success', $message);
     }
-    
+
     /**
      * Delete all Service Fee data
      */
@@ -1745,7 +1793,7 @@ class ServiceFeeController extends Controller
         }
 
         $count = $query->count();
-        
+
         if ($count === 0) {
             return redirect()->route('service-fee.index')
                 ->with('error', 'No records found for deletion.');
@@ -1763,7 +1811,7 @@ class ServiceFeeController extends Controller
         return redirect()->route('service-fee.index')
             ->with('success', $message);
     }
-    
+
     /**
      * Convert Excel file to Service Fee CSV format
      * Supports both original format (from office) and preprocessed format
@@ -1773,12 +1821,12 @@ class ServiceFeeController extends Controller
         try {
             $spreadsheet = IOFactory::load($file->getRealPath());
             $sheetNames = $spreadsheet->getSheetNames();
-            
+
             Log::info('Service Fee Excel loaded', [
                 'filename' => $file->getClientOriginalName(),
                 'sheets' => $sheetNames
             ]);
-            
+
             // Detect format: Original format has sheet names like "Juli 2025 - FL", "Juli 2025 - HL"
             $isOriginalFormat = false;
             foreach ($sheetNames as $name) {
@@ -1787,7 +1835,7 @@ class ServiceFeeController extends Controller
                     break;
                 }
             }
-            
+
             if ($isOriginalFormat) {
                 Log::info('Detected original Service Fee Excel format');
                 return $this->convertOriginalServiceFeeExcel($spreadsheet);
@@ -1795,13 +1843,13 @@ class ServiceFeeController extends Controller
                 Log::info('Detected preprocessed Service Fee Excel format');
                 return $this->convertPreprocessedServiceFeeExcel($spreadsheet);
             }
-            
+
         } catch (\Exception $e) {
             Log::error('Service Fee Excel conversion error: ' . $e->getMessage());
             return null;
         }
     }
-    
+
     /**
      * Convert original format Excel (from office) with multiple sheets (FL/HL)
      */
@@ -1809,27 +1857,27 @@ class ServiceFeeController extends Controller
     {
         $sheetNames = $spreadsheet->getSheetNames();
         $allRecords = [];
-        
+
         foreach ($sheetNames as $sheetName) {
             // Parse sheet name: "Juli 2025 - FL" or "Agustus 2025 - HL"
             if (!preg_match('/^(.+)\s*-\s*(FL|HL)$/i', $sheetName, $matches)) {
                 Log::warning("Cannot parse sheet name: $sheetName");
                 continue;
             }
-            
+
             $monthYear = trim($matches[1]); // "Juli 2025"
             $typeCode = strtoupper($matches[2]); // "FL" or "HL"
             $serviceType = $typeCode === 'HL' ? 'hotel' : 'flight';
-            
+
             Log::info("Processing sheet: $sheetName", ['monthYear' => $monthYear, 'type' => $serviceType]);
-            
+
             $sheet = $spreadsheet->getSheetByName($sheetName);
             $rows = $sheet->toArray();
-            
+
             // Find header row
             $headerRowIndex = null;
             $headerRow = null;
-            
+
             for ($i = 0; $i < min(10, count($rows)); $i++) {
                 $rowStr = strtolower(implode(' ', array_map('strval', $rows[$i])));
                 if (strpos($rowStr, 'transaction time') !== false && strpos($rowStr, 'booking id') !== false) {
@@ -1838,47 +1886,47 @@ class ServiceFeeController extends Controller
                     break;
                 }
             }
-            
+
             if ($headerRowIndex === null) {
                 Log::warning("Header not found in sheet: $sheetName");
                 continue;
             }
-            
+
             // Map column indices
             $colMap = [];
             foreach ($headerRow as $idx => $colName) {
-                $cleanName = strtolower(trim((string)$colName));
+                $cleanName = strtolower(trim((string) $colName));
                 $colMap[$cleanName] = $idx;
             }
-            
+
             // Process data rows
             for ($i = $headerRowIndex + 1; $i < count($rows); $i++) {
                 $row = $rows[$i];
-                
+
                 $bookingIdCol = $colMap['booking id'] ?? 3;
-                $bookingId = trim((string)($row[$bookingIdCol] ?? ''));
-                
+                $bookingId = trim((string) ($row[$bookingIdCol] ?? ''));
+
                 if (empty($bookingId) || !is_numeric($bookingId)) {
                     continue;
                 }
-                
+
                 // Get fields
-                $transactionTime = trim((string)($row[$colMap['transaction time'] ?? 2] ?? ''));
-                $status = trim((string)($row[$colMap['status'] ?? 9] ?? 'ISSUED'));
-                $description = trim((string)($row[$colMap['description'] ?? 10] ?? ''));
-                
+                $transactionTime = trim((string) ($row[$colMap['transaction time'] ?? 2] ?? ''));
+                $status = trim((string) ($row[$colMap['status'] ?? 9] ?? 'ISSUED'));
+                $description = trim((string) ($row[$colMap['description'] ?? 10] ?? ''));
+
                 // Parse amounts
                 $transactionAmountRaw = $row[$colMap['transaction amount'] ?? 13] ?? 0;
                 $baseAmountRaw = $row[$colMap['base amount'] ?? 14] ?? 0;
-                
+
                 $transactionAmount = $this->parseServiceFeeAmount($transactionAmountRaw);
                 $serviceFee = $this->parseServiceFeeAmount($baseAmountRaw);
-                
+
                 // Parse description
-                $parsed = $serviceType === 'hotel' 
+                $parsed = $serviceType === 'hotel'
                     ? $this->parseServiceFeeHotelDescription($description)
                     : $this->parseServiceFeeFlightDescription($description);
-                
+
                 $record = [
                     'booking_id' => $bookingId,
                     'transaction_time' => $transactionTime,
@@ -1888,18 +1936,18 @@ class ServiceFeeController extends Controller
                     'transaction_amount' => $transactionAmount,
                     'service_fee' => $serviceFee,
                 ];
-                
+
                 $record = array_merge($record, $parsed);
                 $allRecords[] = $record;
             }
         }
-        
+
         Log::info('Original Service Fee Excel converted', ['total_records' => count($allRecords)]);
-        
+
         // Build CSV
         return $this->buildServiceFeeCsv($allRecords);
     }
-    
+
     /**
      * Convert preprocessed Excel format (already has Hotel Name, Route columns)
      */
@@ -1907,11 +1955,11 @@ class ServiceFeeController extends Controller
     {
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray();
-        
+
         // Find header row
         $headerRow = null;
         $headerRowIndex = -1;
-        
+
         for ($i = 0; $i < min(5, count($rows)); $i++) {
             $row = $rows[$i];
             if (in_array('Booking ID', $row) || in_array('Transaction Time', $row)) {
@@ -1920,42 +1968,42 @@ class ServiceFeeController extends Controller
                 break;
             }
         }
-        
+
         if (!$headerRow) {
             Log::error('Service Fee header row not found in preprocessed format');
             return null;
         }
-        
+
         // Detect service type
         $isHotel = in_array('Hotel Name', $headerRow);
         $serviceType = $isHotel ? 'hotel' : 'flight';
-        
+
         // Map columns
         $colMap = [];
         foreach ($headerRow as $idx => $colName) {
             $colMap[$colName] = $idx;
         }
-        
+
         $allRecords = [];
-        
+
         for ($i = $headerRowIndex + 1; $i < count($rows); $i++) {
             $row = $rows[$i];
-            
+
             if (empty(array_filter($row))) {
                 continue;
             }
-            
+
             $bookingId = $row[$colMap['Booking ID'] ?? 2] ?? '';
             if (empty($bookingId)) {
                 continue;
             }
-            
+
             $transactionTime = $row[$colMap['Transaction Time'] ?? 1] ?? '';
             $status = $row[$colMap['Status'] ?? 3] ?? 'ISSUED';
             $transactionAmount = $this->parseServiceFeeAmount($row[$colMap['Transaction Amount (Rp)'] ?? $colMap['Transaction Amount'] ?? 0] ?? 0);
             $serviceFee = $this->parseServiceFeeAmount($row[$colMap['Service Fee (Rp)'] ?? $colMap['Service Fee'] ?? $colMap['Base Amount'] ?? 0] ?? 0);
             $sheetName = $row[$colMap['Sheet'] ?? 0] ?? 'Unknown';
-            
+
             $record = [
                 'booking_id' => $bookingId,
                 'transaction_time' => $transactionTime,
@@ -1965,7 +2013,7 @@ class ServiceFeeController extends Controller
                 'transaction_amount' => $transactionAmount,
                 'service_fee' => $serviceFee,
             ];
-            
+
             if ($isHotel) {
                 $record['hotel_name'] = $row[$colMap['Hotel Name'] ?? 4] ?? '';
                 $record['room_type'] = $row[$colMap['Room Type'] ?? 5] ?? '';
@@ -1978,15 +2026,15 @@ class ServiceFeeController extends Controller
                 $record['booker_email'] = $row[$colMap['Booker Email'] ?? 8] ?? '';
                 $record['employee_name'] = $row[$colMap['Passenger Name (Employee)'] ?? $colMap['Employee Name'] ?? 9] ?? '';
             }
-            
+
             $allRecords[] = $record;
         }
-        
+
         Log::info('Preprocessed Service Fee Excel converted', ['total_records' => count($allRecords)]);
-        
+
         return $this->buildServiceFeeCsv($allRecords);
     }
-    
+
     /**
      * Build CSV string from records array
      */
@@ -1995,16 +2043,16 @@ class ServiceFeeController extends Controller
         if (empty($records)) {
             return null;
         }
-        
+
         // Separate hotel and flight records
         $hotelRecords = array_filter($records, fn($r) => $r['service_type'] === 'hotel');
         $flightRecords = array_filter($records, fn($r) => $r['service_type'] === 'flight');
-        
+
         $csvLines = [];
-        
+
         // Build combined CSV with all necessary columns
         $csvLines[] = 'Transaction Time,Booking ID,Status,Hotel Name,Room Type,Route,Trip Type,Pax,Airline ID,Booker Email,Passenger Name (Employee),Transaction Amount,Service Fee,Sheet';
-        
+
         foreach ($records as $record) {
             $csvLines[] = sprintf(
                 '"%s","%s","%s","%s","%s","%s","%s",%d,"%s","%s","%s",%d,%d,"%s"',
@@ -2024,23 +2072,23 @@ class ServiceFeeController extends Controller
                 $record['sheet'] ?? ''
             );
         }
-        
+
         return implode("\n", $csvLines);
     }
-    
+
     /**
      * Parse amount from various formats
      */
     private function parseServiceFeeAmount($value)
     {
         if (is_numeric($value)) {
-            return (int)$value;
+            return (int) $value;
         }
         // Remove "Rp", spaces, commas, dots
-        $cleaned = preg_replace('/[^\d]/', '', (string)$value);
-        return (int)$cleaned;
+        $cleaned = preg_replace('/[^\d]/', '', (string) $value);
+        return (int) $cleaned;
     }
-    
+
     /**
      * Parse hotel description from original format
      */
@@ -2051,48 +2099,75 @@ class ServiceFeeController extends Controller
             'room_type' => null,
             'employee_name' => null,
         ];
-        
+
         // Remove "SERVICE FEE BID: xxxxx | " prefix
         $description = preg_replace('/^SERVICE FEE BID:\s*\d+\s*\|\s*/i', '', $description);
-        
+
         if (empty($description)) {
             return $result;
         }
-        
+
         // Extract employee name (2-4 words in CAPS at end)
         if (preg_match('/\s+([A-Z]{2,}(?:\s+[A-Z]{2,}){0,4})$/u', $description, $matches)) {
             $result['employee_name'] = trim($matches[1]);
             $description = trim(str_replace($matches[1], '', $description));
         }
-        
+
         // Room type patterns
         $roomTypePatterns = [
-            'Deluxe King Bed', 'Deluxe Queen Bed', 'Deluxe Twin Bed',
-            'Superior King Bed', 'Superior Queen Bed', 'Superior Twin Bed', 'Superior King',
-            'Standard King Bed', 'Standard Queen Bed', 'Standard Twin Bed',
-            'Smart Queen', 'Smart Twin', 'Smart King',
-            'Superior Queen', 'Superior Twin', 'Superior Double', 'Superior Single',
-            'Deluxe Queen', 'Deluxe King', 'Deluxe Twin',
-            'Standard Queen', 'Standard King', 'Standard Twin',
-            'Executive Queen', 'Executive King', 'Executive Suite',
-            'Suite King', 'Suite Queen', 'Suite',
-            'Family Room', 'Family', 'Queen', 'King', 'Twin', 'Single', 'Double', 'Triple'
+            'Deluxe King Bed',
+            'Deluxe Queen Bed',
+            'Deluxe Twin Bed',
+            'Superior King Bed',
+            'Superior Queen Bed',
+            'Superior Twin Bed',
+            'Superior King',
+            'Standard King Bed',
+            'Standard Queen Bed',
+            'Standard Twin Bed',
+            'Smart Queen',
+            'Smart Twin',
+            'Smart King',
+            'Superior Queen',
+            'Superior Twin',
+            'Superior Double',
+            'Superior Single',
+            'Deluxe Queen',
+            'Deluxe King',
+            'Deluxe Twin',
+            'Standard Queen',
+            'Standard King',
+            'Standard Twin',
+            'Executive Queen',
+            'Executive King',
+            'Executive Suite',
+            'Suite King',
+            'Suite Queen',
+            'Suite',
+            'Family Room',
+            'Family',
+            'Queen',
+            'King',
+            'Twin',
+            'Single',
+            'Double',
+            'Triple'
         ];
-        
+
         $roomTypePattern = implode('|', array_map('preg_quote', $roomTypePatterns));
-        
+
         if (preg_match('/\b(' . $roomTypePattern . ')(?:\s+\d+)?\s*$/iu', $description, $matches)) {
             $result['room_type'] = trim($matches[1]);
             $description = trim(preg_replace('/\s*' . preg_quote($matches[0], '/') . '\s*$/', '', $description));
         }
-        
+
         if (!empty($description)) {
             $result['hotel_name'] = trim($description);
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Parse flight description from original format
      */
@@ -2106,44 +2181,44 @@ class ServiceFeeController extends Controller
             'booker_email' => null,
             'employee_name' => null,
         ];
-        
+
         $parts = preg_split('/[\n|]+/', $description);
-        
+
         foreach ($parts as $part) {
             $part = trim($part);
-            
+
             // Trip type
             if (preg_match('/^(ONE_WAY|TWO_WAY|ROUND_TRIP)/i', $part, $matches)) {
                 $tripType = strtoupper($matches[1]);
                 $result['trip_type'] = $tripType === 'ONE_WAY' ? 'One Way' : 'Round Trip';
             }
-            
+
             // Route
             if (preg_match('/([A-Z]{3})_([A-Z]{3})/', $part, $matches)) {
                 $result['route'] = $matches[1] . '-' . $matches[2];
             }
-            
+
             // Pax
             if (preg_match('/Pax\s*:\s*(\d+)/i', $part, $matches)) {
-                $result['pax'] = (int)$matches[1];
+                $result['pax'] = (int) $matches[1];
             }
-            
+
             // Airline ID
             if (preg_match('/Airline\s+ID\s*:\s*([A-Z0-9]{2})/i', $part, $matches)) {
                 $result['airline_id'] = $matches[1];
             }
-            
+
             // Booker email
             if (preg_match('/Booker:\s*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i', $part, $matches)) {
                 $result['booker_email'] = $matches[1];
             }
-            
+
             // Passengers
             if (preg_match('/Passengers?:\s*(.+)/i', $part, $matches)) {
                 $result['employee_name'] = trim($matches[1]);
             }
         }
-        
+
         return $result;
     }
 }
