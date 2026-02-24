@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+      },
       colors: {
         // PLN Brand Colors - Softer Version
         pln: {
@@ -44,6 +48,30 @@ export default {
             600: '#D64F57',
             700: '#BE3F47',
           },
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out forwards',
+        'slide-in-left': 'slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'scale-in': 'scaleIn 0.2s ease-out forwards',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-12px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { boxShadow: '0 0 8px rgba(245, 200, 66, 0.3)' },
+          '50%': { boxShadow: '0 0 20px rgba(245, 200, 66, 0.6)' },
+        },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
         },
       },
     },

@@ -17,11 +17,11 @@ const formatRupiah = (value) => {
 // Helper function to format date
 const formatDate = (dateString) => {
     if (!dateString || dateString === '-') return '-';
-    
+
     try {
         const date = new Date(dateString);
         if (isNaN(date.getTime())) return dateString;
-        
+
         return new Intl.DateTimeFormat('id-ID', {
             day: 'numeric',
             month: 'long',
@@ -96,7 +96,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
         }
         return p.tanggal_bayar && p.tanggal_bayar !== '-';
     }).length;
-    
+
     const inProgressPayments = payments.filter(p => {
         // Prioritas: status_angsuran, lalu tanggal_bayar
         if (p.status_angsuran) {
@@ -104,7 +104,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
         }
         return !p.tanggal_bayar || p.tanggal_bayar === '-';
     }).length;
-    
+
     const totalPayments = payments.length;
     const completedPercentage = totalPayments > 0 ? Math.round((completedPayments / totalPayments) * 100) : 0;
 
@@ -113,9 +113,9 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
     payments.forEach(payment => {
         const key = `${payment.bulan.substring(0, 3)} ${payment.tahun}`;
         // Determine if this payment is paid (Lunas) or not
-        const isPaid = payment.status_angsuran === 'Lunas' || 
-                       (payment.tanggal_bayar && payment.tanggal_bayar !== '-');
-        
+        const isPaid = payment.status_angsuran === 'Lunas' ||
+            (payment.tanggal_bayar && payment.tanggal_bayar !== '-');
+
         if (!monthlyPayments[key]) {
             monthlyPayments[key] = {
                 amount: 0,
@@ -128,7 +128,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
             monthlyPayments[key].status = 'Belum Bayar';
         }
     });
-    
+
     const monthlyChartData = Object.entries(monthlyPayments)
         .slice(-6) // Last 6 months
         .map(([month, data]) => ({
@@ -193,7 +193,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         const data = {
             ...formData,
             nip: employee.nip,
@@ -233,13 +233,13 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
         <MainLayout>
             <Head title={`Detail - ${employee.nama}`} />
             <Toaster position="top-right" />
-            
+
             <div className="p-8">
                 {/* Back Button and Header */}
                 <div className="mb-6 flex items-center justify-between">
                     <div>
-                        <Link 
-                            href="/bfko" 
+                        <Link
+                            href="/bfko"
                             className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium mb-4 transition-colors"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +250,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                         <h1 className="text-3xl font-bold text-gray-900">{employee.nama}</h1>
                         <p className="text-gray-600 mt-1">NIP: {employee.nip}</p>
                     </div>
-                    
+
                     <div className="flex items-center gap-3">
                         {/* Export Buttons */}
                         <div className="flex gap-2">
@@ -273,7 +273,7 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                 Excel
                             </a>
                         </div>
-                        
+
                         {/* Year Filter */}
                         {availableYears.length > 1 && (
                             <div className="relative">
@@ -283,14 +283,14 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                     className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-purple-200"
                                     style={{ color: 'white' }}
                                 >
-                                    <option value="all" className="text-gray-900 bg-white">📆 Semua Tahun</option>
+                                    <option value="all" className="text-gray-900 bg-white">Semua Tahun</option>
                                     {availableYears.map(year => (
                                         <option key={year} value={year} className="text-gray-900 bg-white">{year}</option>
                                     ))}
                                 </select>
                                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
                                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                     </svg>
                                 </div>
                             </div>
@@ -358,21 +358,21 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                 <ResponsiveContainer width="100%" height={220}>
                                     <BarChart data={monthlyChartData}>
                                         <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                        <XAxis 
-                                            dataKey="month" 
+                                        <XAxis
+                                            dataKey="month"
                                             tick={{ fill: '#6b7280', fontSize: 12 }}
                                             angle={-45}
                                             textAnchor="end"
                                             height={80}
                                         />
-                                        <YAxis 
+                                        <YAxis
                                             tickFormatter={(value) => `${value.toFixed(1)} M`}
                                             tick={{ fill: '#6b7280', fontSize: 12 }}
                                             width={60}
                                         />
                                         <Tooltip content={<CustomBarTooltip />} />
-                                        <Bar 
-                                            dataKey="amount" 
+                                        <Bar
+                                            dataKey="amount"
                                             radius={[8, 8, 0, 0]}
                                             name="Pembayaran"
                                         >
@@ -401,38 +401,35 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                                 <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
                                     <button
                                         onClick={() => setStatusFilter('all')}
-                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
-                                            statusFilter === 'all'
+                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${statusFilter === 'all'
                                                 ? 'bg-[#4AADE8] text-white shadow'
                                                 : 'text-gray-600 hover:bg-gray-200'
-                                        }`}
+                                            }`}
                                     >
                                         Semua ({payments.length})
                                     </button>
                                     <button
                                         onClick={() => setStatusFilter('lunas')}
-                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
-                                            statusFilter === 'lunas'
+                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${statusFilter === 'lunas'
                                                 ? 'bg-green-500 text-white shadow'
                                                 : 'text-gray-600 hover:bg-gray-200'
-                                        }`}
+                                            }`}
                                     >
                                         Lunas ({completedPayments})
                                     </button>
                                     <button
                                         onClick={() => setStatusFilter('belum')}
-                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
-                                            statusFilter === 'belum'
+                                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${statusFilter === 'belum'
                                                 ? 'bg-[#F5C842] text-white shadow'
                                                 : 'text-gray-600 hover:bg-gray-200'
-                                        }`}
+                                            }`}
                                     >
                                         Belum Bayar ({inProgressPayments})
                                     </button>
                                 </div>
                                 <span className="text-sm text-gray-500">
-                                    {statusFilter === 'all' ? payments.length : 
-                                     statusFilter === 'lunas' ? completedPayments : inProgressPayments} transaksi
+                                    {statusFilter === 'all' ? payments.length :
+                                        statusFilter === 'lunas' ? completedPayments : inProgressPayments} transaksi
                                 </span>
                                 <button
                                     onClick={handleAddNew}
@@ -449,104 +446,103 @@ export default function BfkoEmployeeDetail({ employee, payments, availableYears 
                             // Filter payments based on status
                             const filteredPayments = payments.filter(p => {
                                 if (statusFilter === 'all') return true;
-                                const isPaid = p.status_angsuran === 'Lunas' || 
-                                              (p.tanggal_bayar && p.tanggal_bayar !== '-');
+                                const isPaid = p.status_angsuran === 'Lunas' ||
+                                    (p.tanggal_bayar && p.tanggal_bayar !== '-');
                                 if (statusFilter === 'lunas') return isPaid;
                                 if (statusFilter === 'belum') return !isPaid;
                                 return true;
                             });
-                            
+
                             return filteredPayments.length > 0 ? (
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead>
-                                        <tr className="border-b border-gray-200">
-                                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
-                                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Description</th>
-                                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Periode</th>
-                                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Category</th>
-                                            <th className="text-right py-3 px-4 font-semibold text-gray-700">Total</th>
-                                            <th className="text-center py-3 px-4 font-semibold text-gray-700">Status</th>
-                                            <th className="text-center py-3 px-4 font-semibold text-gray-700">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredPayments.map((payment, index) => (
-                                            <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                                <td className="py-4 px-4 text-gray-900">
-                                                    {formatDate(payment.tanggal_bayar)}
-                                                </td>
-                                                <td className="py-4 px-4 text-gray-900">
-                                                    Angsuran BFKO
-                                                </td>
-                                                <td className="py-4 px-4 text-gray-900">
-                                                    {payment.bulan} {payment.tahun}
-                                                </td>
-                                                <td className="py-4 px-4 text-gray-900">BFKO</td>
-                                                <td className="py-4 px-4 font-semibold text-gray-900 text-right">
-                                                    {formatRupiah(payment.nilai_angsuran)}
-                                                </td>
-                                                <td className="py-4 px-4 text-center">
-                                                    <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                                                        (() => {
-                                                            // Prioritas: status_angsuran, lalu tanggal_bayar
-                                                            if (payment.status_angsuran) {
-                                                                return payment.status_angsuran === 'Lunas' 
+                                <div className="overflow-x-auto">
+                                    <table className="w-full">
+                                        <thead>
+                                            <tr className="border-b border-gray-200">
+                                                <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
+                                                <th className="text-left py-3 px-4 font-semibold text-gray-700">Description</th>
+                                                <th className="text-left py-3 px-4 font-semibold text-gray-700">Periode</th>
+                                                <th className="text-left py-3 px-4 font-semibold text-gray-700">Category</th>
+                                                <th className="text-right py-3 px-4 font-semibold text-gray-700">Total</th>
+                                                <th className="text-center py-3 px-4 font-semibold text-gray-700">Status</th>
+                                                <th className="text-center py-3 px-4 font-semibold text-gray-700">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {filteredPayments.map((payment, index) => (
+                                                <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                                    <td className="py-4 px-4 text-gray-900">
+                                                        {formatDate(payment.tanggal_bayar)}
+                                                    </td>
+                                                    <td className="py-4 px-4 text-gray-900">
+                                                        Angsuran BFKO
+                                                    </td>
+                                                    <td className="py-4 px-4 text-gray-900">
+                                                        {payment.bulan} {payment.tahun}
+                                                    </td>
+                                                    <td className="py-4 px-4 text-gray-900">BFKO</td>
+                                                    <td className="py-4 px-4 font-semibold text-gray-900 text-right">
+                                                        {formatRupiah(payment.nilai_angsuran)}
+                                                    </td>
+                                                    <td className="py-4 px-4 text-center">
+                                                        <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${(() => {
+                                                                // Prioritas: status_angsuran, lalu tanggal_bayar
+                                                                if (payment.status_angsuran) {
+                                                                    return payment.status_angsuran === 'Lunas'
+                                                                        ? 'bg-green-100 text-green-800'
+                                                                        : 'bg-yellow-100 text-yellow-800';
+                                                                }
+                                                                return (payment.tanggal_bayar && payment.tanggal_bayar !== '-')
                                                                     ? 'bg-green-100 text-green-800'
                                                                     : 'bg-yellow-100 text-yellow-800';
-                                                            }
-                                                            return (payment.tanggal_bayar && payment.tanggal_bayar !== '-')
-                                                                ? 'bg-green-100 text-green-800'
-                                                                : 'bg-yellow-100 text-yellow-800';
-                                                        })()
-                                                    }`}>
-                                                        {(() => {
-                                                            if (payment.status_angsuran) {
-                                                                return payment.status_angsuran;
-                                                            }
-                                                            return (payment.tanggal_bayar && payment.tanggal_bayar !== '-') 
-                                                                ? 'Complete' 
-                                                                : 'In Progress';
-                                                        })()}
-                                                    </span>
-                                                </td>
-                                                <td className="py-4 px-4 text-center">
-                                                    <div className="flex items-center justify-center gap-2">
-                                                        <button
-                                                            onClick={() => handleEdit(payment)}
-                                                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                                                            title="Edit"
-                                                        >
-                                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                            </svg>
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleDelete(payment.id)}
-                                                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                                            title="Hapus"
-                                                        >
-                                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        ) : (
-                            <div className="text-center py-12 text-gray-500">
-                                <svg className="w-16 h-16 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                <p>{statusFilter === 'all' ? 'Tidak ada riwayat transaksi' : 
-                                    statusFilter === 'lunas' ? 'Tidak ada transaksi yang sudah lunas' : 
-                                    'Tidak ada transaksi yang belum dibayar'}</p>
-                            </div>
-                        );
+                                                            })()
+                                                            }`}>
+                                                            {(() => {
+                                                                if (payment.status_angsuran) {
+                                                                    return payment.status_angsuran;
+                                                                }
+                                                                return (payment.tanggal_bayar && payment.tanggal_bayar !== '-')
+                                                                    ? 'Complete'
+                                                                    : 'In Progress';
+                                                            })()}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-4 px-4 text-center">
+                                                        <div className="flex items-center justify-center gap-2">
+                                                            <button
+                                                                onClick={() => handleEdit(payment)}
+                                                                className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                                title="Edit"
+                                                            >
+                                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                                </svg>
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleDelete(payment.id)}
+                                                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                                title="Hapus"
+                                                            >
+                                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ) : (
+                                <div className="text-center py-12 text-gray-500">
+                                    <svg className="w-16 h-16 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <p>{statusFilter === 'all' ? 'Tidak ada riwayat transaksi' :
+                                        statusFilter === 'lunas' ? 'Tidak ada transaksi yang sudah lunas' :
+                                            'Tidak ada transaksi yang belum dibayar'}</p>
+                                </div>
+                            );
                         })()}
                     </div>
                 </div>

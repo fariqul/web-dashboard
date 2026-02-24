@@ -1,1 +1,136 @@
 @import "tailwindcss";
+
+/* ==========================================
+   PLN Dashboard — Custom Styles
+   ========================================== */
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 173, 232, 0.25);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 173, 232, 0.45);
+}
+
+/* Sidebar custom scrollbar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Noise texture overlay for glassmorphism */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  border-radius: inherit;
+}
+
+/* Staggered animation delays for nav items */
+.nav-item-0 {
+  animation-delay: 0ms;
+}
+
+.nav-item-1 {
+  animation-delay: 50ms;
+}
+
+.nav-item-2 {
+  animation-delay: 100ms;
+}
+
+.nav-item-3 {
+  animation-delay: 150ms;
+}
+
+.nav-item-4 {
+  animation-delay: 200ms;
+}
+
+.nav-item-5 {
+  animation-delay: 250ms;
+}
+
+/* Active nav indicator animation */
+.nav-indicator {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Glass card hover lift */
+.glass-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Focus-visible styles */
+:focus-visible {
+  outline: 2px solid #F5C842;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Dropdown expand transition */
+.dropdown-content {
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
+}
+
+/* Slide-in animation for nav items */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Pulse glow for active dots */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(245, 200, 66, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 16px rgba(245, 200, 66, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
