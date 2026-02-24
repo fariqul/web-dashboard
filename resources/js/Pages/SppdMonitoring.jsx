@@ -947,7 +947,7 @@ export default function SppdMonitoring({
                                 {customerViewMode === 'trips' ? (
                                     // By Trips Count
                                     topCustomersByCount && topCustomersByCount.length > 0 ? (
-                                        topCustomersByCount.slice(0, 5).map((customer, index) => (
+                                        topCustomersByCount.slice(0, 10).map((customer, index) => (
                                             <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
                                                 <div className="flex items-center gap-3 flex-1 min-w-0">
                                                     <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
@@ -969,7 +969,7 @@ export default function SppdMonitoring({
                                 ) : (
                                     // By Amount
                                     topCustomersByAmount && topCustomersByAmount.length > 0 ? (
-                                        topCustomersByAmount.slice(0, 5).map((customer, index) => (
+                                        topCustomersByAmount.slice(0, 10).map((customer, index) => (
                                             <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
                                                 <div className="flex items-center gap-3 flex-1 min-w-0">
                                                     <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
@@ -997,7 +997,7 @@ export default function SppdMonitoring({
                             <h3 className="text-lg font-bold text-gray-800 mb-4">Popular Destinations (Amount)</h3>
                             <div className="space-y-2 max-h-[250px] overflow-y-auto">
                                 {popularDestinations && popularDestinations.length > 0 ? (
-                                    popularDestinations.slice(0, 5).map((dest, index) => (
+                                    popularDestinations.slice(0, 10).map((dest, index) => (
                                         <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
                                             <div className="flex items-center gap-3 flex-1 min-w-0">
                                                 <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
