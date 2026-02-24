@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SppdTransaction extends Model
 {
     protected $table = 'sppd_transactions';
-    
+
     protected $fillable = [
         'transaction_number',
         'trip_number',
@@ -27,11 +27,11 @@ class SppdTransaction extends Model
         'sheet',
     ];
 
+    // Note: Date casts intentionally removed to avoid Carbon::parse() overhead
+    // during heavy collection operations. Raw string dates work fine with
+    // PHP's date()/strtotime() functions used in route closures.
     protected $casts = [
-        'trip_begins_on' => 'date',
-        'trip_ends_on' => 'date',
-        'planned_payment_date' => 'date',
-        'paid_amount' => 'decimal:2',
+        'paid_amount' => 'float',
     ];
 
     /**
@@ -43,15 +43,15 @@ class SppdTransaction extends Model
             return $query;
         }
 
-        return $query->where(function($q) use ($search) {
+        return $query->where(function ($q) use ($search) {
             $q->where('customer_name', 'like', '%' . $search . '%')
-              ->orWhere('trip_number', 'like', '%' . $search . '%')
-              ->orWhere('document_number', 'like', '%' . $search . '%')
-              ->orWhere('trip_destination_full', 'like', '%' . $search . '%')
-              ->orWhere('origin', 'like', '%' . $search . '%')
-              ->orWhere('destination', 'like', '%' . $search . '%')
-              ->orWhere('reason_for_trip', 'like', '%' . $search . '%')
-              ->orWhere('beneficiary_bank_name', 'like', '%' . $search . '%');
+                ->orWhere('trip_number', 'like', '%' . $search . '%')
+                ->orWhere('document_number', 'like', '%' . $search . '%')
+                ->orWhere('trip_destination_full', 'like', '%' . $search . '%')
+                ->orWhere('origin', 'like', '%' . $search . '%')
+                ->orWhere('destination', 'like', '%' . $search . '%')
+                ->orWhere('reason_for_trip', 'like', '%' . $search . '%')
+                ->orWhere('beneficiary_bank_name', 'like', '%' . $search . '%');
         });
     }
 }
