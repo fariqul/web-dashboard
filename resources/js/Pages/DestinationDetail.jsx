@@ -4,8 +4,8 @@ import { router } from '@inertiajs/react';
 import TransactionDetailModal from '../Components/TransactionDetailModal';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function DestinationDetail({ 
-    destination, 
+export default function DestinationDetail({
+    destination,
     selectedSheet,
     selectedYear,
     transactionType = 'payment',
@@ -17,7 +17,7 @@ export default function DestinationDetail({
     const [selectedTransactionId, setSelectedTransactionId] = useState(null);
     const [modalMode, setModalMode] = useState('view');
     const [searchTerm, setSearchTerm] = useState(filters.search || '');
-    
+
     // Auto search with debounce
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -30,28 +30,28 @@ export default function DestinationDetail({
                     search: searchTerm,
                     sort: filters.sort,
                     direction: filters.direction,
-                }, { 
+                }, {
                     preserveState: true,
                     preserveScroll: true,
                 });
             }
         }, 500); // Delay 500ms setelah user berhenti mengetik
-        
+
         return () => clearTimeout(timeoutId);
     }, [searchTerm]);
-    
+
     const handleViewTransaction = (transactionId) => {
         setSelectedTransactionId(transactionId);
         setModalMode('view');
         setIsModalOpen(true);
     };
-    
+
     const handleEditTransaction = (transactionId) => {
         setSelectedTransactionId(transactionId);
         setModalMode('edit');
         setIsModalOpen(true);
     };
-    
+
     const handleDeleteTransaction = (transactionId, employeeName) => {
         if (confirm(`Are you sure you want to delete this transaction for ${employeeName}?`)) {
             router.delete(`/cc-card/transaction/${transactionId}`, {
@@ -65,7 +65,7 @@ export default function DestinationDetail({
             });
         }
     };
-    
+
     const handleSort = (field) => {
         const newDirection = filters.sort === field && filters.direction === 'asc' ? 'desc' : 'asc';
         router.get('/cc-card/destination-detail', {
@@ -76,7 +76,7 @@ export default function DestinationDetail({
             search: searchTerm,
             sort: field,
             direction: newDirection,
-        }, { 
+        }, {
             preserveState: true,
             preserveScroll: true,
         });
@@ -100,13 +100,13 @@ export default function DestinationDetail({
             </svg>
         );
     };
-    
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('id-ID', { 
-            day: '2-digit', 
-            month: 'short', 
-            year: 'numeric' 
+        return date.toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
         });
     };
 
@@ -119,7 +119,7 @@ export default function DestinationDetail({
             <div className="p-8">
                 {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm mb-6">
-                    <button 
+                    <button
                         onClick={() => {
                             const params = {};
                             if (selectedYear && selectedYear !== 'all') {
@@ -143,8 +143,8 @@ export default function DestinationDetail({
                 <div className="mb-6">
                     <h1 className="text-3xl font-bold mb-2">{destination}</h1>
                     <p className="text-gray-600">
-                        {selectedYear && selectedYear !== 'all' 
-                            ? `year:${selectedYear}` 
+                        {selectedYear && selectedYear !== 'all'
+                            ? `year:${selectedYear}`
                             : (selectedSheet === 'all' ? 'All Sheets' : selectedSheet)
                         }
                     </p>
@@ -180,7 +180,7 @@ export default function DestinationDetail({
                                     {transactions.total} transaction{transactions.total !== 1 ? 's' : ''} found
                                 </p>
                             </div>
-                            
+
                             {/* Search Bar */}
                             <div className="flex gap-2 items-center">
                                 <div className="relative">
@@ -188,7 +188,7 @@ export default function DestinationDetail({
                                         type="text"
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        placeholder="🔍 Search by name, booking ID, personnel no..."
+                                        placeholder="Search by name, booking ID, personnel no..."
                                         className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 w-96 pr-10"
                                     />
                                     {searchTerm && (
@@ -206,7 +206,7 @@ export default function DestinationDetail({
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead className="bg-gray-100 border-b border-gray-200">
@@ -215,7 +215,7 @@ export default function DestinationDetail({
                                         No
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('employee_name')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -223,7 +223,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('booking_id')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -231,7 +231,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('personel_number')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -239,7 +239,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('trip_number')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -247,7 +247,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('departure_date')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -255,7 +255,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('return_date')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -263,7 +263,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('duration_days')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition"
                                         >
@@ -271,7 +271,7 @@ export default function DestinationDetail({
                                         </button>
                                     </th>
                                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <button 
+                                        <button
                                             onClick={() => handleSort('payment_amount')}
                                             className="flex items-center gap-1 hover:text-cyan-600 transition ml-auto"
                                         >
@@ -338,14 +338,14 @@ export default function DestinationDetail({
                                                         className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 transition font-medium"
                                                         title="Edit Transaction"
                                                     >
-                                                        ✏️ Edit
+                                                        Edit
                                                     </button>
                                                     <button
                                                         onClick={() => handleDeleteTransaction(transaction.id, transaction.employee_name)}
                                                         className="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600 transition font-medium"
                                                         title="Delete Transaction"
                                                     >
-                                                        🗑️ Delete
+                                                        Delete
                                                     </button>
                                                 </div>
                                             </td>
@@ -364,7 +364,7 @@ export default function DestinationDetail({
                             </tbody>
                         </table>
                     </div>
-                    
+
                     {/* Pagination */}
                     {transactions.last_page > 1 && (
                         <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
@@ -387,11 +387,10 @@ export default function DestinationDetail({
                                             }
                                         }}
                                         disabled={transactions.current_page === 1}
-                                        className={`px-3 py-1 rounded-md text-sm font-medium transition ${
-                                            transactions.current_page === 1
+                                        className={`px-3 py-1 rounded-md text-sm font-medium transition ${transactions.current_page === 1
                                                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                                 : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                                        }`}
+                                            }`}
                                     >
                                         ← Prev
                                     </button>
@@ -404,14 +403,14 @@ export default function DestinationDetail({
 
                                         // Always show first page
                                         pages.push(1);
-                                        
+
                                         // Show pages around current page
                                         for (let i = Math.max(2, current - 1); i <= Math.min(last - 1, current + 1); i++) {
                                             if (!pages.includes(i)) {
                                                 pages.push(i);
                                             }
                                         }
-                                        
+
                                         // Always show last page
                                         if (!pages.includes(last)) {
                                             pages.push(last);
@@ -436,11 +435,10 @@ export default function DestinationDetail({
                                                                     page: page,
                                                                 });
                                                             }}
-                                                            className={`px-3 py-1 rounded-md text-sm font-medium transition ${
-                                                                current === page
+                                                            className={`px-3 py-1 rounded-md text-sm font-medium transition ${current === page
                                                                     ? 'bg-cyan-500 text-white'
                                                                     : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                                                            }`}
+                                                                }`}
                                                         >
                                                             {page}
                                                         </button>
@@ -463,11 +461,10 @@ export default function DestinationDetail({
                                                             page: page,
                                                         });
                                                     }}
-                                                    className={`px-3 py-1 rounded-md text-sm font-medium transition ${
-                                                        current === page
+                                                    className={`px-3 py-1 rounded-md text-sm font-medium transition ${current === page
                                                             ? 'bg-cyan-500 text-white'
                                                             : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {page}
                                                 </button>
@@ -492,11 +489,10 @@ export default function DestinationDetail({
                                             }
                                         }}
                                         disabled={transactions.current_page === transactions.last_page}
-                                        className={`px-3 py-1 rounded-md text-sm font-medium transition ${
-                                            transactions.current_page === transactions.last_page
+                                        className={`px-3 py-1 rounded-md text-sm font-medium transition ${transactions.current_page === transactions.last_page
                                                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                                 : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                                        }`}
+                                            }`}
                                     >
                                         Next →
                                     </button>
@@ -519,7 +515,7 @@ export default function DestinationDetail({
                     </button>
                 </div>
             </div>
-            
+
             {/* Transaction Detail Modal */}
             <TransactionDetailModal
                 isOpen={isModalOpen}
@@ -527,7 +523,7 @@ export default function DestinationDetail({
                 transactionId={selectedTransactionId}
                 mode={modalMode}
             />
-            
+
             {/* Toast Notification */}
             <Toaster position="top-right" />
         </MainLayout>

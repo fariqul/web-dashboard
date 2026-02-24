@@ -75,12 +75,12 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
     const [showAllEmployees, setShowAllEmployees] = useState(false);
     const [showExportMenu, setShowExportMenu] = useState(false);
     const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
-    
+
     // Delete Employee Modal states
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState({ nip: '', nama: '' });
     const [deleteYear, setDeleteYear] = useState('all');
-    
+
     // CRUD Modal states
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingPayment, setEditingPayment] = useState(null);
@@ -123,7 +123,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
 
     const handleImport = (e) => {
         e.preventDefault();
-        
+
         if (!uploadFile) {
             toast.error('Pilih file terlebih dahulu!');
             return;
@@ -151,7 +151,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
     // CRUD Handlers
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         if (editingPayment) {
             // Update existing
             router.put(`/bfko/payment/${editingPayment.id}`, formData, {
@@ -217,8 +217,8 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
         const yearParam = deleteYear === 'all' ? '' : `?year=${deleteYear}`;
         router.delete(`/bfko/employee/${deleteTarget.nip}${yearParam}`, {
             onSuccess: () => {
-                toast.success(deleteYear === 'all' 
-                    ? 'Semua data pegawai berhasil dihapus!' 
+                toast.success(deleteYear === 'all'
+                    ? 'Semua data pegawai berhasil dihapus!'
                     : `Data pegawai tahun ${deleteYear} berhasil dihapus!`
                 );
                 setShowDeleteModal(false);
@@ -240,15 +240,15 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
     });
 
     // Filter and display employees
-    const employeesToDisplay = showAllEmployees 
+    const employeesToDisplay = showAllEmployees
         ? (allEmployees || topEmployees)
         : topEmployees;
 
     const filteredEmployees = searchQuery
-        ? employeesToDisplay.filter(emp => 
+        ? employeesToDisplay.filter(emp =>
             emp.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
             emp.nip.toLowerCase().includes(searchQuery.toLowerCase())
-          )
+        )
         : employeesToDisplay;
 
     return (
@@ -271,20 +271,20 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 <p className="text-blue-100 mt-1 text-sm font-medium">Bantuan Fasilitas Kendaraan Operasional</p>
                             </div>
                         </div>
-                        
+
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowImportModal(true)}
                                 className="px-5 py-3 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
                             >
-                                <span className="text-2xl">📥</span>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                                 <span>Import Data</span>
                             </button>
                             <button
                                 onClick={() => setShowDeleteAllModal(true)}
                                 className="px-5 py-3 bg-rose-500/80 backdrop-blur-md hover:bg-rose-600 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
                             >
-                                <span className="text-2xl">🗑️</span>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                                 <span>Hapus Semua</span>
                             </button>
                         </div>
@@ -316,7 +316,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 }}
                                 className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 hover:scale-105"
                             >
-                                <span className="text-xl">➕</span>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                                 <span>Tambah Data</span>
                             </button>
                         </div>
@@ -332,12 +332,12 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         type="text"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        placeholder="🔍 Cari pegawai berdasarkan nama atau NIP..."
+                                        placeholder="Cari pegawai berdasarkan nama atau NIP..."
                                         className="w-full pl-12 pr-4 py-3 bg-cyan-50 border-2 border-cyan-200 rounded-xl focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all"
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="relative">
                                 <select
                                     value={selectedBulan}
@@ -348,18 +348,18 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-sky-200/50"
                                     style={{ color: 'white' }}
                                 >
-                                    <option value="all" className="text-gray-900 bg-white">📅 All Months</option>
+                                    <option value="all" className="text-gray-900 bg-white">All Months</option>
                                     {bulanList.map(bulan => (
                                         <option key={bulan} value={bulan} className="text-gray-900 bg-white">{bulan}</option>
                                     ))}
                                 </select>
                                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
                                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                     </svg>
                                 </div>
                             </div>
-                            
+
                             <div className="relative">
                                 <select
                                     value={selectedTahun}
@@ -370,14 +370,14 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     className="appearance-none px-6 py-3 pr-10 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all cursor-pointer focus:ring-4 focus:ring-purple-200"
                                     style={{ color: 'white' }}
                                 >
-                                    <option value="all" className="text-gray-900 bg-white">📆 All Years</option>
+                                    <option value="all" className="text-gray-900 bg-white">All Years</option>
                                     {years.map(year => (
                                         <option key={year} value={year} className="text-gray-900 bg-white">{year}</option>
                                     ))}
                                 </select>
                                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white">
                                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                     </svg>
                                 </div>
                             </div>
@@ -461,7 +461,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         {/* Monthly Chart */}
                         <div className="bg-white rounded-xl shadow-lg p-6">
                             <div className="flex items-center gap-3 mb-6">
-                                <span className="text-3xl">📊</span>
+                                <svg className="w-6 h-6 text-[#4AADE8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><rect x="3" y="12" width="4" height="9" rx="1" /><rect x="10" y="7" width="4" height="14" rx="1" /><rect x="17" y="3" width="4" height="18" rx="1" /></svg>
                                 <div>
                                     <h3 className="text-lg font-bold text-gray-800">Pembayaran per Bulan</h3>
                                     <p className="text-sm text-gray-500">Trend pembayaran bulanan BFKO</p>
@@ -471,31 +471,31 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 <BarChart data={sortedMonthlyData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                     <defs>
                                         <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#4AADE8" stopOpacity={0.9}/>
-                                            <stop offset="95%" stopColor="#3B9DD6" stopOpacity={0.7}/>
+                                            <stop offset="5%" stopColor="#4AADE8" stopOpacity={0.9} />
+                                            <stop offset="95%" stopColor="#3B9DD6" stopOpacity={0.7} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                                    <XAxis 
-                                        dataKey="bulan" 
+                                    <XAxis
+                                        dataKey="bulan"
                                         tick={{ fill: '#6B7280', fontSize: 12 }}
                                         angle={-45}
                                         textAnchor="end"
                                         height={80}
                                     />
-                                    <YAxis 
+                                    <YAxis
                                         tickFormatter={(value) => formatRupiahShort(value)}
                                         tick={{ fill: '#6B7280', fontSize: 12 }}
                                         width={80}
                                     />
                                     <Tooltip content={<CustomTooltip />} />
-                                    <Legend 
+                                    <Legend
                                         wrapperStyle={{ paddingTop: '10px' }}
                                         iconType="circle"
                                     />
-                                    <Bar 
-                                        dataKey="total" 
-                                        fill="url(#colorTotal)" 
+                                    <Bar
+                                        dataKey="total"
+                                        fill="url(#colorTotal)"
                                         name="Total Pembayaran"
                                         radius={[8, 8, 0, 0]}
                                     />
@@ -506,7 +506,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         {/* Top 5 Employees Pie Chart */}
                         <div className="bg-white rounded-xl shadow-lg p-6">
                             <div className="flex items-center gap-3 mb-6">
-                                <span className="text-3xl">🥇</span>
+                                <svg className="w-6 h-6 text-[#F5C842]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg>
                                 <div>
                                     <h3 className="text-lg font-bold text-gray-800">Top 5 Pegawai</h3>
                                     <p className="text-sm text-gray-500">Distribusi pembayaran terbesar</p>
@@ -534,7 +534,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                             return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />;
                                         })}
                                     </Pie>
-                                    <Tooltip 
+                                    <Tooltip
                                         formatter={(value) => formatRupiah(value)}
                                         contentStyle={{
                                             backgroundColor: '#fff',
@@ -543,8 +543,8 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                             padding: '8px 12px'
                                         }}
                                     />
-                                    <Legend 
-                                        verticalAlign="bottom" 
+                                    <Legend
+                                        verticalAlign="bottom"
                                         height={36}
                                         formatter={(value, entry) => `${value} - ${formatRupiahShort(entry.payload.value)}`}
                                     />
@@ -572,11 +572,10 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         onClick={() => setShowExportMenu(!showExportMenu)}
                                         className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                     >
-                                        <span className="text-xl">📥</span>
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                                         <span>Export</span>
-                                        <svg className={`w-4 h-4 transition-transform ${
-                                            showExportMenu ? 'rotate-180' : ''
-                                        }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className={`w-4 h-4 transition-transform ${showExportMenu ? 'rotate-180' : ''
+                                            }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                         </svg>
                                     </button>
@@ -589,7 +588,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                                 }}
                                                 className="w-full px-5 py-3 text-left hover:bg-red-50 transition-all flex items-center gap-3 border-b border-gray-100"
                                             >
-                                                <span className="text-2xl">📄</span>
+                                                <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" /><polyline points="14 2 14 8 20 8" /></svg>
                                                 <div>
                                                     <div className="font-semibold text-gray-800">Export PDF</div>
                                                     <div className="text-xs text-gray-500">Format dokumen PDF</div>
@@ -602,7 +601,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                                 }}
                                                 className="w-full px-5 py-3 text-left hover:bg-green-50 transition-all flex items-center gap-3"
                                             >
-                                                <span className="text-2xl">📊</span>
+                                                <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                                                 <div>
                                                     <div className="font-semibold text-gray-800">Export Excel</div>
                                                     <div className="text-xs text-gray-500">Format spreadsheet XLSX</div>
@@ -613,13 +612,12 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 </div>
                                 <button
                                     onClick={() => setShowAllEmployees(!showAllEmployees)}
-                                    className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 ${
-                                        showAllEmployees
+                                    className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 ${showAllEmployees
                                             ? 'bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white hover:shadow-xl'
                                             : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-xl'
-                                    }`}
+                                        }`}
                                 >
-                                    {showAllEmployees ? '📊 Tampilkan Top 10' : '👥 Tampilkan Semua'}
+                                    {showAllEmployees ? 'Top 10' : 'Semua'}
                                 </button>
                             </div>
                         </div>
@@ -671,14 +669,14 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                                         href={`/bfko/employee/${employee.nip}?tahun=${selectedTahun}`}
                                                         className="px-3 py-1.5 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white text-xs font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 inline-block"
                                                     >
-                                                        📋 Detail
+                                                        Detail
                                                     </Link>
                                                     <button
                                                         onClick={() => handleDeleteEmployee(employee.nip, employee.nama)}
                                                         className="px-3 py-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
                                                         title="Hapus semua data pegawai ini"
                                                     >
-                                                        🗑️ Hapus
+                                                        Hapus
                                                     </button>
                                                 </div>
                                             </td>
@@ -687,7 +685,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     {filteredEmployees.length === 0 && (
                                         <tr>
                                             <td colSpan="6" className="px-6 py-8 text-center text-gray-500">
-                                                {searchQuery 
+                                                {searchQuery
                                                     ? `Tidak ada pegawai yang cocok dengan pencarian "${searchQuery}"`
                                                     : 'Tidak ada data'
                                                 }
@@ -708,15 +706,15 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                 Import Data BFKO
                             </h3>
                             <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                                <p className="text-sm text-blue-800 font-semibold mb-2">📋 Format yang Didukung:</p>
+                                <p className="text-sm text-blue-800 font-semibold mb-2">Format yang Didukung:</p>
                                 <code className="text-xs text-blue-900 block bg-white p-2 rounded mt-1 overflow-x-auto">
                                     nip,nama,jabatan,unit,bulan,tahun,nilai_angsuran,tanggal_bayar,status_angsuran
                                 </code>
                                 <p className="text-xs text-blue-700 mt-2">
-                                    ✅ Upload CSV atau Excel - Otomatis convert!<br/>
-                                    ✅ Support format Excel asli dari SAP<br/>
-                                    ✅ Semua data employee + pembayaran dalam 1 file<br/>
-                                    ✅ Otomatis update jika data sudah ada
+                                    • Upload CSV atau Excel - Otomatis convert!<br />
+                                    • Support format Excel asli dari SAP<br />
+                                    • Semua data employee + pembayaran dalam 1 file<br />
+                                    • Otomatis update jika data sudah ada
                                 </p>
                             </div>
                             <form onSubmit={handleImport}>
@@ -756,14 +754,14 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         </div>
                     </div>
                 )}
-                
+
                 {/* CRUD Modal */}
                 {isModalOpen && (
                     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                         <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                             <div className="sticky top-0 bg-gradient-to-r from-[#4AADE8] to-[#3B9DD6] text-white p-6 rounded-t-2xl">
                                 <h3 className="text-2xl font-bold">
-                                    {editingPayment ? '✏️ Edit Data BFKO' : '➕ Tambah Data BFKO'}
+                                    {editingPayment ? 'Edit Data BFKO' : 'Tambah Data BFKO'}
                                 </h3>
                             </div>
                             <form onSubmit={handleSubmit} className="p-6 space-y-4">
@@ -773,7 +771,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <input
                                             type="text"
                                             value={formData.nip}
-                                            onChange={(e) => setFormData({...formData, nip: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, nip: e.target.value })}
                                             required
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                             placeholder="Contoh: 7194010G"
@@ -784,7 +782,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <input
                                             type="text"
                                             value={formData.nama}
-                                            onChange={(e) => setFormData({...formData, nama: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
                                             required
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                             placeholder="Nama lengkap"
@@ -798,7 +796,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <input
                                             type="text"
                                             value={formData.jabatan}
-                                            onChange={(e) => setFormData({...formData, jabatan: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, jabatan: e.target.value })}
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                             placeholder="Contoh: Manager"
                                         />
@@ -808,7 +806,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <input
                                             type="text"
                                             value={formData.unit}
-                                            onChange={(e) => setFormData({...formData, unit: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                             placeholder="Contoh: UP3 Makassar"
                                         />
@@ -820,7 +818,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">Bulan *</label>
                                         <select
                                             value={formData.bulan}
-                                            onChange={(e) => setFormData({...formData, bulan: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, bulan: e.target.value })}
                                             required
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                         >
@@ -834,7 +832,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <input
                                             type="number"
                                             value={formData.tahun}
-                                            onChange={(e) => setFormData({...formData, tahun: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, tahun: e.target.value })}
                                             required
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                             placeholder="2025"
@@ -847,7 +845,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     <input
                                         type="number"
                                         value={formData.nilai_angsuran}
-                                        onChange={(e) => setFormData({...formData, nilai_angsuran: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, nilai_angsuran: e.target.value })}
                                         required
                                         className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                         placeholder="Contoh: 2987484"
@@ -860,7 +858,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <input
                                             type="date"
                                             value={formData.tanggal_bayar}
-                                            onChange={(e) => setFormData({...formData, tanggal_bayar: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, tanggal_bayar: e.target.value })}
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                         />
                                     </div>
@@ -868,7 +866,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                         <label className="block text-sm font-semibold text-gray-700 mb-2">Status Angsuran</label>
                                         <select
                                             value={formData.status_angsuran}
-                                            onChange={(e) => setFormData({...formData, status_angsuran: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, status_angsuran: e.target.value })}
                                             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                                         >
                                             <option value="Lunas">Lunas</option>
@@ -944,7 +942,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <p className="text-gray-700 mb-4">
                                         Anda akan menghapus data pegawai:
                                     </p>
@@ -962,17 +960,17 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                             onChange={(e) => setDeleteYear(e.target.value)}
                                             className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all font-semibold"
                                         >
-                                            <option value="all">🗑️ Semua Tahun (Hapus Total)</option>
+                                            <option value="all">Semua Tahun (Hapus Total)</option>
                                             {years.map(year => (
                                                 <option key={year} value={year}>
-                                                    📅 Tahun {year} Saja
+                                                    Tahun {year} Saja
                                                 </option>
                                             ))}
                                         </select>
                                         <p className="text-xs text-gray-500 mt-2">
-                                            {deleteYear === 'all' 
-                                                ? '⚠️ Semua data pembayaran pegawai ini akan dihapus secara permanen'
-                                                : `⚠️ Hanya data pembayaran tahun ${deleteYear} yang akan dihapus`
+                                            {deleteYear === 'all'
+                                                ? 'Semua data pembayaran pegawai ini akan dihapus secara permanen'
+                                                : `Hanya data pembayaran tahun ${deleteYear} yang akan dihapus`
                                             }
                                         </p>
                                     </div>
@@ -997,7 +995,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                         </div>
                     </div>
                 )}
-                
+
                 {/* Delete All Modal */}
                 <DeleteAllBfkoModal
                     isOpen={showDeleteAllModal}

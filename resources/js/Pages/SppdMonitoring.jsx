@@ -42,7 +42,7 @@ const formatRupiah = (value) => {
     }).format(value);
 };
 
-export default function SppdMonitoring({ 
+export default function SppdMonitoring({
     totalPaidAmount = 0,
     totalTrips = 0,
     averageAmount = 0,
@@ -81,7 +81,7 @@ export default function SppdMonitoring({
     const [reasonsStatusFilter, setReasonsStatusFilter] = useState('all'); // For Trips by Reason section
     const [searchQuery, setSearchQuery] = useState('');
     const [searchTimeout, setSearchTimeout] = useState(null);
-    
+
     // Show flash messages with react-hot-toast
     useEffect(() => {
         if (flash?.success) {
@@ -91,79 +91,79 @@ export default function SppdMonitoring({
             toast.error(flash.error);
         }
     }, [flash]);
-    
+
     // Handle search with debounce
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchQuery(value);
-        
+
         if (searchTimeout) {
             clearTimeout(searchTimeout);
         }
-        
+
         const timeout = setTimeout(() => {
-            router.get('/sppd', { 
+            router.get('/sppd', {
                 sheet: selectedFilter,
                 status: selectedStatus !== 'all' ? selectedStatus : undefined,
                 reason: selectedReason !== 'all' ? selectedReason : undefined,
                 bank: selectedBank !== 'all' ? selectedBank : undefined,
-                search: value 
-            }, { 
+                search: value
+            }, {
                 preserveState: true,
                 preserveScroll: true
             });
         }, 500);
-        
+
         setSearchTimeout(timeout);
     };
-    
+
     const handleClearSearch = () => {
         setSearchQuery('');
-        router.get('/sppd', { 
+        router.get('/sppd', {
             sheet: selectedFilter,
             status: selectedStatus !== 'all' ? selectedStatus : undefined,
             reason: selectedReason !== 'all' ? selectedReason : undefined,
             bank: selectedBank !== 'all' ? selectedBank : undefined
-        }, { 
+        }, {
             preserveState: true,
             preserveScroll: true
         });
     };
-    
+
     const handleFilterChange = (filterValue) => {
-        router.get('/sppd', { 
-            sheet: filterValue, 
+        router.get('/sppd', {
+            sheet: filterValue,
             status: selectedStatus !== 'all' ? selectedStatus : undefined,
             reason: selectedReason !== 'all' ? selectedReason : undefined,
             bank: selectedBank !== 'all' ? selectedBank : undefined,
-            search: searchQuery || undefined 
-        }, { 
+            search: searchQuery || undefined
+        }, {
             preserveState: true,
             preserveScroll: true
         });
         setIsFilterDropdownOpen(false);
     };
-    
+
     const handleStatusChange = (statusValue) => {
-        router.get('/sppd', { 
+        router.get('/sppd', {
             sheet: selectedFilter,
             status: statusValue !== 'all' ? statusValue : undefined,
             reason: selectedReason !== 'all' ? selectedReason : undefined,
             bank: selectedBank !== 'all' ? selectedBank : undefined,
-            search: searchQuery || undefined 
-        }, { 
+            search: searchQuery || undefined
+        }, {
             preserveState: true,
             preserveScroll: true
         });
         setIsStatusDropdownOpen(false);
     };
-    
+
     const getFilterLabel = () => {
         if (!availableFilters || availableFilters.length === 0) return 'All Months';
         const filter = availableFilters.find(f => f.value === selectedFilter);
         return filter ? filter.label : 'All Months';
     };
-    
+
     const getStatusLabel = () => {
         const labels = {
             'all': 'All Status',
@@ -173,17 +173,17 @@ export default function SppdMonitoring({
         };
         return labels[selectedStatus] || 'All Status';
     };
-    
+
     const handleDeleteSheet = async () => {
         if (selectedFilter === 'all' || selectedFilter.startsWith('year:')) {
             toast.error('Please select a specific sheet to delete');
             return;
         }
-        
+
         if (!confirm(`Are you sure you want to delete all trips in sheet "${selectedFilter}"? This action cannot be undone.`)) {
             return;
         }
-        
+
         try {
             await axios.delete('/sppd/sheet/delete', {
                 data: {
@@ -196,31 +196,31 @@ export default function SppdMonitoring({
             toast.error('Failed to delete sheet');
         }
     };
-    
+
     const totalPaidDisplay = formatSummaryDisplay(totalPaidAmount);
-    
+
     // Status distribution data for pie chart
     const statusDistributionData = [
         { name: 'Completed', value: statusCounts.completed, color: '#9ca3af' },
         { name: 'Ongoing', value: statusCounts.ongoing, color: '#34D399' },
         { name: 'Upcoming', value: statusCounts.upcoming, color: '#4AADE8' },
     ].filter(item => item.value > 0);
-    
+
     // Filter trips by reason based on local status filter
     const filteredTripsByReason = tripsByReason[reasonsStatusFilter] || tripsByReason.all || [];
 
     return (
         <MainLayout>
             <Toaster position="top-right" />
-            <ImportSppdModal 
-                isOpen={isImportModalOpen} 
-                onClose={() => setIsImportModalOpen(false)} 
+            <ImportSppdModal
+                isOpen={isImportModalOpen}
+                onClose={() => setIsImportModalOpen(false)}
             />
             <AddSppdModal
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}
             />
-            
+
             {/* Hero Header with Gradient */}
             <div className="bg-gradient-to-r from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] text-white p-8 shadow-lg">
                 <div className="max-w-7xl mx-auto">
@@ -307,7 +307,7 @@ export default function SppdMonitoring({
 
                             {/* Month Filter Dropdown */}
                             <div className="relative">
-                                <button 
+                                <button
                                     onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
                                     className="px-6 py-3 bg-cyan-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:bg-cyan-600 transition-all cursor-pointer flex items-center gap-2"
                                 >
@@ -319,7 +319,7 @@ export default function SppdMonitoring({
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
-                        
+
                                 {isFilterDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl z-50 border-2 border-gray-100 max-h-96 overflow-y-auto">
                                         <div className="py-1">
@@ -329,7 +329,7 @@ export default function SppdMonitoring({
                                                     onClick={() => handleFilterChange(filter.value)}
                                                     className={`w-full text-left px-4 py-2 hover:bg-cyan-50 transition ${selectedFilter === filter.value ? 'bg-cyan-100 font-semibold' : ''}`}
                                                 >
-                                                    {filter.type === 'year' ? '📅 ' : filter.type === 'sheet' ? '📄 ' : '📊 '}{filter.label}
+                                                    {filter.type === 'year' ? '' : filter.type === 'sheet' ? '' : ''}{filter.label}
                                                 </button>
                                             ))}
                                         </div>
@@ -339,7 +339,7 @@ export default function SppdMonitoring({
 
                             {/* Status Filter Dropdown */}
                             <div className="relative">
-                                <button 
+                                <button
                                     onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
                                     className="px-6 py-3 bg-green-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:bg-green-600 transition-all cursor-pointer flex items-center gap-2"
                                 >
@@ -351,18 +351,18 @@ export default function SppdMonitoring({
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
-                        
+
                                 {isStatusDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl z-50 border-2 border-gray-100">
                                         <div className="py-1">
                                             <button onClick={() => handleStatusChange('all')} className={`w-full text-left px-4 py-2 hover:bg-green-50 transition ${selectedStatus === 'all' ? 'bg-green-100 font-semibold' : ''}`}>
-                                                📊 All Status
+                                                All Status
                                             </button>
                                             <button onClick={() => handleStatusChange('upcoming')} className={`w-full text-left px-4 py-2 hover:bg-blue-50 transition ${selectedStatus === 'upcoming' ? 'bg-blue-100 font-semibold' : ''}`}>
-                                                🔵 Upcoming
+                                                Upcoming
                                             </button>
                                             <button onClick={() => handleStatusChange('ongoing')} className={`w-full text-left px-4 py-2 hover:bg-green-50 transition ${selectedStatus === 'ongoing' ? 'bg-green-100 font-semibold' : ''}`}>
-                                                🟢 Ongoing
+                                                Ongoing
                                             </button>
                                             <button onClick={() => handleStatusChange('completed')} className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition ${selectedStatus === 'completed' ? 'bg-gray-100 font-semibold' : ''}`}>
                                                 ⚫ Completed
@@ -374,7 +374,7 @@ export default function SppdMonitoring({
 
                             {/* Reason Filter Dropdown */}
                             <div className="relative">
-                                <button 
+                                <button
                                     onClick={() => setIsReasonDropdownOpen(!isReasonDropdownOpen)}
                                     className="px-6 py-3 bg-[#4AADE8] text-white border-0 rounded-xl font-semibold shadow-lg hover:bg-[#3B9DD6] transition-all cursor-pointer flex items-center gap-2"
                                 >
@@ -386,35 +386,35 @@ export default function SppdMonitoring({
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
-                        
+
                                 {isReasonDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl z-50 border-2 border-gray-100 max-h-96 overflow-y-auto">
                                         <div className="py-1">
                                             <button
                                                 onClick={() => {
-                                                    router.get('/sppd', { 
+                                                    router.get('/sppd', {
                                                         sheet: selectedFilter,
                                                         status: selectedStatus !== 'all' ? selectedStatus : undefined,
                                                         reason: undefined,
                                                         bank: selectedBank !== 'all' ? selectedBank : undefined,
-                                                        search: searchQuery || undefined 
+                                                        search: searchQuery || undefined
                                                     }, { preserveState: true, preserveScroll: true });
                                                     setIsReasonDropdownOpen(false);
                                                 }}
                                                 className={`w-full text-left px-4 py-2 hover:bg-sky-50 transition ${selectedReason === 'all' ? 'bg-sky-100 font-semibold' : ''}`}
                                             >
-                                                📊 All Reasons
+                                                All Reasons
                                             </button>
                                             {availableReasons && availableReasons.map((reason, index) => (
                                                 <button
                                                     key={index}
                                                     onClick={() => {
-                                                        router.get('/sppd', { 
+                                                        router.get('/sppd', {
                                                             sheet: selectedFilter,
                                                             status: selectedStatus !== 'all' ? selectedStatus : undefined,
                                                             reason: reason,
                                                             bank: selectedBank !== 'all' ? selectedBank : undefined,
-                                                            search: searchQuery || undefined 
+                                                            search: searchQuery || undefined
                                                         }, { preserveState: true, preserveScroll: true });
                                                         setIsReasonDropdownOpen(false);
                                                     }}
@@ -430,7 +430,7 @@ export default function SppdMonitoring({
 
                             {/* Bank Filter Dropdown */}
                             <div className="relative">
-                                <button 
+                                <button
                                     onClick={() => setIsBankDropdownOpen(!isBankDropdownOpen)}
                                     className="px-6 py-3 bg-amber-500 text-white border-0 rounded-xl font-semibold shadow-lg hover:bg-amber-600 transition-all cursor-pointer flex items-center gap-2"
                                 >
@@ -442,18 +442,18 @@ export default function SppdMonitoring({
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
-                        
+
                                 {isBankDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl z-50 border-2 border-gray-100 max-h-96 overflow-y-auto">
                                         <div className="py-1">
                                             <button
                                                 onClick={() => {
-                                                    router.get('/sppd', { 
+                                                    router.get('/sppd', {
                                                         sheet: selectedFilter,
                                                         status: selectedStatus !== 'all' ? selectedStatus : undefined,
                                                         reason: selectedReason !== 'all' ? selectedReason : undefined,
                                                         bank: undefined,
-                                                        search: searchQuery || undefined 
+                                                        search: searchQuery || undefined
                                                     }, { preserveState: true, preserveScroll: true });
                                                     setIsBankDropdownOpen(false);
                                                 }}
@@ -465,12 +465,12 @@ export default function SppdMonitoring({
                                                 <button
                                                     key={index}
                                                     onClick={() => {
-                                                        router.get('/sppd', { 
+                                                        router.get('/sppd', {
                                                             sheet: selectedFilter,
                                                             status: selectedStatus !== 'all' ? selectedStatus : undefined,
                                                             reason: selectedReason !== 'all' ? selectedReason : undefined,
                                                             bank: bank,
-                                                            search: searchQuery || undefined 
+                                                            search: searchQuery || undefined
                                                         }, { preserveState: true, preserveScroll: true });
                                                         setIsBankDropdownOpen(false);
                                                     }}
@@ -543,41 +543,39 @@ export default function SppdMonitoring({
                                 <div className="flex gap-2">
                                     <button
                                         onClick={() => setChartViewMode('monthly')}
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                                            chartViewMode === 'monthly'
-                                                ? 'bg-[#4AADE8] text-white shadow-md'
-                                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                        }`}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${chartViewMode === 'monthly'
+                                            ? 'bg-[#4AADE8] text-white shadow-md'
+                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                            }`}
                                     >
                                         Monthly
                                     </button>
                                     <button
                                         onClick={() => setChartViewMode('status')}
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                                            chartViewMode === 'status'
-                                                ? 'bg-[#4AADE8] text-white shadow-md'
-                                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                        }`}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${chartViewMode === 'status'
+                                            ? 'bg-[#4AADE8] text-white shadow-md'
+                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                            }`}
                                     >
                                         Status
                                     </button>
                                 </div>
                             </div>
-                            
+
                             {chartViewMode === 'monthly' ? (
                                 monthlyOverviewData && monthlyOverviewData.length > 0 ? (
                                     <ResponsiveContainer width="100%" height={300}>
                                         <BarChart data={monthlyOverviewData}>
                                             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                                            <XAxis 
-                                                dataKey="month" 
+                                            <XAxis
+                                                dataKey="month"
                                                 tick={{ fill: '#6b7280', fontSize: 11 }}
                                                 angle={-15}
                                                 textAnchor="end"
                                                 height={50}
                                             />
                                             <YAxis tick={{ fill: '#6b7280', fontSize: 11 }} />
-                                            <Tooltip 
+                                            <Tooltip
                                                 contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', padding: '12px' }}
                                                 content={({ active, payload, label }) => {
                                                     if (active && payload && payload.length) {
@@ -658,7 +656,7 @@ export default function SppdMonitoring({
                                     </div>
                                 )
                             )}
-                            
+
                             {/* Legend - Only show for Status view */}
                             {chartViewMode === 'status' && (
                                 <div className="flex gap-4 justify-center mt-4">
@@ -690,14 +688,13 @@ export default function SppdMonitoring({
                                             <button
                                                 key={status}
                                                 onClick={() => setReasonsStatusFilter(status)}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                                                    reasonsStatusFilter === status
-                                                        ? status === 'upcoming' ? 'bg-[#4AADE8] text-white' :
-                                                          status === 'ongoing' ? 'bg-[#34D399] text-white' :
-                                                          status === 'completed' ? 'bg-gray-500 text-white' :
-                                                          'bg-[#4AADE8] text-white'
-                                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                                }`}
+                                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${reasonsStatusFilter === status
+                                                    ? status === 'upcoming' ? 'bg-[#4AADE8] text-white' :
+                                                        status === 'ongoing' ? 'bg-[#34D399] text-white' :
+                                                            status === 'completed' ? 'bg-gray-500 text-white' :
+                                                                'bg-[#4AADE8] text-white'
+                                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                                    }`}
                                             >
                                                 {status.charAt(0).toUpperCase() + status.slice(1)}
                                             </button>
@@ -705,14 +702,14 @@ export default function SppdMonitoring({
                                     </div>
                                 )}
                             </div>
-                            
+
                             <div className="space-y-2 max-h-[400px] overflow-y-auto">
                                 {isMonthFiltered ? (
                                     /* Individual Trips List */
                                     individualTrips && individualTrips.length > 0 ? (
                                         individualTrips.map((trip, index) => (
-                                            <div 
-                                                key={trip.id || index} 
+                                            <div
+                                                key={trip.id || index}
                                                 className="p-3 bg-gray-50 rounded-lg hover:bg-sky-50 transition border-l-4 border-[#4AADE8] cursor-pointer"
                                                 onClick={() => {
                                                     const params = new URLSearchParams();
@@ -730,11 +727,10 @@ export default function SppdMonitoring({
                                                 <div className="flex items-start justify-between">
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-2 mb-1">
-                                                            <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
-                                                                trip.status === 'upcoming' ? 'bg-[#4AADE8]/20 text-[#4AADE8]' :
+                                                            <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${trip.status === 'upcoming' ? 'bg-[#4AADE8]/20 text-[#4AADE8]' :
                                                                 trip.status === 'ongoing' ? 'bg-[#34D399]/20 text-[#34D399]' :
-                                                                'bg-gray-200 text-gray-600'
-                                                            }`}>
+                                                                    'bg-gray-200 text-gray-600'
+                                                                }`}>
                                                                 {trip.status?.toUpperCase() || 'N/A'}
                                                             </span>
                                                             <span className="text-[10px] text-gray-400">{trip.trip_number}</span>
@@ -842,11 +838,11 @@ export default function SppdMonitoring({
                                 <h3 className="text-sm font-bold text-gray-800">Rencana Tanggal Bayar</h3>
                                 <span className="text-xs text-gray-400 ml-auto">Klik untuk lihat detail</span>
                             </div>
-                            
+
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
                                 {paymentChartData.map((item, index) => (
-                                    <button 
-                                        key={index} 
+                                    <button
+                                        key={index}
                                         onClick={() => {
                                             setSelectedPaymentMonth({
                                                 month: item.rawDate || item.sheet,
@@ -882,7 +878,7 @@ export default function SppdMonitoring({
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-bold text-gray-800">Trip Status Distribution</h3>
                             </div>
-                            
+
                             {statusDistributionData.length > 0 ? (
                                 <ResponsiveContainer width="100%" height={200}>
                                     <PieChart>
@@ -907,7 +903,7 @@ export default function SppdMonitoring({
                                     <p className="text-sm">No data available</p>
                                 </div>
                             )}
-                            
+
                             <div className="flex gap-4 justify-center mt-2">
                                 <div className="flex items-center gap-2">
                                     <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
@@ -947,15 +943,14 @@ export default function SppdMonitoring({
                                 {customerViewMode === 'trips' ? (
                                     // By Trips Count
                                     topCustomersByCount && topCustomersByCount.length > 0 ? (
-                                        topCustomersByCount.slice(0, 5).map((customer, index) => (
+                                        topCustomersByCount.slice(0, 10).map((customer, index) => (
                                             <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
                                                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                                                    <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                                                        index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                    <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
                                                         index === 1 ? 'bg-gray-300 text-gray-700' :
-                                                        index === 2 ? 'bg-orange-400 text-orange-900' :
-                                                        'bg-gray-200 text-gray-600'
-                                                    }`}>
+                                                            index === 2 ? 'bg-orange-400 text-orange-900' :
+                                                                'bg-gray-200 text-gray-600'
+                                                        }`}>
                                                         {index + 1}
                                                     </div>
                                                     <p className="text-sm font-medium text-gray-900 truncate">{customer.name || 'Tanpa Nama'}</p>
@@ -969,15 +964,14 @@ export default function SppdMonitoring({
                                 ) : (
                                     // By Amount
                                     topCustomersByAmount && topCustomersByAmount.length > 0 ? (
-                                        topCustomersByAmount.slice(0, 5).map((customer, index) => (
+                                        topCustomersByAmount.slice(0, 10).map((customer, index) => (
                                             <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
                                                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                                                    <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                                                        index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                    <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
                                                         index === 1 ? 'bg-gray-300 text-gray-700' :
-                                                        index === 2 ? 'bg-orange-400 text-orange-900' :
-                                                        'bg-gray-200 text-gray-600'
-                                                    }`}>
+                                                            index === 2 ? 'bg-orange-400 text-orange-900' :
+                                                                'bg-gray-200 text-gray-600'
+                                                        }`}>
                                                         {index + 1}
                                                     </div>
                                                     <p className="text-sm font-medium text-gray-900 truncate">{customer.name || 'Tanpa Nama'}</p>
@@ -1000,12 +994,11 @@ export default function SppdMonitoring({
                                     popularDestinations.slice(0, 5).map((dest, index) => (
                                         <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg">
                                             <div className="flex items-center gap-3 flex-1 min-w-0">
-                                                <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                                                    index === 0 ? 'bg-yellow-400 text-yellow-900' :
+                                                <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${index === 0 ? 'bg-yellow-400 text-yellow-900' :
                                                     index === 1 ? 'bg-gray-300 text-gray-700' :
-                                                    index === 2 ? 'bg-orange-400 text-orange-900' :
-                                                    'bg-gray-200 text-gray-600'
-                                                }`}>
+                                                        index === 2 ? 'bg-orange-400 text-orange-900' :
+                                                            'bg-gray-200 text-gray-600'
+                                                    }`}>
                                                     {index + 1}
                                                 </div>
                                                 <p className="text-sm font-medium text-gray-900 truncate" title={dest.destination}>{dest.destination}</p>
