@@ -260,22 +260,22 @@ export default function ServiceFeeMonitoring({
             />
 
             {/* Hero Header with Gradient */}
-            <div className="bg-gradient-to-r from-[#1a3f5c] via-[#1d4b6d] to-[#163a55] text-white p-8 shadow-lg mb-8">
+            <div className="bg-gradient-to-r from-[#1a3f5c] via-[#1d4b6d] to-[#163a55] text-white p-4 md:p-8 shadow-lg mb-8">
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
-                            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
-                                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="bg-white/20 backdrop-blur-sm p-3 md:p-4 rounded-2xl">
+                                <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                 </svg>
                             </div>
                             <div>
-                                <h1 className="text-4xl font-extrabold tracking-tight">Service Fee Monitoring</h1>
+                                <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">Service Fee Monitoring</h1>
                                 <p className="text-blue-100 mt-1 text-sm font-medium">Hotel & Flight Service Fee Management</p>
                             </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex flex-wrap gap-2 md:gap-3">
                             <button
                                 onClick={() => setDeleteAllModalOpen(true)}
                                 className="px-4 py-2.5 bg-red-700/90 backdrop-blur-md hover:bg-red-800 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
@@ -303,12 +303,12 @@ export default function ServiceFeeMonitoring({
                 </div>
             </div>
 
-            <div className="p-8 bg-gray-50 min-h-screen">
+            <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
                 <div className="max-w-7xl mx-auto">
                     {/* Enhanced Search & Filter Bar */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+                    <div className="bg-white rounded-2xl shadow-xl p-4 md:p-6 mb-8 border border-gray-100">
                         <div className="flex flex-wrap gap-4 items-center">
-                            <div className="flex-1 min-w-[300px]">
+                            <div className="w-full md:flex-1 md:min-w-[300px]">
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
