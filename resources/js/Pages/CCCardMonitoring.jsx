@@ -265,22 +265,22 @@ export default function CCCardMonitoring({
         <MainLayout>
             <Toaster position="top-right" />
             {/* Hero Header with Gradient */}
-            <div className="bg-gradient-to-r from-[#1a3f5c] via-[#1d4b6d] to-[#163a55] text-white p-8 shadow-lg mb-8">
+            <div className="bg-gradient-to-r from-[#1a3f5c] via-[#1d4b6d] to-[#163a55] text-white p-4 md:p-8 shadow-lg mb-8">
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
-                            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
-                                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="bg-white/20 backdrop-blur-sm p-3 md:p-4 rounded-2xl">
+                                <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                 </svg>
                             </div>
                             <div>
-                                <h1 className="text-4xl font-extrabold tracking-tight">CC Card Monitoring</h1>
+                                <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight">CC Card Monitoring</h1>
                                 <p className="text-blue-100 mt-1 text-sm font-medium">Corporate Credit Card Transaction Management</p>
                             </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex flex-wrap gap-2 md:gap-3">
                             <button
                                 onClick={() => setIsModalOpen(true)}
                                 className="px-4 py-2.5 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
@@ -300,12 +300,12 @@ export default function CCCardMonitoring({
                 </div>
             </div>
 
-            <div className="p-8 bg-gray-50 min-h-screen">
+            <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
                 <div className="max-w-7xl mx-auto">
                     {/* Enhanced Search & Filter Bar */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+                    <div className="bg-white rounded-2xl shadow-xl p-4 md:p-6 mb-8 border border-gray-100">
                         <div className="flex flex-wrap gap-4 items-center">
-                            <div className="flex-1 min-w-[300px]">
+                            <div className="w-full md:flex-1 md:min-w-[300px]">
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -497,7 +497,7 @@ export default function CCCardMonitoring({
                         {/* Total Payment Card */}
                         <div className="group relative overflow-hidden bg-gradient-to-br from-[#4AADE8] via-[#5BC0EB] to-[#3B9DD6] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
-                            <div className="relative p-6 text-white">
+                            <div className="relative p-4 md:p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="bg-white/20 backdrop-blur-sm p-3 rounded-2xl group-hover:rotate-12 transition-transform duration-500">
                                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -506,7 +506,7 @@ export default function CCCardMonitoring({
                                     </div>
                                     <div className="text-right">
                                         <div className="text-xs font-medium text-cyan-100 mb-1">Total Payment</div>
-                                        <div className="text-2xl font-black tracking-tight">
+                                        <div className="text-xl md:text-2xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(totalPayment).value}{formatSummaryDisplay(totalPayment).unit}
                                         </div>
                                     </div>
@@ -520,7 +520,7 @@ export default function CCCardMonitoring({
                         {/* Total Biaya Adm & Bunga Card */}
                         <div className="group relative overflow-hidden bg-gradient-to-br from-[#F5C842] via-[#FBBF24] to-[#EAB308] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
-                            <div className="relative p-6 text-white">
+                            <div className="relative p-4 md:p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="bg-white/20 backdrop-blur-sm p-3 rounded-2xl group-hover:rotate-12 transition-transform duration-500">
                                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -529,7 +529,7 @@ export default function CCCardMonitoring({
                                     </div>
                                     <div className="text-right">
                                         <div className="text-xs font-medium text-amber-100 mb-1">Biaya Adm & Bunga</div>
-                                        <div className="text-2xl font-black tracking-tight">
+                                        <div className="text-xl md:text-2xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(totalAdminInterest).value}{formatSummaryDisplay(totalAdminInterest).unit}
                                         </div>
                                     </div>
@@ -543,7 +543,7 @@ export default function CCCardMonitoring({
                         {/* Total Refund Card */}
                         <div className="group relative overflow-hidden bg-gradient-to-br from-[#E8636B] via-[#F07D84] to-[#D64F57] rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
-                            <div className="relative p-6 text-white">
+                            <div className="relative p-4 md:p-6 text-white">
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="bg-white/20 backdrop-blur-sm p-3 rounded-2xl group-hover:rotate-12 transition-transform duration-500">
                                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -552,7 +552,7 @@ export default function CCCardMonitoring({
                                     </div>
                                     <div className="text-right">
                                         <div className="text-xs font-medium text-rose-100 mb-1">Total Refund</div>
-                                        <div className="text-2xl font-black tracking-tight">
+                                        <div className="text-xl md:text-2xl font-black tracking-tight">
                                             Rp {formatSummaryDisplay(totalRefund).value}{formatSummaryDisplay(totalRefund).unit}
                                         </div>
                                     </div>

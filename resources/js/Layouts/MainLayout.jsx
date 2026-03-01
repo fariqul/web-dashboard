@@ -244,6 +244,7 @@ export default function MainLayout({ children }) {
     const { url } = usePage();
     const [openDropdown, setOpenDropdown] = useState(null);
     const [mounted, setMounted] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     // Mount animation trigger
     useEffect(() => {
@@ -259,13 +260,43 @@ export default function MainLayout({ children }) {
         }
     }, [url]);
 
+    // Close sidebar on route change (mobile)
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [url]);
+
     return (
         <div className="flex h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-sky-50/30 font-sans">
+            {/* ─── Mobile Hamburger Button ─── */}
+            <button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#1a3f5c] text-white rounded-xl shadow-lg hover:bg-[#1d4b6d] transition-all"
+                aria-label="Toggle sidebar"
+            >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {sidebarOpen ? (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    ) : (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    )}
+                </svg>
+            </button>
+
+            {/* ─── Mobile Backdrop ─── */}
+            {sidebarOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 bg-black/50 z-30 backdrop-blur-sm"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
+
             {/* ─── Sidebar ─── */}
-            <aside className={`w-[260px] flex flex-col relative overflow-hidden
+            <aside className={`w-[260px] flex-shrink-0 flex flex-col relative overflow-hidden
                 bg-gradient-to-b from-[#1a3f5c] via-[#1d4b6d] to-[#163a55]
                 transition-all duration-500 ease-out
-                ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
+                fixed lg:relative inset-y-0 left-0 z-40
+                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+                ${mounted ? 'opacity-100' : 'opacity-0'}`}
             >
                 {/* Decorative ambient orbs */}
                 <div className="absolute top-[-60px] right-[-40px] w-[180px] h-[180px] bg-[#4AADE8]/20 rounded-full blur-[80px] pointer-events-none" />
@@ -381,7 +412,7 @@ export default function MainLayout({ children }) {
             </aside>
 
             {/* ─── Main Content ─── */}
-            <main className="flex-1 overflow-auto">
+            <main className="flex-1 overflow-auto min-w-0">
                 {children}
             </main>
         </div>
