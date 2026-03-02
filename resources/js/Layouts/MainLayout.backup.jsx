@@ -13,7 +13,7 @@ export default function MainLayout({ children }) {
     return (
         <div className="flex h-screen bg-gray-100">
             {/* Sidebar */}
-            <div className="w-64 bg-gradient-to-b from-blue-900 to-blue-950 text-white flex flex-col">
+            <div className="w-64 bg-gradient-to-br from-cyan-500 via-teal-600 to-cyan-700 text-white flex flex-col">
                 {/* Logo */}
                 <div className="p-6 border-b border-blue-800">
                     <h1 className="text-2xl font-bold">Logo</h1>

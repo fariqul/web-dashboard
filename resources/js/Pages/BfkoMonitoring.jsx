@@ -545,7 +545,7 @@ export default function BfkoMonitoring({ filters, years, summary, monthlyData, t
                                     />
                                     <Legend
                                         verticalAlign="bottom"
-                                        height={36}
+                                        height={45}
                                         formatter={(value, entry) => `${value} - ${formatRupiahShort(entry.payload.value)}`}
                                     />
                                 </PieChart>
